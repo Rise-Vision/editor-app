@@ -27,8 +27,7 @@ angular.module('risevision.editorApp.directives')
                     return 'editor-app.details.removePlaceholder';
                   },
                   confirmationMessage: function () {
-                    return
-                      'editor-app.details.removePlaceholderWarning';
+                    return 'editor-app.details.removePlaceholderWarning';
                   },
                   confirmationButton: function () {
                     return 'editor-app.details.remove';

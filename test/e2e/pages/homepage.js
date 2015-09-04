@@ -2,7 +2,7 @@
 var config = require('../config/config.json');
 
 var HomePage = function() {
-  var url = config.rootUrl + '/#/';
+  var url = config.rootUrl + '/#';
   var editorAppContainer = element(by.css('.editor-app'));
 
   var editorImage = element(by.id('editor-image'));
