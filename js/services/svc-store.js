@@ -8,6 +8,31 @@ angular.module('risevision.editorApp.services')
       var defaultCount = 200;
       var service = {
         product: {
+          status: function(productCodes) {
+            var deferred = $q.defer();
+
+            var obj = {
+                "companyId": userState.getSelectedCompanyId(),
+                "productCodes": productCodes
+            };
+            
+            $log.debug('Store product status called with', obj);
+
+            storeAPILoader().then(function (storeApi) {
+                return storeApi.product.status(obj);
+              })
+              .then(function (resp) {
+                $log.debug('status store products resp', resp);
+
+                deferred.resolve(resp.result);
+              })
+              .then(null, function (e) {
+                $log.error('Failed to get status of products.', e);
+                deferred.reject(e);
+              });
+              
+            return deferred.promise;
+          },
           list: function (search, cursor) {
             var deferred = $q.defer();
 

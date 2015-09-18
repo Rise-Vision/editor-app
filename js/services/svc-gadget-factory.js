@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('risevision.editorApp.services')
-  .factory('gadgetFactory', ['$q', 'gadget', 'BaseList',
-    function ($q, gadget, BaseList) {
+  .factory('gadgetFactory', ['$q', 'gadget', 'BaseList','subscriptionStatusFactory',
+    function ($q, gadget, BaseList, subscriptionStatusFactory) {
       var factory = {};
 
       var _gadgets = [];
@@ -98,6 +98,82 @@ angular.module('risevision.editorApp.services')
 
         return deferred.promise;
       };
+
+      factory.getGadgets = function (gadgetIds) {
+        var deferred = $q.defer();
+
+        var cachedGadgets = [];
+        for (var i = 0; i < gadgetIds.length; i++) {
+          var cachedGadget = _getGadgetCached(gadgetIds[i]);
+          if (cachedGadget) {
+            cachedGadgets.push(cachedGadget);
+          }
+        }
+        if (cachedGadgets.length === gadgetIds.length) {
+          deferred.resolve(cachedGadgets);
+        } else {
+          //show loading spinner
+          factory.loadingGadget = true;
+
+          gadget.list({
+              ids: gadgetIds
+            })
+            .then(function (result) {
+              if (result.items) {
+                for (var i = 0; i < result.items.length; i++) {
+                  _updateGadgetCache(result.items[i]);
+                }
+                deferred.resolve(result.items);
+              } else {
+                deferred.resolve([]);
+              }
+            })
+            .then(null, function (e) {
+              factory.apiError = e.message ? e.message : e.toString();
+              deferred.reject();
+            })
+            .finally(function () {
+              factory.loadingGadget = false;
+            });
+        }
+
+        return deferred.promise;
+      };
+
+      factory.updateSubscriptionStatus = function(gadgetIds) {
+        var deferred = $q.defer();
+
+        factory.getGadgets(gadgetIds).then(function (gadgets) {
+          var productCodeGadgetMap = {};
+          for (var i = 0; i < gadgets.length; i++) {
+            var gadget = gadgets[i];
+            gadget.subscriptionStatus = 'N/A';
+            if (gadget.productCode) {
+              productCodeGadgetMap[gadget.productCode] = gadget;
+            }
+          }
+          var productCodeGadgetMapKeys = Object.keys(productCodeGadgetMap);
+          if (productCodeGadgetMapKeys.length > 0) {
+            subscriptionStatusFactory.checkProductCodes(productCodeGadgetMapKeys).then(function (statusItems) {
+              for (var i = 0; i < statusItems.length; i++) {
+                var statusItem = statusItems[i];
+                var gadget = productCodeGadgetMap[statusItem.pc];
+                gadget.subscriptionStatus = statusItem.status;               
+              }              
+              deferred.resolve(gadgets);
+            },function(e){
+              factory.apiError = e.message ? e.message : e.toString();
+              deferred.reject();
+            });
+          } else {
+            deferred.resolve(gadgets);
+          }          
+        },function(){
+          deferred.reject();
+        });
+        return deferred.promise;
+      };
+
 
       return factory;
     }

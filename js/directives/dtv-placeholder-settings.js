@@ -21,6 +21,7 @@ angular.module('risevision.editorApp.directives')
                 newPlaceholder.backgroundStyle,
                 newPlaceholder.backgroundScaleToFit
               );
+              placeholderFactory.updateSubscriptionStatus();
             }
           });
 

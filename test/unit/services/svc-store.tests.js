@@ -39,6 +39,21 @@ describe('service: store:', function() {
                 def.reject("API Failed");
               }
               return def.promise;
+            },
+            status: function(obj){
+              expect(obj).to.be.ok;
+              
+              var def = Q.defer();
+              if (returnStatus) {
+                def.resolve({
+                  result : {
+                    items : [{}]
+                  }
+                });
+              } else {
+                def.reject("API Failed");
+              }
+              return def.promise;
             }
           }
         });
@@ -47,9 +62,10 @@ describe('service: store:', function() {
     });
 
   }));
-  var store, returnList, searchString, sortString;
+  var store, returnList, searchString, sortString, returnStatus;
   beforeEach(function(){
     returnList = true;
+    returnStatus = true;
     searchString = '';
     sortString='';
     
@@ -109,6 +125,34 @@ describe('service: store:', function() {
       returnList = false;
 
       store.product.list({})
+      .then(function(products) {
+        done(products);
+      })
+      .then(null, function(error) {
+        expect(error).to.deep.equal('API Failed');
+        done();
+      })
+      .then(null,done);
+    });
+  });
+
+  describe('status:',function(){
+   it('should return a list of status',function(done){
+      store.product.status({})
+      .then(function(result){
+        expect(result).to.be.truely;
+        expect(result.items).to.be.an.array;
+        expect(result.items).to.have.length.above(0);
+        done();
+      })
+      .then(null,done);
+    });
+    
+        
+    it("should handle failure to get status correctly",function(done){
+      returnStatus = false;
+
+      store.product.status({})
       .then(function(products) {
         done(products);
       })

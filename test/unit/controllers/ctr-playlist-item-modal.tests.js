@@ -37,18 +37,27 @@ describe('controller: playlist item modal', function() {
         }
       }
     });
+
+    $provide.service('placeholderFactory',function(){
+      return {
+        updateSubscriptionStatus: function() {
+          updateSubscriptionStatusCalled = true;
+        }
+      }
+    });
     
     $provide.service('widgetModalFactory',function(){
       return {}
     });
 
   }));
-  var $scope, $modalInstance, $modalInstanceDismissSpy, itemProperties, itemUpdated;
+  var $scope, $modalInstance, $modalInstanceDismissSpy, itemProperties, itemUpdated, updateSubscriptionStatusCalled;
 
   beforeEach(function(){
 
     inject(function($injector,$rootScope, $controller){
       itemUpdated = null;
+      updateSubscriptionStatusCalled = false;
       $scope = $rootScope.$new();
       $modalInstance = $injector.get('$modalInstance');
 
@@ -86,6 +95,14 @@ describe('controller: playlist item modal', function() {
     
     expect(itemUpdated).to.not.equal($scope.item);
     expect(itemUpdated).to.equal(itemProperties);
+    
+    $modalInstanceDismissSpy.should.have.been.called;
+  });
+
+  it('should update subscription status on apply',function(){
+    $scope.save();
+    
+    expect(updateSubscriptionStatusCalled).to.be.true;
     
     $modalInstanceDismissSpy.should.have.been.called;
   });
