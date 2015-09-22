@@ -101,6 +101,7 @@ describe('service: editorFactory:', function() {
         go : function(state, params){
           if (state){
             currentState = state;
+            stateParams = params;
           }
           return currentState;
         },
@@ -120,7 +121,7 @@ describe('service: editorFactory:', function() {
     $provide.value('VIEWER_URL', 'http://rvaviewer-test.appspot.com');
 
   }));
-  var editorFactory, trackerCalled, updatePresentation, currentState;
+  var editorFactory, trackerCalled, updatePresentation, currentState, stateParams;
   beforeEach(function(){
     trackerCalled = undefined;
     currentState = undefined;
@@ -145,6 +146,7 @@ describe('service: editorFactory:', function() {
     expect(editorFactory.updatePresentation).to.be.a('function');
     expect(editorFactory.deletePresentation).to.be.a('function');
     expect(editorFactory.isRevised).to.be.a('function');
+    expect(editorFactory.copyPresentation).to.be.a('function');
     expect(editorFactory.getPreviewUrl).to.be.a('function');
   });
   
@@ -390,6 +392,23 @@ describe('service: editorFactory:', function() {
       },10);
     });
   });
+  
+  it('copyPresentation: should copy the presentation',function(){
+    editorFactory.presentation = {
+      id: 'someId',
+      name: 'New Presentation',
+      revisionStatusname: 'revised'
+    };
+    
+    editorFactory.copyPresentation();
+    
+    expect(editorFactory.presentation.id).to.not.be.ok;
+    expect(editorFactory.presentation.name).to.equal('Copy of New Presentation');
+    
+    expect(trackerCalled).to.equal('Presentation Copied');
+    expect(currentState).to.equal('editor.workspace.artboard');
+    expect(stateParams).to.deep.equal({presentationId: undefined, copyPresentation:true});
+  });
 
   it('getPreviewUrl: ', function(done) {
     expect(editorFactory.getPreviewUrl()).to.not.be.ok;
@@ -450,7 +469,7 @@ describe('service: editorFactory:', function() {
     });
   });
 
-describe('restorePresentation: ',function(){
+  describe('restorePresentation: ',function(){
     it('should restore the presentation',function(done){
       updatePresentation = true;
 

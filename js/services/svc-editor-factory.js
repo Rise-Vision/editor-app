@@ -26,7 +26,6 @@ angular.module('risevision.editorApp.services')
       REVISION_STATUS_REVISED, REVISION_STATUS_PUBLISHED, DEFAULT_LAYOUT,
       $modal) {
       var factory = {};
-      var _presentationId;
 
       factory.openPresentationProperties = function () {
         $modal.open({
@@ -45,8 +44,6 @@ angular.module('risevision.editorApp.services')
       };
 
       factory.newPresentation = function () {
-        _presentationId = undefined;
-
         factory.presentation = {
           layout: DEFAULT_LAYOUT
         };
@@ -69,13 +66,11 @@ angular.module('risevision.editorApp.services')
         var deferred = $q.defer();
 
         _clearMessages();
-        //load the presentation based on the url param
-        _presentationId = presentationId;
 
         //show loading spinner
         factory.loadingPresentation = true;
 
-        presentation.get(_presentationId)
+        presentation.get(presentationId)
           .then(function (result) {
             _updatePresentation(result.item);
 
@@ -143,7 +138,7 @@ angular.module('risevision.editorApp.services')
 
         _parseOrUpdatePresentation();
 
-        presentation.update(_presentationId, factory.presentation)
+        presentation.update(factory.presentation.id, factory.presentation)
           .then(function (resp) {
             presentationTracker('Presentation Updated', resp.item.id,
               resp.item.name);
@@ -171,10 +166,10 @@ angular.module('risevision.editorApp.services')
         //show loading spinner
         factory.loadingPresentation = true;
 
-        presentation.delete(_presentationId)
+        presentation.delete(factory.presentation.id)
           .then(function () {
-            presentationTracker('Presentation Deleted', _presentationId,
-              factory.presentation.name);
+            presentationTracker('Presentation Deleted',
+              factory.presentation.id, factory.presentation.name);
 
             factory.presentation = {};
 
@@ -202,10 +197,10 @@ angular.module('risevision.editorApp.services')
         factory.loadingPresentation = true;
         factory.savingPresentation = true;
 
-        presentation.publish(_presentationId)
+        presentation.publish(factory.presentation.id)
           .then(function (presentationId) {
-            presentationTracker('Presentation Published', _presentationId,
-              factory.presentation.name);
+            presentationTracker('Presentation Published',
+              factory.presentation.id, factory.presentation.name);
 
             factory.presentation.revisionStatusName =
               REVISION_STATUS_PUBLISHED;
@@ -235,10 +230,10 @@ angular.module('risevision.editorApp.services')
         //show loading spinner
         factory.loadingPresentation = true;
 
-        presentation.restore(_presentationId)
+        presentation.restore(factory.presentation.id)
           .then(function (result) {
-            presentationTracker('Presentation Restored', _presentationId,
-              factory.presentation.name);
+            presentationTracker('Presentation Restored',
+              factory.presentation.id, factory.presentation.name);
 
             _updatePresentation(result.item);
 
@@ -266,10 +261,26 @@ angular.module('risevision.editorApp.services')
         }
       };
 
+      factory.copyPresentation = function () {
+        presentationTracker('Presentation Copied', factory.presentation.id,
+          factory.presentation.name);
+
+        factory.presentation.id = undefined;
+        factory.presentation.name = 'Copy of ' + factory.presentation.name;
+        factory.presentation.revisionStatusName = undefined;
+
+        $state.go('editor.workspace.artboard', {
+          presentationId: undefined,
+          copyPresentation: true
+        }, {
+          reload: true
+        });
+      };
+
       factory.getPreviewUrl = function () {
-        if (_presentationId) {
-          return VIEWER_URL + '/?type=presentation&id=' + _presentationId +
-            '&showui=false';
+        if (factory.presentation.id) {
+          return VIEWER_URL + '/?type=presentation&id=' +
+            factory.presentation.id + '&showui=false';
         }
         return null;
       };

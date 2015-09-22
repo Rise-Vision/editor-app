@@ -67,7 +67,7 @@ angular.module('risevision.editorApp', [
       })
 
       .state('editor.workspace', {
-        url: '/editor/workspace/:presentationId',
+        url: '/editor/workspace/:presentationId/:copyPresentation',
         abstract: true,
         templateUrl: 'partials/workspace.html',
         controller: 'WorkspaceController',
@@ -80,9 +80,12 @@ angular.module('risevision.editorApp', [
                   //load the presentation based on the url param
                   return editorFactory.getPresentation($stateParams
                     .presentationId);
-                } else {
+                } else if (!$stateParams.copyPresentation) {
                   editorFactory.openPresentationProperties();
                   return editorFactory.newPresentation();
+                } else {
+                  editorFactory.openPresentationProperties();
+                  return editorFactory.presentation;
                 }
               });
             }

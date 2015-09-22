@@ -16,7 +16,7 @@
       <p id="presentationId" class="remove-top text-muted half-top" ng-show="presentationProperties.id"><small>ID: {{presentationProperties.id}}</small></p>
     </div><!--form-control-->
 
-    <button id="copyPresentationButton" class="btn btn-default" ng-show="presentationProperties.id">Copy Presentation <i class="fa fa-copy icon-right"></i></button>
+    <button id="copyPresentationButton" class="btn btn-default" ng-show="presentationProperties.id" ng-click="copy()">Copy Presentation <i class="fa fa-copy icon-right"></i></button>
 
     <hr>
     <div class="form-group">

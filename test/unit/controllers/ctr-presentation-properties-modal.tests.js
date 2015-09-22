@@ -26,6 +26,13 @@ describe('controller: presentation properties modal', function() {
         }
       };
     });
+    $provide.factory('editorFactory',function(){
+      return {
+        copyPresentation : function () {
+          return;
+        }
+      };
+    });
     $provide.service('$modalInstance',function(){
       return {
         close : function(){
@@ -46,7 +53,7 @@ describe('controller: presentation properties modal', function() {
       }
     });
   }));
-  var $scope, $modalInstance, $modalInstanceDismissSpy, $modalInstanceCloseSpy, presentationPropertiesFactory, setPresentationPropertiesSpy, companyId, presentationProperties, placeholders;
+  var $scope, $modalInstance, $modalInstanceDismissSpy, $modalInstanceCloseSpy, editorFactory, copyPresentationSpy, presentationPropertiesFactory, setPresentationPropertiesSpy, companyId, presentationProperties, placeholders;
 
   beforeEach(function(){
 
@@ -56,6 +63,8 @@ describe('controller: presentation properties modal', function() {
       $modalInstanceDismissSpy = sinon.spy($modalInstance, 'dismiss');
       $modalInstanceCloseSpy = sinon.spy($modalInstance, 'close');
 
+      editorFactory = $injector.get('editorFactory');
+      copyPresentationSpy = sinon.spy(editorFactory, 'copyPresentation');
       presentationPropertiesFactory = $injector.get('presentationPropertiesFactory');
       setPresentationPropertiesSpy = sinon.spy(presentationPropertiesFactory, 'setPresentationProperties');
 
@@ -63,6 +72,7 @@ describe('controller: presentation properties modal', function() {
         $scope: $scope,
         $modalInstance : $modalInstance,
         presentationPropertiesFactory: presentationPropertiesFactory,
+        editorFactory: editorFactory,
         userState: $injector.get('userState')
       });
       $scope.$digest();
@@ -70,6 +80,7 @@ describe('controller: presentation properties modal', function() {
   });
   it('should exist',function(){
     expect($scope).to.be.truely;
+    expect($scope.copy).to.be.a('function');
     expect($scope.apply).to.be.a('function');
     expect($scope.dismiss).to.be.a('function');
   });
@@ -84,6 +95,12 @@ describe('controller: presentation properties modal', function() {
 
   it('should get the placeholders',function(){
     expect($scope.placeholders).to.equal(placeholders);
+  });
+
+  it('should copy presentation',function(){
+    $scope.copy();
+    copyPresentationSpy.should.have.been.called;
+    $modalInstanceDismissSpy.should.have.been.called;
   });
 
   it('should set presentation properties',function(){
