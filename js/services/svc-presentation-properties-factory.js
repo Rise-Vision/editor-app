@@ -14,7 +14,7 @@ angular.module('risevision.editorApp.services')
           height: 1080,
           widthUnits: 'px',
           heightUnits: 'px',
-          background: {},
+          background: {'color':'rgba(255,255,255,1)'},
           hidePointer: true,
           donePlaceholder: ''
         };

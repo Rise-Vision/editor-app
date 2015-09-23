@@ -12,7 +12,7 @@ describe('service: presentationPropertiesFactory:', function() {
       height: 1080,
       widthUnits: 'px',
       heightUnits: 'px',
-      background: {},
+      background: {'color':'rgba(255,255,255,1)'},
       hidePointer: true,
       donePlaceholder: ''
     };
@@ -24,7 +24,7 @@ describe('service: presentationPropertiesFactory:', function() {
       height: 720,
       widthUnits: 'px',
       heightUnits: 'px',
-      background: {'color':'rgba(255,255,255,0)'},
+      background: {'color':'rgba(255,255,255,1)'},
       hidePointer: true,
       donePlaceholder: 'done placeholder'
     };
@@ -36,7 +36,7 @@ describe('service: presentationPropertiesFactory:', function() {
       height: 720,
       widthUnits: 'px',
       heightUnits: 'px',
-      backgroundStyle: 'rgba(255,255,255,0)',
+      backgroundStyle: 'rgba(255,255,255,1)',
       backgroundScaleToFit: false,
       hidePointer: true,
       donePlaceholder: 'done placeholder'
@@ -91,7 +91,7 @@ describe('service: presentationPropertiesFactory:', function() {
       presentation.backgroundStyle = 'url(\'/images/bg.jpg\') no-repeat left top',
       presentation.backgroundScaleToFit = true;
 
-      existentPresentationProperties.background = {'useImage':true,'image':{'url':'/images/bg.jpg','position':'top-left','scale':true}};
+      existentPresentationProperties.background = {'color':'rgba(255,255,255,1)', 'useImage':true,'image':{'url':'/images/bg.jpg','position':'top-left','scale':true}};
 
       expect(presentationPropertiesFactory.getPresentationProperties()).to.deep.equal(existentPresentationProperties);
     });
@@ -100,7 +100,7 @@ describe('service: presentationPropertiesFactory:', function() {
       presentation.backgroundStyle = 'url(\'/images/bg.jpg\') no-repeat',
         presentation.backgroundScaleToFit = true;
 
-      existentPresentationProperties.background = {'useImage':true,'image':{'url':'/images/bg.jpg','scale':true}};
+      existentPresentationProperties.background = {'color':'rgba(255,255,255,1)','useImage':true,'image':{'url':'/images/bg.jpg','scale':true}};
 
       expect(presentationPropertiesFactory.getPresentationProperties()).to.deep.equal(existentPresentationProperties);
     });
