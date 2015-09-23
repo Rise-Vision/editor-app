@@ -1,22 +1,24 @@
 <div class="content-box">
-  <table class="table-2 table-hover">
-    <tbody>
-      <tr class="clickable-row placeholderFromSideBar" ng-repeat="placeholder in factory.getPlaceholders() track by $index">
-        <td>
-          <div class="pull-right">
-            <button class="btn btn-xs btn-default" id="duplicateButton" ng-click="factory.duplicatePlaceholder(placeholder)"><i class="fa fa-copy"></i></button>
-            <button class="btn btn-xs btn-default" id="removeButton" ng-click="remove(placeholder)"><i class="fa fa-trash-o"></i></button>
-          </div>
-          <div id="manageLink" ng-click="manage(placeholder)">
-            <p class="remove-bottom placeholder-item-name">{{placeholder.id}}</p>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <div ng-hide="factory.getPlaceholders().length">
-    <div class="content-box-body">
-      <p class="text-muted text-center remove-bottom" translate>You haven't added any Placeholders to your Presentation yet.</p>
+  <div class="scrollable-list">
+    <table class="table-2 table-hover">
+      <tbody>
+        <tr class="clickable-row placeholderFromSideBar" ng-repeat="placeholder in factory.getPlaceholders() track by $index">
+          <td>
+            <div class="pull-right">
+              <button class="btn btn-xs btn-default" id="duplicateButton" ng-click="factory.duplicatePlaceholder(placeholder)"><i class="fa fa-copy"></i></button>
+              <button class="btn btn-xs btn-default" id="removeButton" ng-click="remove(placeholder)"><i class="fa fa-trash-o"></i></button>
+            </div>
+            <div id="manageLink" ng-click="manage(placeholder)">
+              <p class="remove-bottom placeholder-item-name">{{placeholder.id}}</p>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div ng-hide="factory.getPlaceholders().length">
+      <div class="content-box-body">
+        <p class="text-muted text-center remove-bottom" translate>You haven't added any Placeholders to your Presentation yet.</p>
+      </div>
     </div>
   </div>
 </div><!--content-box-->

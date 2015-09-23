@@ -1,5 +1,6 @@
 <div class="container-fluid text-right editor-footer">
   <div class="footer-content">
+    
     <div class="pull-left">
       <!-- Indicates delete or destructive action -->
       <button id="deleteButton" require-role="cp" type="button" class="btn btn-danger btn-fixed-width" ng-show="factory.presentation.id" ng-click="confirmDelete()">
@@ -18,11 +19,9 @@
       {{ factory.savingSchedule ? ('common.saving' | translate) : ('common.save' | translate)}} 
       <i class="fa fa-check icon-right"></i>
     </button>
-    <span class="add-left"></span>
 
     <button id="publishButton" require-role="cp" class="btn btn-primary" ng-show="factory.isRevised()" ng-click="factory.publishPresentation()">Publish</button>
 
-    <span class="add-left"></span>
     <!-- Indicates cancel or non-destructive action -->
     <button id="cancelButton" ui-sref="editor.list" class="btn btn-default btn-fixed-width">
       {{'common.cancel' | translate}}
