@@ -1,31 +1,34 @@
 <button id="addContentButton" class="btn btn-primary btn-block" ng-click="playlistItemFactory.add()">Add Playlist Content <i class="fa fa-plus icon-right"></i></button>
 <div class="content-box half-top">
-  <table class="table-2 table-hover table-playlist-items">
-    <tbody>
-    <tr class="clickable-row" ng-repeat="item in factory.getItems() track by $index">
-      <td>
-        <div class="pull-right">
+  <div class="scrollable-list">
+    <table class="table-2 table-hover table-playlist-items">
+      <tbody>
+      <tr class="clickable-row" ng-repeat="item in factory.getItems() track by $index">
+        <td>
+          <div class="pull-right">
 
-          <span class="btn-group">
-            <button class="btn btn-xs btn-default" id="moveUpButton" ng-click="factory.movePlaylistItemUp(item)" ng-disabled="!factory.canPlaylistItemMoveUp(item)"><i class="fa fa-arrow-up"></i></button>
-            <button class="btn btn-xs btn-default" id="moveDownButton" ng-click="factory.movePlaylistItemDown(item)" ng-disabled="!factory.canPlaylistItemMoveDown(item)"><i class="fa fa-arrow-down"></i></button>
-          </span>
+            <span class="btn-group">
+              <button class="btn btn-xs btn-default" id="moveUpButton" ng-click="factory.movePlaylistItemUp(item)" ng-disabled="!factory.canPlaylistItemMoveUp(item)"><i class="fa fa-arrow-up"></i></button>
+              <button class="btn btn-xs btn-default" id="moveDownButton" ng-click="factory.movePlaylistItemDown(item)" ng-disabled="!factory.canPlaylistItemMoveDown(item)"><i class="fa fa-arrow-down"></i></button>
+            </span>
 
-          <button class="btn btn-xs btn-default" ng-show="item.type === 'widget'" ng-click="widgetModalFactory.showWidgetModal(item)"><i class="fa fa-cog"></i></button>
-          <button class="btn btn-xs btn-default" id="removeButton" ng-click="remove(item)"><i class="fa fa-trash-o"></i></button>
-        </div>
+            <button class="btn btn-xs btn-default" ng-show="item.type === 'widget'" ng-click="widgetModalFactory.showWidgetModal(item)"><i class="fa fa-cog"></i></button>
+            <button class="btn btn-xs btn-default" id="removeButton" ng-click="remove(item)"><i class="fa fa-trash-o"></i></button>
+          </div>
 
-        <div ng-click="playlistItemFactory.edit(item)">
-          <p class="remove-bottom playlist-item-name">{{item.name}}</p>
-          <p class="text-small text-muted remove-bottom">Status</p>
-        </div>
+          <div ng-click="playlistItemFactory.edit(item)">
+            <p class="remove-bottom playlist-item-name">{{item.name}}</p>
+            <p class="text-small text-muted remove-bottom">Status</p>
+          </div>
 
-      </td>
-    </tr>
+        </td>
+      </tr>
 
-    </tbody>
-  </table>
-  <div class="content-box-body" ng-hide="factory.getItems().length">
-    <p class="text-center text-muted">No Playlist Items</p>
+      </tbody>
+    </table>
+    <div class="content-box-body" ng-hide="factory.getItems().length">
+      <p class="text-center text-muted">No Playlist Items</p>
+    </div>
   </div>
+  
 </div>
