@@ -30,25 +30,25 @@ angular.module('risevision.editorApp.services')
           if (cachedItem) {
             cachedItems.push(cachedItem);
           }
-        }        
+        }
         if (cachedItems.length === productCodes.length) {
           deferred.resolve(cachedItems);
         } else {
           store.product.status(productCodes).then(function (result) {
-            if (result && result.items){
-              for (var i = 0; i < result.items.length; i++) {
-                var statusItem = result.items[i];
-                _updateStatusItemCache(statusItem);
+              if (result && result.items) {
+                for (var i = 0; i < result.items.length; i++) {
+                  var statusItem = result.items[i];
+                  _updateStatusItemCache(statusItem);
+                }
+                deferred.resolve(result.items);
+              } else {
+                deferred.resolve([]);
               }
-              deferred.resolve(result.items);
-            } else {
-              deferred.resolve([]);
-            }                
-          })
-          .then(null, function (e) {
-            $log.error('Failed to get status of products.', e);
-            deferred.reject(e);
-          });          
+            })
+            .then(null, function (e) {
+              $log.error('Failed to get status of products.', e);
+              deferred.reject(e);
+            });
         }
         return deferred.promise;
       };

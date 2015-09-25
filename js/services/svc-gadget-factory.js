@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('risevision.editorApp.services')
-  .factory('gadgetFactory', ['$q', 'gadget', 'BaseList','subscriptionStatusFactory',
+  .factory('gadgetFactory', ['$q', 'gadget', 'BaseList',
+    'subscriptionStatusFactory',
     function ($q, gadget, BaseList, subscriptionStatusFactory) {
       var factory = {};
 
@@ -140,40 +141,80 @@ angular.module('risevision.editorApp.services')
         return deferred.promise;
       };
 
-      factory.updateSubscriptionStatus = function(gadgetIds) {
+      factory.updateSubscriptionStatus = function (gadgetIds) {
         var deferred = $q.defer();
 
         factory.getGadgets(gadgetIds).then(function (gadgets) {
           var productCodeGadgetMap = {};
           for (var i = 0; i < gadgets.length; i++) {
             var gadget = gadgets[i];
-            gadget.subscriptionStatus = 'N/A';
+            gadget.statusMessage = '';
             if (gadget.productCode) {
               productCodeGadgetMap[gadget.productCode] = gadget;
             }
           }
-          var productCodeGadgetMapKeys = Object.keys(productCodeGadgetMap);
+          var productCodeGadgetMapKeys = Object.keys(
+            productCodeGadgetMap);
           if (productCodeGadgetMapKeys.length > 0) {
-            subscriptionStatusFactory.checkProductCodes(productCodeGadgetMapKeys).then(function (statusItems) {
+            subscriptionStatusFactory.checkProductCodes(
+              productCodeGadgetMapKeys).then(function (statusItems) {
               for (var i = 0; i < statusItems.length; i++) {
                 var statusItem = statusItems[i];
                 var gadget = productCodeGadgetMap[statusItem.pc];
-                gadget.subscriptionStatus = statusItem.status;               
-              }              
+                gadget.subscriptionStatus = statusItem.status;
+                gadget.expiry = statusItem.expiry;
+                gadget.trialPeriod = statusItem.trialPeriod;
+                gadget.statusMessage = _getMessage(gadget);
+              }
               deferred.resolve(gadgets);
-            },function(e){
+            }, function (e) {
               factory.apiError = e.message ? e.message : e.toString();
               deferred.reject();
             });
           } else {
             deferred.resolve(gadgets);
-          }          
-        },function(){
+          }
+        }, function () {
           deferred.reject();
         });
         return deferred.promise;
       };
 
+      var _getRemainingDays = function (date) {
+        var oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+        var today = new Date();
+        return Math.round(Math.abs((date.getTime() - today.getTime()) / (
+          oneDay)));
+      };
+
+      var _getMessage = function (gadget) {
+        var statusMessage = gadget.subscriptionStatus;
+        if (gadget.subscriptionStatus === 'Not Subscribed') {
+          statusMessage = 'Premium';
+          if (gadget.trialPeriod > 0) {
+            statusMessage = 'Premium - ' + gadget.trialPeriod +
+              ' Days Trial';
+          }
+        } else if (gadget.subscriptionStatus === 'On Trial') {
+          statusMessage = statusMessage + ' - ' + _getRemainingDays(new Date(
+            gadget.expiry)) + ' Days Remaining';
+        }
+        return statusMessage;
+      };
+
+      factory.getGadgetWithStatus = function (gadgetId) {
+        var deferred = $q.defer();
+        factory.updateSubscriptionStatus([gadgetId]).then(function (gadgets) {
+          if (gadgets && gadgets.length > 0) {
+            deferred.resolve(gadgets[0]);
+          } else {
+            deferred.reject();
+          }
+        }, function () {
+          deferred.reject();
+        });
+        return deferred.promise;
+      };
 
       return factory;
     }

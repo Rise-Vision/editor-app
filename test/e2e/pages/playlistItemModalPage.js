@@ -6,6 +6,7 @@ var PlaylistItemModalPage = function() {
   var durationTextbox = element(by.id('itemDuration'));
   // widget item fields
   var widgetName = element(by.id('widgetName'));
+  var statusMessage = element(by.id('statusMessage'));
   var widgetSettingsIcon = element(by.css('.input-group-addon .btn-widget-icon-storage'));
 
   var saveButton = element(by.id('playlistItemSave'));
@@ -28,6 +29,10 @@ var PlaylistItemModalPage = function() {
   
   this.getWidgetName = function() {
     return widgetName;
+  };
+
+  this.getStatusMessage = function() {
+    return statusMessage;
   };
 
   this.getWidgetSettingsIcon = function() {

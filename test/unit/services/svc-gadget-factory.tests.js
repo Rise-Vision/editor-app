@@ -42,18 +42,18 @@ describe('service: gadgetFactory: ', function() {
           if(statusError){
             deferred.reject('ERROR; could not get subscription status');
           } else {
-            deferred.resolve([
-              {pc:'productCode', status: 'Free'}
-            ]);  
+            deferred.resolve([statusResponse]);  
           }          
           return deferred.promise;
         }
       }
     });
   }));
-  var gadgetFactory, returnGadget, apiCalls, statusError;
+  var gadgetFactory, returnGadget, apiCalls, statusError,statusResponse;
   beforeEach(function(){
     returnGadget = true;
+    statusError = false;
+    statusResponse = {pc:'productCode', status: 'Free'};
     apiCalls = 0;
     
     inject(function($injector){  
@@ -239,9 +239,43 @@ describe('updateSubscriptionStatus:', function(){
       expect(gadgets.length).to.equal(1);
       expect(gadgets[0].id).to.equal('gadgetId');
       expect(gadgets[0].subscriptionStatus).to.equal('Free');
+      expect(gadgets[0].statusMessage).to.equal('Free');
       done();
     });  
   });
+
+  describe('statusMessage:',function(){
+    it('should handle On Trial',function(done){
+      statusResponse.status = 'On Trial';
+      statusResponse.expiry = new Date().setDate(new Date().getDate() + 3);
+      gadgetFactory.updateSubscriptionStatus(['gadgetId']).then(function(gadgets){
+        expect(gadgets[0].subscriptionStatus).to.equal('On Trial');
+        expect(gadgets[0].statusMessage).to.equal('On Trial - 3 Days Remaining');
+        done();
+      }); 
+    });
+
+    it('should handle Not Subscribed',function(done){
+      statusResponse.status = 'Not Subscribed';
+      gadgetFactory.updateSubscriptionStatus(['gadgetId']).then(function(gadgets){
+        expect(gadgets[0].subscriptionStatus).to.equal('Not Subscribed');
+        expect(gadgets[0].statusMessage).to.equal('Premium');
+        done();
+      }); 
+    })
+
+    it('should handle Not Subscribed with trial',function(done){
+      statusResponse.status = 'Not Subscribed';
+      statusResponse.trialPeriod = 7
+      gadgetFactory.updateSubscriptionStatus(['gadgetId']).then(function(gadgets){
+        expect(gadgets[0].subscriptionStatus).to.equal('Not Subscribed');
+        expect(gadgets[0].statusMessage).to.equal('Premium - 7 Days Trial');
+        done();
+      }); 
+    })
+
+  });
+
   it('should handle gadget API errors',function(done){
     returnGadget = false;
     gadgetFactory.updateSubscriptionStatus(['gadgetId'])
@@ -259,6 +293,31 @@ describe('updateSubscriptionStatus:', function(){
       expect(gadgetFactory.apiError).to.equal('ERROR; could not get subscription status');
       done();
     });    
+  });
+})
+
+describe('getGadgetWithStatus:', function(){
+  it('should call updateSubscriptionStatus for the gadget',function(){
+    var statusSpy = sinon.spy(gadgetFactory, 'updateSubscriptionStatus');
+    gadgetFactory.getGadgetWithStatus('gadgetId');
+    statusSpy.should.have.been.calledWith(['gadgetId']);
+  });
+
+  it('should return the gadget', function(done){
+    gadgetFactory.getGadgetWithStatus('gadgetId').then(function(gadget){
+      expect(gadget).to.be.truely;
+      expect(gadget.subscriptionStatus).to.equal('Free');
+      expect(gadget.statusMessage).to.equal('Free');
+      done();
+    });
+  });
+
+  it('should handle errors', function(done){
+    returnGadget = false;
+    gadgetFactory.getGadgetWithStatus('gadgetId').then(null,function(){
+      expect(gadgetFactory.apiError).to.be.truely;
+      done();
+    });
   });
 })
 

@@ -21,24 +21,26 @@ angular.module('risevision.editorApp.services')
           for (var i = 0; i < items.length; i++) {
             var item = items[i];
             var reference = item.objectReference;
-            item.subscriptionStatus = 'N/A';
-            if (reference) {              
-              if (gadgetsMap[reference]){
+            item.statusMessage = '';
+            if (reference) {
+              if (gadgetsMap[reference]) {
                 gadgetsMap[reference].push(item);
               } else {
-                gadgetsMap[reference] = [item];  
-              }              
+                gadgetsMap[reference] = [item];
+              }
             }
           }
-          gadgetFactory.updateSubscriptionStatus(Object.keys(gadgetsMap)).then(function (gadgets) {
-            for (var i = 0; i < gadgets.length; i++) {
-              var gadget = gadgets[i];
-              var placeholderItems = gadgetsMap[gadget.id];
-              for (var u=0;u<placeholderItems.length;u++) {
-                placeholderItems[u].subscriptionStatus = gadget.subscriptionStatus;
-              }                    
-            }
-          });        
+          gadgetFactory.updateSubscriptionStatus(Object.keys(gadgetsMap)).then(
+            function (gadgets) {
+              for (var i = 0; i < gadgets.length; i++) {
+                var gadget = gadgets[i];
+                var placeholderItems = gadgetsMap[gadget.id];
+                for (var u = 0; u < placeholderItems.length; u++) {
+                  placeholderItems[u].statusMessage = gadget.statusMessage;
+                  placeholderItems[u].subscriptionStatus = gadget.subscriptionStatus;
+                }
+              }
+            });
         }
       };
 

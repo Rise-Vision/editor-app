@@ -36,7 +36,7 @@ describe('service: placeholderFactory:', function() {
             deferred.reject();
           } else {
             deferred.resolve([
-              {id:'widget1', productCode:'pc1', subscriptionStatus: 'Free'}
+              {id:'widget1', productCode:'pc1', statusMessage: 'Free'}
             ]);
           }          
           return deferred.promise;
@@ -78,9 +78,9 @@ describe('service: placeholderFactory:', function() {
     it('should update the status', function(done) {      
       placeholderFactory.updateSubscriptionStatus();
       setTimeout(function() {
-        expect(placeholder.items[0].subscriptionStatus).to.equal('Free');  
-        expect(placeholder.items[1].subscriptionStatus).to.equal('N/A'); 
-        expect(placeholder.items[2].subscriptionStatus).to.equal('Free'); 
+        expect(placeholder.items[0].statusMessage).to.equal('Free');  
+        expect(placeholder.items[1].statusMessage).to.equal(''); 
+        expect(placeholder.items[2].statusMessage).to.equal('Free'); 
         done();
       }, 10);      
     });
@@ -89,9 +89,9 @@ describe('service: placeholderFactory:', function() {
       forceError = true;
       placeholderFactory.updateSubscriptionStatus();
       setTimeout(function() {
-        expect(placeholder.items[0].subscriptionStatus).to.equal('N/A');  
-        expect(placeholder.items[1].subscriptionStatus).to.equal('N/A'); 
-        expect(placeholder.items[2].subscriptionStatus).to.equal('N/A'); 
+        expect(placeholder.items[0].statusMessage).to.equal('');  
+        expect(placeholder.items[1].statusMessage).to.equal(''); 
+        expect(placeholder.items[2].statusMessage).to.equal(''); 
         done();
       }, 10);      
     });

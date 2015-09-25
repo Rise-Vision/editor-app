@@ -95,6 +95,11 @@ describe('Playlist Scenarios: ', function() {
     
     it('first products should be Video Folder Widget', function() {
       expect(storeProductsModalPage.getProductNameFields().get(0).getText()).to.eventually.equal('Video Folder Widget');
+      
+    });
+
+    it('should display store status in catalogue',function(){
+      expect(storeProductsModalPage.getStatusFields().get(0).getText()).to.eventually.equal('Free');
     });
     
     // Video Folder Widget is the only one that can be used since it 
@@ -107,7 +112,12 @@ describe('Playlist Scenarios: ', function() {
 
       expect(playlistItemModalPage.getPlaylistItemModal().isDisplayed()).to.eventually.be.true;
       expect(playlistItemModalPage.getModalTitle().getText()).to.eventually.equal('Edit Playlist Item');
-      expect(playlistItemModalPage.getNameTextbox().getAttribute('value')).to.eventually.equal('Video Folder Widget');
+      expect(playlistItemModalPage.getNameTextbox().getAttribute('value')).to.eventually.equal('Video Folder Widget');      
+    });
+
+    it('should display store status in modal',function(){
+      helper.wait(playlistItemModalPage.getStatusMessage(), 'Free');
+      expect(playlistItemModalPage.getStatusMessage().getText()).to.eventually.equal('Free');
     });
     
     it('should save Item and add it to the list', function() {
@@ -116,6 +126,10 @@ describe('Playlist Scenarios: ', function() {
       expect(playlistItemModalPage.getPlaylistItemModal().isPresent()).to.eventually.be.false;
       expect(placeholderPlaylistPage.getPlaylistItems().count()).to.eventually.equal(1);
     });    
+
+    it('should display store status in playlist',function(){
+      expect(placeholderPlaylistPage.getItemStatusCells().get(0).getText()).to.eventually.equal('Free');
+    });
     
   });
 
@@ -140,6 +154,11 @@ describe('Playlist Scenarios: ', function() {
       
       expect(placeholderPlaylistPage.getItemNameCells().get(0).getText()).to.eventually.contain('Video Folder Widget');
       expect(placeholderPlaylistPage.getItemNameCells().get(1).getText()).to.eventually.contain('Video Folder Widget 2');
+    });
+
+    it('should display store status for both items',function(){
+      expect(placeholderPlaylistPage.getItemStatusCells().get(0).getText()).to.eventually.equal('Free');
+      expect(placeholderPlaylistPage.getItemStatusCells().get(1).getText()).to.eventually.equal('Free');
     });
     
     it('arrows should be disabled', function () {

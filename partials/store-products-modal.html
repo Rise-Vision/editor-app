@@ -23,7 +23,7 @@
                   <img ng-src="{{product.imageUrl}}">
                 </div>
                 <h4 id="productName">{{product.name}}</h4>
-                <p class="text-muted" id="status">Status {{product.status}}</p>
+                <p class="text-muted" id="status">{{product.paymentTerms.toLowerCase() === 'free'? 'Free' : 'Premium'}} {{product.trialPeriod > 0 ? ' - '+product.trialPeriod+' Days Trial' : ''}}</p>
                 <a id="addProductButton" class="btn btn-block btn-sm btn-primary" ng-click="select(product)">Add <i class="fa fa-plus icon-right"></i></a>
                 <a class="btn btn-block btn-sm btn-default" ng-href="{{storeUrl}}/product/{{product.productId}}/" target="_blank">Details</a>
               </div>
