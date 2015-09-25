@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('risevision.editorApp.services')
-  .factory('placeholderPlaylistFactory', ['placeholderFactory',
-    function (placeholderFactory) {
+  .factory('placeholderPlaylistFactory', ['placeholderFactory', 'editorFactory',
+    function (placeholderFactory, editorFactory) {
       var factory = {};
 
       factory.getItems = function () {
@@ -28,6 +28,9 @@ angular.module('risevision.editorApp.services')
       factory.removeItem = function (item) {
         var index = _getItemIndex(item);
         if (index !== -1) {
+          if (item.type === 'presentation'){
+            editorFactory.removeEmbeddedId(item.objectData);
+          }
           factory.getItems().splice(index, 1);
         }
       };

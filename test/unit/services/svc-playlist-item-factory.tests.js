@@ -26,8 +26,12 @@ describe('service: playlistItemFactory:', function() {
             obj.resolve.category ? obj.resolve.category() : undefined;
           }
 
-          deferred.resolve({additionalParams: 'updatedParams'});
-          
+          if(openModal === 'selectPresentationModal'){
+            deferred.resolve(['123', 'presentationName']);
+          } else {
+            deferred.resolve({additionalParams: 'updatedParams'});
+          }
+         
           return {
             result: deferred.promise
           };
@@ -50,8 +54,15 @@ describe('service: playlistItemFactory:', function() {
         }
       };
     });
+
+    $provide.service('editorFactory',function () {
+      return {
+        addEmbeddedId : function (id) {
+        }
+      };
+    });
   }));
-  var item, playlistItemFactory, openModal, currentItem;
+  var item, playlistItemFactory, openModal, currentItem, editorFactoryInstance, addEmbeddedIdSpy;
 
   beforeEach(function(){
     openModal = null;
@@ -60,13 +71,17 @@ describe('service: playlistItemFactory:', function() {
     inject(function($injector){  
       playlistItemFactory = $injector.get('playlistItemFactory');
       playlistItemFactory.item = item;
+      editorFactoryInstance = $injector.get('editorFactory');
+      addEmbeddedIdSpy = sinon.spy(editorFactoryInstance, 'addEmbeddedId');
     });
   });
 
   it('should exist',function(){
     expect(playlistItemFactory).to.be.truely;
 
-    expect(playlistItemFactory.add).to.be.a('function');
+    expect(playlistItemFactory.addContent).to.be.a('function');
+    expect(playlistItemFactory.addPresentation).to.be.a('function');
+
     expect(playlistItemFactory.edit).to.be.a('function');
 
   });
@@ -78,9 +93,9 @@ describe('service: playlistItemFactory:', function() {
     expect(currentItem).to.equal(item);
   });
   
-  describe('add: ', function() {
+  describe('add widget: ', function() {
     it('should add new widget', function(done) {
-      playlistItemFactory.add();
+      playlistItemFactory.addContent();
 
       expect(openModal).to.equal('storeProductsModal');
       expect(currentItem).to.not.be.ok;
@@ -103,4 +118,29 @@ describe('service: playlistItemFactory:', function() {
     });
   });
 
+  describe('add presentation: ', function() {
+    it('should add new presentation', function(done) {
+      item.name = 'presentationName';
+      item.type = 'presentation';
+      item.objectData = '123';
+      playlistItemFactory.addPresentation();
+
+      expect(openModal).to.equal('selectPresentationModal');
+      expect(currentItem).to.not.be.ok;
+      setTimeout(function() {
+        expect(openModal).to.equal('PlaylistItemModalController');
+        expect(currentItem).to.deep.equal({
+          duration: 10,
+          distributeToAll: true,
+          timeDefined: false,
+          additionalParams: null,
+          type: 'presentation',
+          name: 'presentationName',
+          objectData: '123'
+        });
+        addEmbeddedIdSpy.should.have.been.calledWith(currentItem.objectData);
+        done();
+      }, 10);
+    });
+  });
 });

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('risevision.editorApp.services')
-  .factory('playlistItemFactory', ['$modal', 'gadgetFactory',
-    function ($modal, gadgetFactory) {
+  .factory('playlistItemFactory', ['$modal', 'gadgetFactory', 'editorFactory',
+    function ($modal, gadgetFactory, editorFactory) {
       var factory = {};
 
       var _newPlaylistItem = function () {
@@ -29,7 +29,31 @@ angular.module('risevision.editorApp.services')
           });
       };
 
-      factory.add = function () {
+      var _addPresentation = function (presentationDetails) {
+
+          var item = _newPlaylistItem();
+
+          item.type = 'presentation';
+          item.name = presentationDetails[1];
+
+          item.objectData = presentationDetails[0];
+          editorFactory.addEmbeddedId(presentationDetails[0]);
+
+          factory.edit(item);
+
+      };
+
+      var _editPresentation = function (item, presentationDetails) {
+        editorFactory.removeEmbeddedId(item.objectData);
+
+        item.objectData = presentationDetails[0];
+        editorFactory.addEmbeddedId(presentationDetails[0]);
+
+        //factory.edit(item);
+
+      };
+
+      factory.addContent = function () {
         var modalInstance = $modal.open({
           templateUrl: 'partials/store-products-modal.html',
           size: 'lg',
@@ -43,6 +67,27 @@ angular.module('risevision.editorApp.services')
 
         modalInstance.result.then(_addProduct);
       };
+
+      factory.addPresentation = function () {
+        var modalInstance = _openPresentationModal();
+        modalInstance.result.then(_addPresentation);
+      };
+
+      factory.editPresentation = function (item) {
+        var modalInstance = _openPresentationModal();
+        modalInstance.result.then(function (presentationDetails) {
+          if(presentationDetails && presentationDetails[0] !== item.objectData) {
+            _editPresentation(item, presentationDetails);
+          }
+        });
+      };
+
+      var _openPresentationModal = function () {
+        return $modal.open({
+          templateUrl: 'presentation-selector/presentation-modal.html',
+          controller: 'selectPresentationModal'
+        });
+      }
 
       factory.edit = function (item) {
         var modalInstance = $modal.open({
