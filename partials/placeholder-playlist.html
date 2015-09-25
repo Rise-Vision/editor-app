@@ -18,7 +18,7 @@
 
           <div ng-click="playlistItemFactory.edit(item)">
             <p class="remove-bottom playlist-item-name">{{item.name}}</p>
-            <p class="text-small text-muted remove-bottom">Status</p>
+            <p class="text-small text-muted remove-bottom" ng-class="{'text-success': ['On Trial','Subscribed'].indexOf(item.subscriptionStatus) >= 0, 'text-danger': ['Not Subscribed','Trial Expired','Cancelled','Suspended','Product Not Found','Company Not Found','Error'].indexOf(item.subscriptionStatus) >= 0}">{{item.subscriptionStatus}}</p>
           </div>
 
         </td>

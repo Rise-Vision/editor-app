@@ -3,9 +3,9 @@
 angular.module('risevision.editorApp.controllers')
   .controller('PlaylistItemModalController', ['$scope',
     'placeholderPlaylistFactory', 'widgetModalFactory', 'gadgetFactory',
-    '$modalInstance', 'item',
+    '$modalInstance', 'placeholderFactory', 'item', 
     function ($scope, placeholderPlaylistFactory, widgetModalFactory,
-      gadgetFactory, $modalInstance, item) {
+      gadgetFactory, $modalInstance, placeholderFactory, item) {
       $scope.widgetModalFactory = widgetModalFactory;
       $scope.item = angular.copy(item);
 
@@ -19,6 +19,8 @@ angular.module('risevision.editorApp.controllers')
         angular.copy($scope.item, item);
 
         placeholderPlaylistFactory.updateItem(item);
+
+        placeholderFactory.updateSubscriptionStatus();
 
         $scope.dismiss();
       };
