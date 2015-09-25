@@ -37,7 +37,7 @@ angular.module('risevision.editorApp.services')
             var deferred = $q.defer();
 
             var companyId = userState.getSelectedCompanyId();
-            var category = 'Content';
+            var category = search.category;
 
             var filterString = 'visibleTo:ALL';
 

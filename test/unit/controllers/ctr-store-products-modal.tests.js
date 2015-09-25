@@ -39,7 +39,9 @@ describe('controller: Store Products Modal', function() {
         }
       }
     });
+    $provide.value('category', 'Content');
   }));
+  
   var $scope, returnProducts, apiCount, result, $loading,$loadingStartSpy, $loadingStopSpy;
   var $modalInstance, $modalInstanceDismissSpy, $modalInstanceCloseSpy;
   beforeEach(function(){
@@ -67,6 +69,7 @@ describe('controller: Store Products Modal', function() {
         $rootScope: $rootScope,
         $modalInstance : $modalInstance,
         store: $injector.get('store'),
+        category: $injector.get('category'),
         $loading: $loading
       });
       $scope.$digest();

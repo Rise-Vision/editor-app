@@ -33,7 +33,12 @@ angular.module('risevision.editorApp.services')
         var modalInstance = $modal.open({
           templateUrl: 'partials/store-products-modal.html',
           size: 'lg',
-          controller: 'storeProductsModal'
+          controller: 'storeProductsModal',
+          resolve: {
+            category: function () {
+              return 'Content'
+            }
+          }
         });
 
         modalInstance.result.then(_addProduct);

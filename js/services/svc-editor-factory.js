@@ -277,6 +277,31 @@ angular.module('risevision.editorApp.services')
         });
       };
 
+      var _addTemplate = function (productDetails) {
+        if (!productDetails || !productDetails.rvaEntityId) {
+          return;
+        }
+        
+        //load template
+        factory.getPresentation(productDetails.rvaEntityId)
+          .then(factory.copyPresentation);        
+      };
+
+      factory.addFromTemplate = function() {
+        var modalInstance = $modal.open({
+          templateUrl: 'partials/store-products-modal.html',
+          size: 'lg',
+          controller: 'storeProductsModal',
+          resolve: {
+            category: function () {
+              return 'Templates'
+            }
+          }
+        });
+
+        modalInstance.result.then(_addTemplate);
+      };
+
       factory.getPreviewUrl = function () {
         if (factory.presentation.id) {
           return VIEWER_URL + '/?type=presentation&id=' +
