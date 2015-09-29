@@ -62,8 +62,8 @@ describe('Select placeholders in artboard: ', function() {
       it('should reveal hidden sidebar when selecting placeholder', function (done) {
         workspacePage.getExpandArtboardButton().click();
         artboardPage.getPlaceholderContainer().getSize().then(function (size) {
-          browser.actions().mouseMove(artboardPage.getPlaceholderContainer(), {x: size.width-10, y: size.height-10}).click().perform();
-          expect(workspacePage.getWorkspaceContainer().getAttribute('class')).to.eventually.contain('hide-sidebar');
+          browser.actions().mouseMove(artboardPage.getPlaceholderContainer(), {x: size.width-100, y: size.height-100}).click().perform();
+          expect(workspacePage.getWorkspaceContainer().getAttribute('class')).to.not.eventually.contain('hide-sidebar');
           done();
         });
       });
