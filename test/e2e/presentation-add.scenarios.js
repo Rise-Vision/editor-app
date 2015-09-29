@@ -63,7 +63,7 @@ describe("In order to manage presentations " +
     helper.clickWhenClickable(presentationPropertiesModalPage.getApplyButton(), 'Apply Button');
 
     workspacePage.getSaveButton().click();
-    helper.wait(workspacePage.getDeleteButton(), 'Delete Button');
+    helper.wait(workspacePage.getSaveStatus(), 'Save Status');
     expect(workspacePage.getDeleteButton().isDisplayed()).to.eventually.be.true;
     expect(workspacePage.getPreviewButton().isEnabled()).to.eventually.be.true;
   });

@@ -17,6 +17,8 @@ var WorkspacePage = function() {
   var deleteForeverButton = element(by.buttonText('Delete Forever'));
   var codemirrorHtmlEditor = element(by.id('codemirrorHtmlEditor'));
 
+  var saveStatus = element(by.css(".save-status"));
+
 
   var errorBox = element(by.id('errorBox'));
 
@@ -89,6 +91,10 @@ var WorkspacePage = function() {
   this.getPresentationLoader = function () {
     return presentationLoader;
   };
+
+  this.getSaveStatus = function () {
+    return saveStatus;
+  }
 
 
 };
