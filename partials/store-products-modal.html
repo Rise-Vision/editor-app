@@ -7,16 +7,16 @@
   </div>
   <div class="modal-body">
 
-    <search-filter filter-config="filterConfig" search="search" do-search="doSearch"></search-filter>
+    <search-filter filter-config="filterConfig" search="search" do-search="factory.doSearch"></search-filter>
     <div class="content-box half-top">
       <div class="scrollable-list" 
-        scrolling-list="load()"
+        scrolling-list="factory.load()"
         rv-spinner rv-spinner-key="product-list-loader"
         rv-spinner-start-active="1"
         >
 
         <div id="productListTable" class="grid-list row no-gutter" vertilize-container>
-          <div class="col-xs-6 col-sm-4 col-md-3" ng-repeat="product in products.list">
+          <div class="col-xs-6 col-sm-4 col-md-3" ng-repeat="product in factory.items.list">
             <div class="content-box">
               <div vertilize>
                 <div class="grid-list-image">

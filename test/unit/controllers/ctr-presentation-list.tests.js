@@ -3,11 +3,16 @@ describe('controller: Presentation List', function() {
   beforeEach(module('risevision.editorApp.controllers'));
   beforeEach(module('risevision.editorApp.services'));
   beforeEach(module(function ($provide) {
-    $provide.service('presentationListFactory', function() {
-      return {
-        search: {},
-        loadingPresentations: false
+    $provide.service('ScrollingListService', function() {
+      return function() {
+        return {
+          search: {},
+          loadingItems: false
+        };
       };
+    });
+    $provide.service('presentation', function() {
+      return {};
     });
     $provide.service('editorFactory', function() {
       return {
@@ -39,7 +44,7 @@ describe('controller: Presentation List', function() {
       $loadingStopSpy = sinon.spy($loading, 'stop');
       $controller('PresentationListController', {
         $scope : $scope,
-        presentationListFactory: $injector.get('presentationListFactory'),
+        ScrollingListService: $injector.get('ScrollingListService'),
 
         $loading: $loading
       });
@@ -48,13 +53,19 @@ describe('controller: Presentation List', function() {
   });
 
   it('should exist',function(){
-    expect($scope).to.be.truely;
+    expect($scope).to.be.ok;
     
     expect($scope.factory).to.be.ok;
-    expect($scope.factory.loadingPresentations).to.be.false;
+    expect($scope.factory.loadingItems).to.be.false;
     expect($scope.search).to.be.ok;
     expect($scope.filterConfig).to.be.ok;
     
+  });
+  
+  it('should init the scope objects',function(){
+    expect($scope.search).to.be.ok;
+    expect($scope.search).to.have.property('sortBy');
+    expect($scope.search).to.have.property('reverse');
   });
   
   describe('$loading: ', function() {
@@ -63,7 +74,7 @@ describe('controller: Presentation List', function() {
     });
     
     it('should start spinner', function(done) {
-      $scope.factory.loadingPresentations = true;
+      $scope.factory.loadingItems = true;
       $scope.$digest();
       setTimeout(function() {
         $loadingStartSpy.should.have.been.calledWith('presentation-list-loader');
