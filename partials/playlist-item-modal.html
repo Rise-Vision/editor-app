@@ -5,8 +5,8 @@
     </button>
     <h3 class="modal-title">Edit Playlist Item</h3>
   </div>
-  <div class="modal-body">          
-
+  <div class="modal-body">
+    <form role="form" name="presentationItemDetails" novalidate>
     <div class="form-group">
       <label class="control-label">Name</label>
       <input type="text" class="form-control" ng-model="item.name">
@@ -18,6 +18,14 @@
       <a id="widgetName" class="link add-left" href="" ng-click="widgetModalFactory.showWidgetModal(item)">
         {{widgetName}} <i class="fa fa-cog icon-right"></i>
       </a>
+    </p>
+    <label ng-show="presentationType" class="control-label add-right" translate="">Presentation:</label>
+    <div class="input-group">
+        <input type="text" class="form-control" name="presentationId" id="presentationId" ng-model="item.objectData" required />
+        <a id="selectPresentation" class="link input-group-addon" href="" ng-click="playlistItemFactory.editPresentation(item)">Select</a>
+    </div>
+    <p class="text-danger" ng-show="!presentationItemDetails.presentationId.$pristine && presentationItemDetails.presentationId.$error.required">
+      Required
     </p>
     <hr>
 
@@ -58,11 +66,12 @@
   </div><!--form-group-->
 
   <distribution-selector distribution="item.distribution" distribute-to-all="item.distributeToAll"></distribution-selector>
-
+    </form>
   </div><!--modal-body-->
+
   <div class="modal-footer">
 
-    <button id="playlistItemSave" class="btn btn-primary" ng-click="save()">Apply <i class="fa fa-check icon-right"></i></button>
+    <button id="playlistItemSave" class="btn btn-primary" ng-click="save()" ng-disabled="presentationItemDetails.$invalid">Apply <i class="fa fa-check icon-right"></i></button>
     <button class="btn btn-default" ng-click="dismiss()">Cancel <i class="fa fa-times icon-right"></i></button>
   </div>  
 </div>

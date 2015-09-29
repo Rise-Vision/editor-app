@@ -1,4 +1,19 @@
-<button id="addContentButton" class="btn btn-primary btn-block" ng-click="playlistItemFactory.add()">Add Playlist Content <i class="fa fa-plus icon-right"></i></button>
+<div class="" dropdown>
+  <button id="addPlaylistItemButton" dropdown-toggle class="dropdown-toggle btn btn-primary btn-block" >Add Playlist Item <i class="fa fa-plus icon-right"></i></button>
+  <ul class="dropdown-menu playlist-menu" role="menu">
+    <li>
+      <a class="clickable" id="addContentButton" ng-click="playlistItemFactory.addContent()">
+      <span translate>Content</span>
+      </a>
+    </li>
+    <li>
+      <a class="clickable" id="addPresentationButton" ng-click="playlistItemFactory.addPresentation()">
+        <span translate>schedules-app.playlist.item.presentation</span>
+      </a>
+    </li>
+
+  </ul>
+</div>
 <div class="content-box half-top">
   <div class="scrollable-list">
     <table class="table-2 table-hover table-playlist-items">

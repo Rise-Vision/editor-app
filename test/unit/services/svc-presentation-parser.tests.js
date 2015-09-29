@@ -21,6 +21,7 @@ describe('service: PresentationParser ', function() {
             "id": "c66fc03d-5047-4c74-9c51-0d135353957f",\
             "hidePointer": "true",\
             "donePlaceholder": "image_Logo",\
+            "embeddedIds": ["123"],\
             "placeholders": [\
               {\
                 "id": "image_Logo",\

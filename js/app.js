@@ -12,6 +12,7 @@ angular.module('risevision.editorApp', [
     'risevision.common.components.timeline',
     'risevision.common.components.analytics',
     'risevision.common.components.distribution-selector',
+    'risevision.common.components.presentation-selector',
     'risevision.widget.common.storage-selector',
     'ngTouch',
     'ui.bootstrap',

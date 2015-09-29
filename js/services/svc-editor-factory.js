@@ -316,6 +316,24 @@ angular.module('risevision.editorApp.services')
           e.result.error.toString();
       };
 
+      factory.addEmbeddedId =  function (presentationId) {
+        if (factory.presentation.embeddedIds === undefined) {
+          factory.presentation.embeddedIds = [];
+        }
+        if (factory.presentation.embeddedIds.indexOf(presentationId) === -1) {
+          factory.presentation.embeddedIds.push(presentationId)
+        }
+      };
+
+      factory.removeEmbeddedId =  function (presentationId) {
+        if (factory.presentation.embeddedIds !== undefined) {
+          var index = factory.presentation.embeddedIds.indexOf(presentationId);
+          if (index > -1) {
+            factory.presentation.embeddedIds.splice(index,1);
+          }
+        }
+      };
+
       return factory;
     }
   ]);

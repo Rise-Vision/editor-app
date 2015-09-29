@@ -9,6 +9,9 @@ var PlaylistItemModalPage = function() {
   var statusMessage = element(by.id('statusMessage'));
   var widgetSettingsIcon = element(by.css('.input-group-addon .btn-widget-icon-storage'));
 
+  var presentationIdField = element(by.css('#playlistItemModal #presentationId'));
+
+
   var saveButton = element(by.id('playlistItemSave'));
 
   this.getPlaylistItemModal = function () {
@@ -41,6 +44,10 @@ var PlaylistItemModalPage = function() {
     
   this.getSaveButton = function() {
     return saveButton;
+  };
+
+  this.getPresentationIdField = function() {
+    return presentationIdField;
   };
   
 };

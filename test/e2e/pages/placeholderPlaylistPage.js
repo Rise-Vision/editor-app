@@ -1,6 +1,9 @@
 'use strict';
 var PlaceholderPlaylistPage = function() {
+  var addPlayListItemButton = element(by.id('addPlaylistItemButton'));
   var addContentButton = element(by.id('addContentButton'));
+  var addPresentationButton = element(by.id('addPresentationButton'));
+
   var playlistItems = element.all(by.repeater('item in factory.getItems()'));
   var moveUpButtons = element.all(by.id('moveUpButton'));
   var moveDownButtons = element.all(by.id('moveDownButton'));
@@ -10,10 +13,18 @@ var PlaceholderPlaylistPage = function() {
   var itemNameCells = element.all(by.css('.table-playlist-items .playlist-item-name'));
   var itemStatusCells = element.all(by.css('.table-playlist-items .text-small'));
 
+  this.getAddPlayListItemButton = function() {
+    return addPlayListItemButton;
+  };
+
   this.getAddContentButton = function() {
     return addContentButton;
-  }
-  
+  };
+
+  this.getAddPresentationButton = function() {
+    return addPresentationButton;
+  };
+
   this.getPlaylistItems = function() {
     return playlistItems;
   };

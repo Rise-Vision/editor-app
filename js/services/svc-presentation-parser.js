@@ -2,7 +2,7 @@
 
 angular.module('risevision.editorApp.services')
   .constant('PRESENTATION_JSON_FIELDS', [
-    'id', 'hidePointer', 'donePlaceholder'
+    'id', 'hidePointer', 'donePlaceholder', 'embeddedIds'
   ])
   .constant('PLACEHOLDER_JSON_FIELDS', [
     'id', 'type', 'timeDefined', 'startDate',

@@ -4,8 +4,9 @@ describe('controller: playlist item modal', function() {
   beforeEach(module(function ($provide) {
     itemProperties = {
       name: 'test',
-      type: 'widget',
-      objectReference: '123'
+      type: itemType,
+      objectReference: '123',
+      objectData: '345'
     };
     $provide.service('$modalInstance',function(){
       return {
@@ -50,13 +51,18 @@ describe('controller: playlist item modal', function() {
       return {}
     });
 
+    $provide.service('playlistItemFactory',function(){
+      return {}
+    });
+
   }));
-  var $scope, $modalInstance, $modalInstanceDismissSpy, itemProperties, itemUpdated, updateSubscriptionStatusCalled;
+  var $scope, $modalInstance, $modalInstanceDismissSpy, itemProperties, itemType, itemUpdated, updateSubscriptionStatusCalled;
 
   beforeEach(function(){
 
     inject(function($injector,$rootScope, $controller){
       itemUpdated = null;
+      itemType = 'widget';
       updateSubscriptionStatusCalled = false;
       $scope = $rootScope.$new();
       $modalInstance = $injector.get('$modalInstance');
@@ -86,6 +92,15 @@ describe('controller: playlist item modal', function() {
     setTimeout(function() {
       expect($scope.widgetName).to.equal('Widget');
       
+      done();
+    }, 10);
+  });
+
+  it('should load presentation id', function(done) {
+    itemType = 'presentation';
+    setTimeout(function() {
+      expect($scope.item.objectData).to.equal('345');
+
       done();
     }, 10);
   });
