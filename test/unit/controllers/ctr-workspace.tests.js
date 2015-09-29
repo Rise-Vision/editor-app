@@ -25,8 +25,10 @@ describe('controller: Workspace', function() {
 
   it('should exist',function(){
     expect($scope).to.be.truely;
+    expect($scope.isSubcompanySelected).to.be.a('function');
+    expect($scope.isTestCompanySelected).to.be.a('function');
 
     expect($scope.factory).to.be.truely;
-    expect($scope.factory).to.deep.equal({});
+    expect($scope.factory).to.deep.equal({});    
   });
 });
