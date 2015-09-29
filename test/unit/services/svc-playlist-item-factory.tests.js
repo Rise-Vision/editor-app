@@ -21,7 +21,10 @@ describe('service: playlistItemFactory:', function() {
           var deferred = Q.defer();
 
           openModal = obj.controller;
-          currentItem = obj.resolve ? obj.resolve.item() : undefined;
+          if (obj.resolve) {
+            currentItem = obj.resolve.item ? obj.resolve.item() : undefined;
+            obj.resolve.category ? obj.resolve.category() : undefined;
+          }
 
           deferred.resolve({additionalParams: 'updatedParams'});
           

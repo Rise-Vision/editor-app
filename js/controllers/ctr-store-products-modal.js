@@ -1,9 +1,9 @@
 'use strict';
 angular.module('risevision.editorApp.controllers')
   .controller('storeProductsModal', ['$scope', '$modalInstance',
-    'store', '$loading', 'BaseList', '$filter', 'STORE_URL',
+    'store', '$loading', 'BaseList', '$filter', 'STORE_URL', 'category',
     function ($scope, $modalInstance, store, $loading, BaseList, $filter,
-      STORE_URL) {
+      STORE_URL, category) {
       var DB_MAX_COUNT = 40; //number of records to load at a time
 
       $scope.storeUrl = STORE_URL;
@@ -12,7 +12,8 @@ angular.module('risevision.editorApp.controllers')
       $scope.search = {
         sortBy: 'name',
         count: DB_MAX_COUNT,
-        reverse: false
+        reverse: false,
+        category: category
       };
 
       $scope.filterConfig = {

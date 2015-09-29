@@ -118,6 +118,21 @@ describe('service: editorFactory:', function() {
         _restoreState : function() {}
       };
     });
+    $provide.service('$modal',function(){
+      return {
+        open : function(obj){
+          var deferred = Q.defer();
+
+          obj.resolve.category();
+
+          deferred.resolve({rvaEntityId: 'id1'});
+          
+          return {
+            result: deferred.promise
+          };
+        }
+      }
+    });
     $provide.value('VIEWER_URL', 'http://rvaviewer-test.appspot.com');
 
   }));
@@ -147,6 +162,7 @@ describe('service: editorFactory:', function() {
     expect(editorFactory.deletePresentation).to.be.a('function');
     expect(editorFactory.isRevised).to.be.a('function');
     expect(editorFactory.copyPresentation).to.be.a('function');
+    expect(editorFactory.addFromTemplate).to.be.a('function');
     expect(editorFactory.getPreviewUrl).to.be.a('function');
   });
   
@@ -408,6 +424,24 @@ describe('service: editorFactory:', function() {
     expect(trackerCalled).to.equal('Presentation Copied');
     expect(currentState).to.equal('editor.workspace.artboard');
     expect(stateParams).to.deep.equal({presentationId: undefined, copyPresentation:true});
+  });
+  
+  it('addFromTemplate: ', function(done) {
+    editorFactory.addFromTemplate();
+    
+    setTimeout(function() {
+      expect(editorFactory.loadingPresentation).to.be.false;
+
+      expect(editorFactory.presentation.id).to.not.be.ok;
+      expect(editorFactory.presentation.name).to.equal('Copy of some presentation');
+      
+      expect(trackerCalled).to.equal('Presentation Copied');
+      expect(currentState).to.equal('editor.workspace.artboard');
+      expect(stateParams).to.deep.equal({presentationId: undefined, copyPresentation:true});
+
+      done();
+    }, 10);
+
   });
 
   it('getPreviewUrl: ', function(done) {

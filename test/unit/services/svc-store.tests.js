@@ -92,7 +92,7 @@ describe('service: store:', function() {
     });
     
     it('should create default search string',function(done){
-      store.product.list({})
+      store.product.list({category:'Content'})
       .then(function(result){
         expect(searchString).to.equal('(visibleTo:ALL OR visibleTo:TEST_COMP_ID) AND (productTag:Content)');
 
@@ -112,7 +112,7 @@ describe('service: store:', function() {
     });
 
     it('should output a proper search string',function(done){
-      store.product.list({query: 'str'})
+      store.product.list({query: 'str',category:'Content'})
         .then(function(result){
           expect(searchString).to.equal('(visibleTo:ALL OR visibleTo:TEST_COMP_ID) AND (productTag:Content) AND str');
 
