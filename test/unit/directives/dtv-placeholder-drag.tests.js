@@ -1,0 +1,60 @@
+'use strict';
+describe('directive: placeholder-drag', function() {
+  var $compile,
+      $rootScope,
+      $document,
+      $scope,
+      placeholder,
+      element;
+
+  beforeEach(module('risevision.editorApp.services'));
+  beforeEach(module('risevision.editorApp.directives'));
+
+  beforeEach(inject(function(_$compile_, _$rootScope_,_$document_){
+    $compile = _$compile_;
+    $rootScope = _$rootScope_;
+    $document = _$document_;
+    $scope = $rootScope.$new();
+    placeholder = {
+      "width": 294,
+      "widthUnits": "px",
+      "height": 500,
+      "heightUnits": "px",
+      "left": 50,
+      "leftUnits": "px",
+      "top": 530,
+      "topUnits": "px",
+      "zIndex": 1,
+      "backgroundStyle": "rgb(222, 33, 90)"
+    };
+    $scope.placeholder = placeholder;
+    element = $compile('<div placeholder-drag></div>')($scope);
+    $scope.$digest();
+  }));
+
+  describe('drag:', function () {
+    it('should move placeholder horizontally',function(){
+      element.triggerHandler({type:'mousedown',pageX:10,pageY:10});
+      $document.triggerHandler({type:'mousemove',pageX:15,pageY:10});
+      $document.triggerHandler({type:'mouseup',pageX:15,pageY:10});
+      expect(placeholder.top).to.equal(530);
+      expect(placeholder.left).to.equal(55);  
+    });
+
+    it('should move placeholder vertically',function(){
+      element.triggerHandler({type:'mousedown',pageX:10,pageY:10});
+      $document.triggerHandler({type:'mousemove',pageX:10,pageY:20});
+      $document.triggerHandler({type:'mouseup',pageX:10,pageY:20});
+      expect(placeholder.top).to.equal(540);
+      expect(placeholder.left).to.equal(50);       
+    });
+
+    it('should move placeholder in both directions',function(){
+      element.triggerHandler({type:'mousedown',pageX:10,pageY:10});
+      $document.triggerHandler({type:'mousemove',pageX:30,pageY:30});
+      $document.triggerHandler({type:'mouseup',pageX:30,pageY:30});
+      expect(placeholder.top).to.equal(550);
+      expect(placeholder.left).to.equal(70);       
+    });
+  });
+});
