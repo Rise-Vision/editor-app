@@ -8,6 +8,7 @@ var PlaceholderPlaylistPage = function() {
   var removeItemButton = element(by.id('confirmForm')).element(by.buttonText('Remove'));
   var duplicateItemButton = element.all(by.id('duplicateButton'));
   var itemNameCells = element.all(by.css('.table-playlist-items .playlist-item-name'));
+  var itemStatusCells = element.all(by.css('.table-playlist-items .text-small'));
 
   this.getAddContentButton = function() {
     return addContentButton;
@@ -35,6 +36,10 @@ var PlaceholderPlaylistPage = function() {
   
   this.getItemNameCells = function() {
     return itemNameCells;
+  };
+
+  this.getItemStatusCells = function() {
+    return itemStatusCells;
   };
   
 };

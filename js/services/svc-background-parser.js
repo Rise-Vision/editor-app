@@ -25,7 +25,9 @@ angular.module('risevision.editorApp.services')
 
       factory.parseBackground = function (backgroundStyle,
         backgroundScaleToFit) {
-        var background = {'color':'rgba(255,255,255,1)'};
+        var background = {
+          'color': 'rgba(255,255,255,1)'
+        };
         var closingParenthesesPosition;
 
         if (backgroundStyle) {

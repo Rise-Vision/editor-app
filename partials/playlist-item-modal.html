@@ -12,6 +12,8 @@
       <input type="text" class="form-control" ng-model="item.name">
     </div>
 
+    <subscription-status item="item"></subscription-status>
+
     <p ng-show="widgetName"><strong>Content:</strong> 
       <a id="widgetName" class="link add-left" href="" ng-click="widgetModalFactory.showWidgetModal(item)">
         {{widgetName}} <i class="fa fa-cog icon-right"></i>

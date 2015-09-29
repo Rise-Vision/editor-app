@@ -3,7 +3,7 @@
 angular.module('risevision.editorApp.controllers')
   .controller('PlaylistItemModalController', ['$scope',
     'placeholderPlaylistFactory', 'widgetModalFactory', 'gadgetFactory',
-    '$modalInstance', 'placeholderFactory', 'item', 
+    '$modalInstance', 'placeholderFactory', 'item',
     function ($scope, placeholderPlaylistFactory, widgetModalFactory,
       gadgetFactory, $modalInstance, placeholderFactory, item) {
       $scope.widgetModalFactory = widgetModalFactory;

@@ -9,6 +9,7 @@ var StoreProductsModalPage = function() {
   var storeProducts = element.all(by.repeater('product in products.list'));
   var addProductButtons = element.all(by.id('addProductButton'));
   var productNameFields = element.all(by.id('productName'));
+  var statusFields = element.all(by.id('status'));
 
   this.getStoreProductsModal = function () {
     return storeProductsModal;
@@ -40,6 +41,10 @@ var StoreProductsModalPage = function() {
 
   this.getProductNameFields = function() {
     return productNameFields;
+  };
+
+  this.getStatusFields = function() {
+    return statusFields;
   };
   
   this.getAddProductButtons = function() {
