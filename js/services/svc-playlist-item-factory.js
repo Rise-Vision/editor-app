@@ -31,15 +31,15 @@ angular.module('risevision.editorApp.services')
 
       var _addPresentation = function (presentationDetails) {
 
-          var item = _newPlaylistItem();
+        var item = _newPlaylistItem();
 
-          item.type = 'presentation';
-          item.name = presentationDetails[1];
+        item.type = 'presentation';
+        item.name = presentationDetails[1];
 
-          item.objectData = presentationDetails[0];
-          editorFactory.addEmbeddedId(presentationDetails[0]);
+        item.objectData = presentationDetails[0];
+        editorFactory.addEmbeddedId(presentationDetails[0]);
 
-          factory.edit(item);
+        factory.edit(item);
 
       };
 
@@ -60,7 +60,7 @@ angular.module('risevision.editorApp.services')
           controller: 'storeProductsModal',
           resolve: {
             category: function () {
-              return 'Content'
+              return 'Content';
             }
           }
         });
@@ -76,7 +76,7 @@ angular.module('risevision.editorApp.services')
       factory.editPresentation = function (item) {
         var modalInstance = _openPresentationModal();
         modalInstance.result.then(function (presentationDetails) {
-          if(presentationDetails && presentationDetails[0] !== item.objectData) {
+          if (presentationDetails && presentationDetails[0] !== item.objectData) {
             _editPresentation(item, presentationDetails);
           }
         });
@@ -87,7 +87,7 @@ angular.module('risevision.editorApp.services')
           templateUrl: 'presentation-selector/presentation-modal.html',
           controller: 'selectPresentationModal'
         });
-      }
+      };
 
       factory.edit = function (item) {
         var modalInstance = $modal.open({

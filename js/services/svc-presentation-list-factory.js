@@ -5,7 +5,7 @@ angular.module('risevision.editorApp.services')
     function (presentation, BaseList) {
       var DB_MAX_COUNT = 40; //number of records to load at a time
       var factory = {};
-      
+
       factory.presentations = new BaseList(DB_MAX_COUNT);
 
       factory.search = {
@@ -54,7 +54,7 @@ angular.module('risevision.editorApp.services')
 
         factory.load();
       };
-      
+
       return factory;
     }
   ]);

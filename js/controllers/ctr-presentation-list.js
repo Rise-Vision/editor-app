@@ -2,12 +2,12 @@
 angular.module('risevision.editorApp.controllers')
   .controller('PresentationListController', ['$scope',
     'presentationListFactory', 'editorFactory', '$loading', '$filter',
-    function ($scope, presentationListFactory, editorFactory, $loading, 
+    function ($scope, presentationListFactory, editorFactory, $loading,
       $filter) {
       $scope.factory = presentationListFactory;
       $scope.editorFactory = editorFactory;
       $scope.search = presentationListFactory.search;
-      
+
       $scope.filterConfig = {
         placeholder: $filter('translate')(
           'schedules-app.presentation-modal.search.placeholder'),
