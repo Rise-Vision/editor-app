@@ -17,6 +17,7 @@ angular.module('risevision.editorApp', [
     'ngTouch',
     'ui.bootstrap',
     'ui.bootstrap.showErrors',
+    'risevision.editorApp.partials',
     'risevision.editorApp.config',
     'risevision.editorApp.services',
     'risevision.editorApp.controllers',
@@ -35,14 +36,14 @@ angular.module('risevision.editorApp', [
       $urlRouterProvider.otherwise('/editor/list');
 
       // Use $stateProvider to configure states.
-      $stateProvider
-
-        .state('editor', {
+      $stateProvider.state('editor', {
         template: '<div ui-view></div>'
       })
 
       .state('editor.root', {
-        templateUrl: 'partials/landing-page.html',
+        templateProvider: ['$templateCache', function ($templateCache) {
+          return $templateCache.get('partials/landing-page.html');
+        }],
         url: '/',
         controller: ['canAccessEditor', '$state',
 
@@ -56,7 +57,9 @@ angular.module('risevision.editorApp', [
 
       .state('editor.list', {
         url: '/editor/list',
-        templateUrl: 'partials/presentation-list.html',
+        templateProvider: ['$templateCache', function ($templateCache) {
+          return $templateCache.get('partials/presentation-list.html');
+        }],
         controller: 'PresentationListController',
         resolve: {
           canAccess: ['canAccessEditor',
@@ -70,7 +73,9 @@ angular.module('risevision.editorApp', [
       .state('editor.workspace', {
         url: '/editor/workspace/:presentationId/:copyPresentation',
         abstract: true,
-        templateUrl: 'partials/workspace.html',
+        templateProvider: ['$templateCache', function ($templateCache) {
+          return $templateCache.get('partials/workspace.html');
+        }],
         controller: 'WorkspaceController',
         resolve: {
           presentationInfo: ['canAccessEditor', 'editorFactory',
@@ -96,7 +101,9 @@ angular.module('risevision.editorApp', [
 
       .state('editor.workspace.artboard', {
         url: '',
-        templateUrl: 'partials/artboard.html',
+        templateProvider: ['$templateCache', function ($templateCache) {
+          return $templateCache.get('partials/artboard.html');
+        }],
         controller: 'ArtboardController',
         resolve: {
           canAccess: ['canAccessEditor',
@@ -109,7 +116,9 @@ angular.module('risevision.editorApp', [
 
       .state('editor.workspace.htmleditor', {
         url: '',
-        templateUrl: 'partials/html-editor.html',
+        templateProvider: ['$templateCache', function ($templateCache) {
+          return $templateCache.get('partials/html-editor.html');
+        }],
         controller: 'HtmlEditorController',
         resolve: {
           canAccess: ['canAccessEditor',

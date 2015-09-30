@@ -281,20 +281,20 @@ angular.module('risevision.editorApp.services')
         if (!productDetails || !productDetails.rvaEntityId) {
           return;
         }
-        
+
         //load template
         factory.getPresentation(productDetails.rvaEntityId)
-          .then(factory.copyPresentation);        
+          .then(factory.copyPresentation);
       };
 
-      factory.addFromTemplate = function() {
+      factory.addFromTemplate = function () {
         var modalInstance = $modal.open({
           templateUrl: 'partials/store-products-modal.html',
           size: 'lg',
           controller: 'storeProductsModal',
           resolve: {
             category: function () {
-              return 'Templates'
+              return 'Templates';
             }
           }
         });
@@ -316,20 +316,21 @@ angular.module('risevision.editorApp.services')
           e.result.error.toString();
       };
 
-      factory.addEmbeddedId =  function (presentationId) {
+      factory.addEmbeddedId = function (presentationId) {
         if (factory.presentation.embeddedIds === undefined) {
           factory.presentation.embeddedIds = [];
         }
         if (factory.presentation.embeddedIds.indexOf(presentationId) === -1) {
-          factory.presentation.embeddedIds.push(presentationId)
+          factory.presentation.embeddedIds.push(presentationId);
         }
       };
 
-      factory.removeEmbeddedId =  function (presentationId) {
+      factory.removeEmbeddedId = function (presentationId) {
         if (factory.presentation.embeddedIds !== undefined) {
-          var index = factory.presentation.embeddedIds.indexOf(presentationId);
+          var index = factory.presentation.embeddedIds.indexOf(
+            presentationId);
           if (index > -1) {
-            factory.presentation.embeddedIds.splice(index,1);
+            factory.presentation.embeddedIds.splice(index, 1);
           }
         }
       };

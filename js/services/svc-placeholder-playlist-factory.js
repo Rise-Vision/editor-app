@@ -28,7 +28,7 @@ angular.module('risevision.editorApp.services')
       factory.removeItem = function (item) {
         var index = _getItemIndex(item);
         if (index !== -1) {
-          if (item.type === 'presentation'){
+          if (item.type === 'presentation') {
             editorFactory.removeEmbeddedId(item.objectData);
           }
           factory.getItems().splice(index, 1);
