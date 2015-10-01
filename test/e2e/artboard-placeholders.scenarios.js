@@ -56,6 +56,41 @@ describe('Select placeholders in artboard: ', function() {
           done();
         });           
       });
+
+      it('should move placeholder',function(){
+        artboardPage.getPlaceholderContainer().getLocation().then(function (initialLocation) {
+          artboardPage.getPlaceholderContainer().getSize().then(function (size) {
+            browser.actions().mouseMove(artboardPage.getPlaceholderContainer(), {x: size.width-100, y: size.height-100})
+              .mouseDown()
+              .mouseMove(artboardPage.getPlaceholderContainer(), {x: size.width-50, y: size.height-50})
+              .mouseUp()
+              .perform();            
+            expect(artboardPage.getPlaceholderContainer().getLocation()).to.eventually.include({x:initialLocation.x+50,y:initialLocation.y+50});
+          });
+        });        
+      });
+
+      it('should resize placeholder',function(){
+        artboardPage.getPlaceholderContainer().getSize().then(function (initialSize) {
+          browser.actions().mouseMove(artboardPage.getPlaceholderContainer(), {x: initialSize.width, y: initialSize.height/2})
+            .mouseDown()
+            .mouseMove(artboardPage.getPlaceholderContainer(), {x: initialSize.width-50, y: initialSize.height/2})
+            .mouseUp()
+            .perform();            
+          expect(artboardPage.getPlaceholderContainer().getSize()).to.eventually.include({width:initialSize.width-50,height: initialSize.height});
+        });
+      });
+
+      it('should resize placeholder from the corner',function(){
+        artboardPage.getPlaceholderContainer().getSize().then(function (initialSize) {
+          browser.actions().mouseMove(artboardPage.getPlaceholderContainer(), {x: initialSize.width, y: initialSize.height})
+            .mouseDown()
+            .mouseMove(artboardPage.getPlaceholderContainer(), {x: initialSize.width+20, y: initialSize.height+20})
+            .mouseUp()
+            .perform();            
+          expect(artboardPage.getPlaceholderContainer().getSize()).to.eventually.include({width:initialSize.width+20,height: initialSize.height+20});
+        });
+      });
     });
 
     describe('sidebar:',function(){

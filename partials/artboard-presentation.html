@@ -1,8 +1,6 @@
 <div>
-  <artboard-placeholder ng-repeat="placeholder in presentation.placeholders" placeholder="placeholder" 
-	  ng-click="placeholderFactory.setPlaceholder(placeholder)">
+  <artboard-placeholder ng-repeat="placeholder in presentation.placeholders" placeholder="placeholder" placeholder-drag placeholder-resize
+	  ng-mouseDown="placeholderFactory.setPlaceholder(placeholder)">
 	  <span class="ph-name">{{placeholder.id}}</span>
   </artboard-placeholder>
-
-  <div class="ph-overlay active" ng-if="placeholderFactory.placeholder" ng-click="placeholderFactory.clearPlaceholder()"></div>
 </div>
