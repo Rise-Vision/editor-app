@@ -16,7 +16,7 @@ angular.module('risevision.editorApp.controllers')
 
       $scope.filterConfig = {
         placeholder: $filter('translate')(
-          'schedules-app.presentation-modal.search.placeholder'),
+          'editor-app.list.filter.placeholder'),
         id: 'presentationSearchInput'
       };
 

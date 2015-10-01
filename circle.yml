@@ -9,6 +9,7 @@ dependencies:
     - rm google-chrome-stable.deb
   override:
     - npm install
+    - bower cache clean
     - bower install
 test:
   override:

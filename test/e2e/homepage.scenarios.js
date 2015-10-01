@@ -5,7 +5,7 @@ var CommonHeaderPage = require('rv-common-e2e').commonHeaderPage;
 var helper = require('rv-common-e2e').helper;
 var GoogleAuthPage = require('rv-common-e2e').googleAuthPage;
 
-
+browser.driver.manage().window().setSize(1920, 1080);
 describe("In order to manage presentations " +
          "As a user " +
          "I would like to have access to the homepage of the editor app", function() {

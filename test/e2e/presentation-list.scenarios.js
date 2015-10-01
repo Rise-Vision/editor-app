@@ -5,7 +5,7 @@ var CommonHeaderPage = require('rv-common-e2e').commonHeaderPage;
 var PresentationListPage = require('./pages/presentationListPage.js');
 var helper = require('rv-common-e2e').helper;
 
-
+browser.driver.manage().window().setSize(1920, 1080);
 describe("In order to manage presentations " +
   "As a user signed in " +
   "I would like to see a list of my presentations", function() {

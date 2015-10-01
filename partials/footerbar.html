@@ -12,15 +12,15 @@
       <last-revised revision-status-name="factory.presentation.revisionStatusName" change-date="factory.presentation.changeDate" changed-by="factory.presentation.changedBy"></last-revised>
     </span>
 
-    <button id="restoreButton" require-role="cp" class="btn btn-default" ng-show="factory.isRevised()" ng-click="factory.restorePresentation()">Restore</button>
+    <button id="restoreButton" require-role="cp" class="btn btn-default" ng-show="factory.isRevised()" ng-click="factory.restorePresentation()" >{{'common.restore' | translate}}</button>
 
     <!-- Indicates a successful or positive action -->
     <button id="saveButton" require-role="ce cp" type="submit" class="btn btn-primary btn-fixed-width" ng-click="factory.save()">
-      {{ factory.savingSchedule ? ('common.saving' | translate) : ('common.save' | translate)}} 
+      {{ factory.savingPresentation ? ('common.saving' | translate) : ('common.save' | translate)}}
       <i class="fa fa-check icon-right"></i>
     </button>
 
-    <button id="publishButton" require-role="cp" class="btn btn-primary" ng-show="factory.isRevised()" ng-click="factory.publishPresentation()">Publish</button>
+    <button id="publishButton" require-role="cp" class="btn btn-primary" ng-show="factory.isRevised()" ng-click="factory.publishPresentation()" >{{'common.publish' | translate}}</button>
 
     <!-- Indicates cancel or non-destructive action -->
     <button id="cancelButton" ui-sref="editor.list" class="btn btn-default btn-fixed-width">

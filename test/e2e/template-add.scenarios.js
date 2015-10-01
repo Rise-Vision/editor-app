@@ -8,7 +8,7 @@ var helper = require('rv-common-e2e').helper;
 var PresentationPropertiesModalPage = require('./pages/presentationPropertiesModalPage.js');
 var StoreProductsModalPage = require('./pages/storeProductsModalPage.js');
 
-
+browser.driver.manage().window().setSize(1920, 1080);
 describe("In order to manage presentations " +
   "As a user signed in " +
   "I would like to add presentations", function() {

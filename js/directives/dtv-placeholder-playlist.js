@@ -22,14 +22,13 @@ angular.module('risevision.editorApp.directives')
               windowClass: 'modal-custom',
               resolve: {
                 confirmationTitle: function () {
-                  return 'Remove Item';
+                  return 'editor-app.details.removePlaylistItem';
                 },
                 confirmationMessage: function () {
-                  return 'Are you sure you want to remove ' +
-                    'this Content from the Playlist?';
+                  return 'editor-app.details.removePlaylistItemWarning';
                 },
                 confirmationButton: function () {
-                  return 'Remove';
+                  return 'editor-app.details.remove';
                 },
                 cancelButton: null
               }

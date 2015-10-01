@@ -3,44 +3,46 @@
     <button type="button" class="close" ng-click="dismiss()">
       <i class="fa fa-times"></i>
     </button>
-    <h3 class="modal-title">Edit Playlist Item</h3>
+    <h3 class="modal-title" translate>editor-app.playlistItem.title</h3>
   </div>
   <div class="modal-body">
     <form role="form" name="presentationItemDetails" novalidate>
     <div class="form-group">
-      <label class="control-label">Name</label>
+      <label class="control-label" translate>editor-app.playlistItem.name</label>
       <input type="text" class="form-control" ng-model="item.name">
     </div>
 
     <subscription-status item="item"></subscription-status>
 
-    <p ng-show="widgetName"><strong>Content:</strong> 
+    <p ng-show="widgetName"><strong>{{'editor-app.playlistItem.content' | translate}}:</strong>
       <a id="widgetName" class="link add-left" href="" ng-click="widgetModalFactory.showWidgetModal(item)">
         {{widgetName}} <i class="fa fa-cog icon-right"></i>
       </a>
     </p>
-    <label ng-show="presentationType" class="control-label add-right" translate="">Presentation:</label>
-    <div class="input-group">
-        <input type="text" class="form-control" name="presentationId" id="presentationId" ng-model="item.objectData" required />
-        <a id="selectPresentation" class="link input-group-addon" href="" ng-click="playlistItemFactory.editPresentation(item)">Select</a>
+    <div ng-show="presentationType">
+      <label class="control-label add-right">{{'editor-app.playlistItem.presentation' | translate}}:</label>
+      <div class="input-group">
+          <input type="text" class="form-control" name="presentationId" id="presentationId" ng-model="item.objectData" required />
+          <a id="selectPresentation" class="link input-group-addon" href="" ng-click="playlistItemFactory.editPresentation(item)" >{{'editor-app.playlistItem.select' |translate}}</a>
+      </div>
+      <p class="text-danger" ng-show="!presentationItemDetails.presentationId.$pristine && presentationItemDetails.presentationId.$error.required" translate>
+        editor-app.playlistItem.required
+      </p>
     </div>
-    <p class="text-danger" ng-show="!presentationItemDetails.presentationId.$pristine && presentationItemDetails.presentationId.$error.required">
-      Required
-    </p>
     <hr>
 
     <div class="form-group half-top">
 
-      <label class="control-label add-right" translate="">Duration</label>
+      <label class="control-label add-right" translate>editor-app.playlistItem.duration</label>
       <label class="control-label control-label-secondary add-left">
         <input type="checkbox" ng-model="item.playUntilDone" /> 
-        <span>Play Until Done</span>
+        <span translate>editor-app.playlistItem.playUntilDone</span>
       </label>
       <div class="row" ng-if="!item.playUntilDone">
         <div class="col-sm-3">
           <div class="input-group">
             <input type="number" class="form-control" id="itemDuration" ng-model="item.duration" />
-            <span class="input-group-addon">seconds</span>
+            <span class="input-group-addon" translate>editor-app.playlistItem.seconds</span>
           </div>       
         </div>
       </div><!--row-->
@@ -71,7 +73,7 @@
 
   <div class="modal-footer">
 
-    <button id="playlistItemSave" class="btn btn-primary" ng-click="save()" ng-disabled="presentationItemDetails.$invalid">Apply <i class="fa fa-check icon-right"></i></button>
-    <button class="btn btn-default" ng-click="dismiss()">Cancel <i class="fa fa-times icon-right"></i></button>
+    <button id="playlistItemSave" class="btn btn-primary" ng-click="save()" ng-disabled="presentationItemDetails.$invalid">{{'common.apply' | translate}} <i class="fa fa-check icon-right"></i></button>
+    <button class="btn btn-default" ng-click="dismiss()">{{'common.cancel' | translate}} <i class="fa fa-times icon-right"></i></button>
   </div>  
 </div>

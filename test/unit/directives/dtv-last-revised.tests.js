@@ -2,6 +2,26 @@
 describe('directive: last revised', function() {
   beforeEach(module('risevision.editorApp.directives'));
 
+  beforeEach(module(function ($provide) {
+    $provide.service('translateFilter', function(){
+      return function(key){
+        var status = '';
+        switch (key) {
+          case 'editor-app.details.published':
+            status = 'Published';
+            break;
+          case 'editor-app.details.revised':
+            status = 'Revised';
+            break;
+          case 'editor-app.details.saved':
+            status = 'Saved';
+            break;
+        }
+        return status;
+      };
+    });
+  }));
+
   var elm, $scope, $compile;
 
   beforeEach(inject(function($rootScope, _$compile_, $templateCache) {

@@ -24,14 +24,13 @@ angular.module('risevision.editorApp.directives')
                 windowClass: 'modal-custom',
                 resolve: {
                   confirmationTitle: function () {
-                    return 'Remove Placeholder';
+                    return 'editor-app.details.removePlaceholder';
                   },
                   confirmationMessage: function () {
-                    return 'Are you sure you want to remove ' +
-                      'this Placeholder from the Presentation?';
+                    return 'editor-app.details.removePlaceholderWarning';
                   },
                   confirmationButton: function () {
-                    return 'Remove';
+                    return 'editor-app.details.remove';
                   },
                   cancelButton: null
                 }

@@ -2,8 +2,8 @@
   <div class="row sm-gutter">
     <div class="col-sm-12 col-md-7">
       <div ng-init="designMode = true" class="btn-group btn-inverse pull-right">
-        <button id="designButton" ui-sref="editor.workspace.artboard" class="btn btn-inverse" ng-class="{'active' : designMode}" ng-disabled="designMode" ng-click="designMode = true" >Design</button>
-        <button id="htmlButton" ui-sref="editor.workspace.htmleditor" class="btn btn-inverse" ng-class="{'active' : !designMode}" ng-disabled="!designMode" ng-click="designMode = false">HTML</button>
+        <button id="designButton" ui-sref="editor.workspace.artboard" class="btn btn-inverse" ng-class="{'active' : designMode}" ng-disabled="designMode" ng-click="designMode = true"  >{{'editor-app.workspace.toolbar.mode.design' | translate}}</button>
+        <button id="htmlButton" ui-sref="editor.workspace.htmleditor" class="btn btn-inverse" ng-class="{'active' : !designMode}" ng-disabled="!designMode" ng-click="designMode = false" >{{'editor-app.workspace.toolbar.mode.html' | translate}}</button>
       </div><!--btn-group-->
       <button id="compressArtboardButton" class="btn btn-inverse animated pulse ng-hide" ng-click="fullArtboard = false" ng-show="designMode && fullArtboard && !placeholderFactory.placeholder"><i class="fa fa-compress"></i></button>
       <button id="expandArtboardButton" class="btn btn-inverse" ng-show="designMode && (!fullArtboard || placeholderFactory.placeholder)" ng-click="fullArtboard = true; placeholderFactory.clearPlaceholder()"><i class="fa fa-expand"></i></button>
@@ -13,8 +13,8 @@
     
     <div class="col-sm-12 col-md-5 text-right">
       <div class="main-actions">
-        <button id="addPlaceholderButton" class="btn btn-primary" ng-show="designMode" ng-click="addNewPlaceholder()">Add Placeholder <i class="fa fa-plus icon-right"></i></button>
-        <a class="btn btn-default" id="previewButton" target="_blank" ng-href="{{previewUrl}}" ng-disabled="!previewUrl">{{'schedules-app.actions.preview' | translate}} <i class="fa fa-play icon-right"></i></a>
+        <button id="addPlaceholderButton" class="btn btn-primary" ng-show="designMode" ng-click="addNewPlaceholder()">{{'editor-app.workspace.toolbar.addPlaceholder' | translate}}<i class="fa fa-plus icon-right"></i></button>
+        <a class="btn btn-default" id="previewButton" target="_blank" ng-href="{{previewUrl}}" ng-disabled="!previewUrl">{{'editor-app.workspace.toolbar.preview' | translate}} <i class="fa fa-play icon-right"></i></a>
       </div>
     </div><!--col-sm-4-->
   </div>
