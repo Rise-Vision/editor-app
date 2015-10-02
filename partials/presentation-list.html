@@ -58,17 +58,17 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="clickable-row" ng-repeat="presentation in factory.presentations.list" ui-sref="editor.workspace.artboard({presentationId: presentation.id})">
+          <tr class="clickable-row" ng-repeat="presentation in factory.items.list" ui-sref="editor.workspace.artboard({presentationId: presentation.id})">
             <td class="col-sm-9"><strong>{{presentation.name}}</strong></td>
             <td class="col-sm-9 hidden-xs"><strong ng-class="{'text-danger': presentation.revisionStatusName==='Revised'}">{{presentation.revisionStatusName | presentationStatus}}</strong></td>
             <td class="col-sm-2 hidden-xs text-right nowrap" >{{presentation.changeDate | date:'d-MMM-yyyy h:mm a'}}</td>
           </tr>
           <!-- If no presentation available -->
-          <tr ng-show="factory.presentations.list.length === 0 && !search.query">
+          <tr ng-show="factory.items.list.length === 0 && !search.query">
             <td colspan="3" class="text-center"><span translate>You haven't created any Presentation yet</span></td>
           </tr>
           <!-- If no search results -->
-          <tr ng-show="factory.presentations.list.length === 0 && search.query">
+          <tr ng-show="factory.items.list.length === 0 && search.query">
             <td colspan="3" class="text-center"><span translate>Your search didn't return any results</span></td>
           </tr>
 
