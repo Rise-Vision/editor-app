@@ -154,6 +154,22 @@ describe('service: HtmlParser ', function() {
       
       expect(obj).to.deep.equal({id:'ph1',duration:10});
     });
+
+    it('should default to value if null', function() {
+      var obj = {id:'ph1',duration:null};
+      
+      htmlParser.parseIntProperty(obj, 'duration', 10);
+      
+      expect(obj).to.deep.equal({id:'ph1',duration: 10});
+    });
+    
+    it('should default to 0 if null', function() {
+      var obj = {id:'ph1',duration:null};
+      
+      htmlParser.parseIntProperty(obj, 'duration');
+      
+      expect(obj).to.deep.equal({id:'ph1',duration: 0});
+    });
     
     it('should not parse if un-defined', function() {
       var obj = {id:'ph1',duration:'10'};

@@ -182,9 +182,11 @@ angular.module('risevision.editorApp.services')
         return !result || isNaN(result) ? 0 : result;
       };
 
-      factory.parseIntProperty = function (object, property) {
+      factory.parseIntProperty = function (object, property, defaultValue) {
         if (object.hasOwnProperty(property)) {
-          object[property] = factory.getIntValue(object[property]);
+          object[property] = object[property] ? 
+            factory.getIntValue(object[property]) : 
+            (defaultValue ? defaultValue : 0);
         }
       };
 
