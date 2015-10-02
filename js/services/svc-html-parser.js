@@ -159,6 +159,9 @@ angular.module('risevision.editorApp.services')
       };
 
       factory.getFloatValue = function (token) {
+        if (typeof token == 'number') {
+          return token;
+        }
         var result = -1;
         var resultString = _getNumber(token);
 
@@ -168,6 +171,9 @@ angular.module('risevision.editorApp.services')
       };
 
       factory.getIntValue = function (token) {
+        if (typeof token == 'number') {
+          return token;
+        }
         var result = -1;
         var resultString = _getNumber(token);
 
