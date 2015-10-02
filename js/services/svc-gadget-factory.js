@@ -2,8 +2,8 @@
 
 angular.module('risevision.editorApp.services')
   .factory('gadgetFactory', ['$q', 'gadget', 'BaseList',
-    'subscriptionStatusFactory',
-    function ($q, gadget, BaseList, subscriptionStatusFactory) {
+    'subscriptionStatusFactory', '$filter',
+    function ($q, gadget, BaseList, subscriptionStatusFactory, $filter) {
       var factory = {};
 
       var _gadgets = [];
@@ -190,14 +190,14 @@ angular.module('risevision.editorApp.services')
       var _getMessage = function (gadget) {
         var statusMessage = gadget.subscriptionStatus;
         if (gadget.subscriptionStatus === 'Not Subscribed') {
-          statusMessage = 'Premium';
+          statusMessage = $filter('translate')('editor-app.subscription.status.premium');
           if (gadget.trialPeriod > 0) {
-            statusMessage = 'Premium - ' + gadget.trialPeriod +
-              ' Days Trial';
+            statusMessage = $filter('translate')('editor-app.subscription.status.premium')+' - ' + gadget.trialPeriod +
+              ' '+ $filter('translate')('editor-app.subscription.status.daysTrial');
           }
         } else if (gadget.subscriptionStatus === 'On Trial') {
           statusMessage = statusMessage + ' - ' + _getRemainingDays(new Date(
-            gadget.expiry)) + ' Days Remaining';
+            gadget.expiry)) + ' ' + $filter('translate')('editor-app.subscription.status.daysRemaining');
         }
         return statusMessage;
       };

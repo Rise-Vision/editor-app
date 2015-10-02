@@ -3,12 +3,12 @@
     <div class="ph-properties">
       <a href="" class="btn btn-default pull-left add-right" ng-click="factory.clearPlaceholder()">
         <i class="fa fa-angle-left icon-left"></i>
-        Back
+        {{'common.back' | translate}}
       </a>
-      <h4>Edit Placeholder</h4>
+      <h4 translate>editor-app.workspace.sidebar.edit.title</h4>
       <div class="btn-group btn-group-justified half-bottom" role="group" aria-label="...">
-        <a href="" class="btn btn-default active" ng-class="{'active' : !showPlaylist}" ng-click="showPlaylist=false">Properties</a>
-        <a id="editPlaylistButton" href="" class="btn btn-default" ng-class="{'active' : showPlaylist}" ng-click="showPlaylist=true">Playlist</a>
+        <a href="" class="btn btn-default active" ng-class="{'active' : !showPlaylist}" ng-click="showPlaylist=false" >{{'editor-app.workspace.sidebar.edit.properties' |translate}}</a>
+        <a id="editPlaylistButton" href="" class="btn btn-default" ng-class="{'active' : showPlaylist}" ng-click="showPlaylist=true" >{{'editor-app.workspace.sidebar.edit.playlist' | translate}}</a>
       </div>
 
       <div class="ph-playlist animated fadeIn" ng-show="factory.placeholder && showPlaylist">
@@ -22,7 +22,7 @@
     </div>
 
     <div class="ph-list">
-      <h4>Placeholders</h4>
+      <h4 translate>editor-app.workspace.sidebar.title</h4>
       <placeholders-list></placeholders-list>
     </div>
 

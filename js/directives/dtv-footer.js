@@ -18,11 +18,10 @@ angular.module('risevision.editorApp.directives')
               windowClass: 'modal-custom',
               resolve: {
                 confirmationTitle: function () {
-                  return 'Deleting Presentation';
+                  return 'editor-app.details.deleteTitle';
                 },
                 confirmationMessage: function () {
-                  return 'Are you sure you want to delete ' +
-                    'this Presentation?';
+                  return 'editor-app.details.deleteWarning';
                 },
                 confirmationButton: function () {
                   return 'common.delete-forever';

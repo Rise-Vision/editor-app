@@ -2,12 +2,12 @@
   <div class="content-box-body">
   <form role="form" name="placeholderFields" novalidate>
     <div class="form-group">
-      <label class="control-label">Name</label>
+      <label class="control-label" translate>editor-app.properties.labels.name</label>
       <div class="input-group checkbox-addon">
         <input type="text" class="form-control" placeholder="Placeholder Name" ng-model="placeholder.id">
         <span class="input-group-addon">
           <label class="control-label">
-            <input type="checkbox" ng-model="placeholder.visibility"> Visible
+            <input type="checkbox" ng-model="placeholder.visibility">{{'editor-app.workspace.sidebar.edit.settings.visible' | translate}}
           </label>
         </span>
       </div>
@@ -17,12 +17,12 @@
 
       <div class="row sm-gutter">
         <div class="col-sm-6">  <div class="input-group">
-          <label class="control-label input-group-addon">Width</label>
+          <label class="control-label input-group-addon" translate>editor-app.workspace.sidebar.edit.settings.width</label>
           <input class="form-control" type="number" ng-model="placeholder.width">
           <span class="input-group-addon">{{placeholder.widthUnits}}</span>
         </div></div>
         <div class="col-sm-6"><div class="input-group">
-          <label class="control-label input-group-addon">Top(X)</label>
+          <label class="control-label input-group-addon">{{'editor-app.workspace.sidebar.edit.settings.top' | translate}}(Y)</label>
           <input class="form-control" type="number" ng-model="placeholder.top">
           <span class="input-group-addon">{{placeholder.topUnits}}</span>
         </div></div>
@@ -30,12 +30,12 @@
 
       <div class="row sm-gutter half-top">
         <div class="col-sm-6">  <div class="input-group">
-          <label class="control-label input-group-addon">Height</label>
+          <label class="control-label input-group-addon" translate>editor-app.workspace.sidebar.edit.settings.height</label>
           <input class="form-control" type="number" ng-model="placeholder.height">
           <span class="input-group-addon">{{placeholder.heightUnits}}</span>
         </div></div>
         <div class="col-sm-6"><div class="input-group">
-          <label class="control-label input-group-addon">Left(Y)</label>
+          <label class="control-label input-group-addon">{{'editor-app.workspace.sidebar.edit.settings.left' | translate}}(X)</label>
           <input class="form-control" type="number" ng-model="placeholder.left">
           <span class="input-group-addon">{{placeholder.leftUnits}}</span>
         </div></div>
@@ -45,7 +45,7 @@
 
 
     <div class="form-group">
-      <label class="control-label add-right">Z Order</label>
+      <label class="control-label add-right" translate>editor-app.workspace.sidebar.edit.settings.zOrder</label>
       <div class="row sm-gutter">
         <div class="col-sm-6">
           <input type="number" class="form-control" ng-model="placeholder.zIndex">
@@ -58,7 +58,7 @@
     </div><!--form-group-->
 
   <div class="form-group">
-    <label>Background</label>
+    <label translate>editor-app.properties.labels.background</label>
     <background-image-setting id="placeholderBackgroundSettings" background="background" company-id="{{companyId}}" color-parent-container-class="'background-color-picker'" color-container-class="'background-color-picker-input'" position-parent-container-class="'background-image-position'" position-container-class="'background-image-position-input'"></background-image-setting>
   </div>
 

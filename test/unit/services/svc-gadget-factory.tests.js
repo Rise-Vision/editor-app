@@ -48,6 +48,24 @@ describe('service: gadgetFactory: ', function() {
         }
       }
     });
+
+    $provide.service('translateFilter', function(){
+      return function(key){
+        var status = '';
+        switch (key) {
+          case 'editor-app.subscription.status.premium':
+            status = 'Premium';
+            break;
+          case 'editor-app.subscription.status.daysTrial':
+            status = 'Days Trial';
+            break;
+          case 'editor-app.subscription.status.daysRemaining':
+            status = 'Days Remaining';
+            break;
+        }
+        return status;
+      };
+    });
   }));
   var gadgetFactory, returnGadget, apiCalls, statusError,statusResponse;
   beforeEach(function(){

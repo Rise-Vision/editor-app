@@ -1,9 +1,9 @@
-<div class="" dropdown>
-  <button id="addPlaylistItemButton" dropdown-toggle class="dropdown-toggle btn btn-primary btn-block" >Add Playlist Item <i class="fa fa-plus icon-right"></i></button>
+<div dropdown>
+  <button id="addPlaylistItemButton" dropdown-toggle class="dropdown-toggle btn btn-primary btn-block" >{{'editor-app.playlistItem.add' | translate}}  <i class="fa fa-plus icon-right"></i></button>
   <ul class="dropdown-menu playlist-menu" role="menu">
     <li>
       <a class="clickable" id="addContentButton" ng-click="playlistItemFactory.addContent()">
-      <span translate>Content</span>
+      <span translate>editor-app.playlistItem.content</span>
       </a>
     </li>
     <li>
@@ -42,7 +42,7 @@
       </tbody>
     </table>
     <div class="content-box-body" ng-hide="factory.getItems().length">
-      <p class="text-center text-muted">No Playlist Items</p>
+      <p class="text-center text-muted" translate>editor-app.playlistItem.no-playlistItem</p>
     </div>
   </div>
   

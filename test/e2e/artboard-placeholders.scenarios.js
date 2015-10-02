@@ -9,6 +9,7 @@ var PlaceholdersListPage = require('./pages/placeholdersListPage.js');
 var PresentationPropertiesModalPage = require('./pages/presentationPropertiesModalPage.js');
 var helper = require('rv-common-e2e').helper;
 
+browser.driver.manage().window().setSize(1920, 1080);
 describe('Select placeholders in artboard: ', function() {
   var homepage;
   var commonHeaderPage;
