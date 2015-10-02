@@ -140,7 +140,7 @@ angular.module('risevision.editorApp.services')
                 'recurrenceAbsolute');
               htmlParser.parseBooleanProperty(items[j], 'timeDefined');
 
-              htmlParser.parseIntProperty(items[j], 'duration');
+              htmlParser.parseIntProperty(items[j], 'duration', 10);
               htmlParser.parseIntProperty(items[j], 'index');
 
               htmlParser.parseIntProperty(items[j], 'recurrenceDayOfMonth');
