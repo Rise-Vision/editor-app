@@ -25,9 +25,7 @@ angular.module('risevision.editorApp.services')
 
       factory.parseBackground = function (backgroundStyle,
         backgroundScaleToFit) {
-        var background = {
-          'color': 'rgba(255,255,255,1)'
-        };
+        var background = {};
         var closingParenthesesPosition;
 
         if (backgroundStyle) {
@@ -66,18 +64,18 @@ angular.module('risevision.editorApp.services')
 
         }
 
-        return background;
+        return Object.keys(background).length? background : undefined;
       };
 
       factory.getStyle = function (background) {
 
         var backgroundStyle = '';
 
-        if (background.color) {
+        if (background && background.color) {
           backgroundStyle = background.color;
         }
 
-        if (background.useImage) {
+        if (background && background.useImage) {
           backgroundStyle += backgroundStyle ? ' ' : '';
           backgroundStyle += 'url(\'' + background.image.url +
             '\') no-repeat';
@@ -99,7 +97,7 @@ angular.module('risevision.editorApp.services')
 
         var backgroundScaleToFit = false;
 
-        if (background.useImage && background.image.scale) {
+        if (background && background.useImage && background.image.scale) {
           backgroundScaleToFit = true;
         }
 
