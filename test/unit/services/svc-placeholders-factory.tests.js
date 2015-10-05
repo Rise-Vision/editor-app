@@ -101,6 +101,7 @@ describe('service: placeholdersFactory:', function() {
     expect(placeholders[3].widthUnits).to.equal('px');
     
     expect(placeholders[3].id).to.equal('newId');
+    expect(placeholders[3].type).to.equal('playlist');
   });
 
   describe('removePlaceholder: ',function(){
