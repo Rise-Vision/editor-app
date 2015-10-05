@@ -22,7 +22,8 @@ angular.module('risevision.editorApp.services')
           topUnits: 'px',
           left: 0,
           leftUnits: 'px',
-          visibility: true
+          visibility: true,
+          timeDefined: false
         };
       };
 
