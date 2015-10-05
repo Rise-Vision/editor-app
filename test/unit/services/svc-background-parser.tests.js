@@ -20,8 +20,8 @@ describe('service: backgroundParser:', function() {
   });
   
   describe('parseBackground: ', function() {
-    it('should parse new background properties', function() {
-      expect(backgroundParser.parseBackground()).to.deep.equal({color: 'rgba(255,255,255,1)'});
+    it('should return undefined for empty background properties', function() {
+      expect(backgroundParser.parseBackground()).to.deep.equal(undefined);
     });
 
     it('should parse color background', function() {
@@ -29,7 +29,7 @@ describe('service: backgroundParser:', function() {
     });
 
     it('should parse background with image background and scale to fit true', function() {
-      var background = {color: 'rgba(255,255,255,1)', 'useImage':true,'image':{'url':'/images/bg.jpg','position':'top-left','scale':true}};
+      var background = {'useImage':true,'image':{'url':'/images/bg.jpg','position':'top-left','scale':true}};
 
       expect(backgroundParser.parseBackground('url(\'/images/bg.jpg\') no-repeat left top', true)).to.deep.equal(background);
     });
@@ -43,7 +43,7 @@ describe('service: backgroundParser:', function() {
     });
 
     it('should parse image background and without position', function() {
-      var background = {color: 'rgba(255,255,255,1)','useImage':true,'image':{'url':'/images/bg.jpg','scale':true}};
+      var background = {'useImage':true,'image':{'url':'/images/bg.jpg','scale':true}};
 
       expect(backgroundParser.parseBackground('url(\'/images/bg.jpg\') no-repeat', true)).to.deep.equal(background);
     });
