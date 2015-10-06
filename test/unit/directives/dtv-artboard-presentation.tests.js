@@ -38,11 +38,11 @@ describe('directive: artboard-presentation', function() {
   });
 
   describe('presentation:', function () {
-    it('should watch presentation',function(){
+    it('should watch editorFactory presentation',function(){
       var scopeWatchSpy = sinon.spy($scope, '$watch');
       var element = $compile("<artboard-presentation></artboard-presentation>")($scope);
       $scope.$digest();
-      scopeWatchSpy.should.have.been.calledWith('presentation');
+      scopeWatchSpy.should.have.been.calledWith('editorFactory.presentation');
     });
 
     it('should add class',function(){

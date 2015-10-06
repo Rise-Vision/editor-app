@@ -20,11 +20,11 @@ angular.module('risevision.editorApp.services')
   .factory('editorFactory', ['$q', '$state', 'userState', 'presentation',
     'presentationParser', 'distributionParser', 'presentationTracker',
     'VIEWER_URL', 'REVISION_STATUS_REVISED', 'REVISION_STATUS_PUBLISHED',
-    'DEFAULT_LAYOUT', '$modal',
+    'DEFAULT_LAYOUT', '$modal', '$rootScope',
     function ($q, $state, userState, presentation, presentationParser,
       distributionParser, presentationTracker, VIEWER_URL,
       REVISION_STATUS_REVISED, REVISION_STATUS_PUBLISHED, DEFAULT_LAYOUT,
-      $modal) {
+      $modal, $rootScope) {
       var factory = {};
 
       factory.openPresentationProperties = function () {
@@ -60,6 +60,7 @@ angular.module('risevision.editorApp.services')
 
         presentationParser.parsePresentation(factory.presentation);
         distributionParser.parseDistribution(factory.presentation);
+        $rootScope.$broadcast('presentationUpdated');
       };
 
       factory.getPresentation = function (presentationId) {
