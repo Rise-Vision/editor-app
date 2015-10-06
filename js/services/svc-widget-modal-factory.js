@@ -30,6 +30,7 @@ angular.module('risevision.editorApp.services')
         }
 
         var modalInstance = $modal.open({
+          windowTemplateUrl: 'partials/simple-modal.html',
           templateUrl: 'partials/widget-modal.html',
           controller: 'widgetModal',
           size: 'lg',
