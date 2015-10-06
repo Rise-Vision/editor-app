@@ -1,6 +1,7 @@
 <div dropdown>
   <button id="addPlaylistItemButton" dropdown-toggle class="dropdown-toggle btn btn-primary btn-block" >{{'editor-app.playlistItem.add' | translate}}  <i class="fa fa-plus icon-right"></i></button>
-  <ul class="dropdown-menu playlist-menu" role="menu">
+  <div class="dropdown-menu playlist-menu" role="menu">
+    <ul>
     <li>
       <a class="clickable" id="addContentButton" ng-click="playlistItemFactory.addContent()">
       <span translate>editor-app.playlistItem.content</span>
@@ -11,8 +12,8 @@
         <span translate>schedules-app.playlist.item.presentation</span>
       </a>
     </li>
-
-  </ul>
+    </ul>
+  </div>
 </div>
 <div class="content-box half-top">
   <div class="scrollable-list">
