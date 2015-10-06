@@ -1,3 +1,6 @@
+machine:
+  node:
+   version: 0.12.2
 general:
   artifacts:
     - dist.tar.gz
@@ -7,14 +10,13 @@ dependencies:
     - sudo dpkg -i google-chrome-stable.deb
     - sudo sed -i 's|HERE/chrome\"|HERE/chrome\" --disable-setuid-sandbox|g' /opt/google/chrome/google-chrome
     - rm google-chrome-stable.deb
-  override:
-    - npm install
+  post:
     - bower cache clean
     - bower install
 test:
   override:
     - echo $CHROME_INSTANCES
-    - NODE_ENV=test npm run test
+    - NODE_ENV=test XUNIT_FILE=$CIRCLE_TEST_REPORTS/angular-xunit.xml PROSHOT_DIR=$CIRCLE_TEST_REPORTS/screenshots npm run test
 deployment:
   staging:
     branch: /(feature|fix|chore).*/
