@@ -1,22 +1,32 @@
 'use strict';
 
 angular.module('risevision.editorApp.directives')
+  .constant('PRESENTATION_TOOLBAR_SIZE', 50)
+  .constant('PRESENTATION_BORDER_SIZE', 20)
   .directive('artboardPresentation', ['editorFactory', 'placeholderFactory',
-    function (editorFactory, placeholderFactory) {
+    'PRESENTATION_TOOLBAR_SIZE', 'PRESENTATION_BORDER_SIZE',
+    function (editorFactory, placeholderFactory, PRESENTATION_TOOLBAR_SIZE,
+      PRESENTATION_BORDER_SIZE) {
       return {
         scope: true,
         restrict: 'E',
         templateUrl: 'partials/artboard-presentation.html',
         link: function ($scope, element, attrs) {
+            var heightIncrement = PRESENTATION_TOOLBAR_SIZE + 2 *
+              PRESENTATION_BORDER_SIZE;
+            var widthIncrement = 2 * PRESENTATION_BORDER_SIZE;
+
             $scope.editorFactory = editorFactory;
             $scope.placeholderFactory = placeholderFactory;
             element.addClass('artboard-presentation');
 
             $scope.$watch('editorFactory.presentation', function () {
               $scope.presentation = editorFactory.presentation;
-              element.css('width', $scope.presentation.width + $scope.presentation
+              element.css('width', ($scope.presentation.width +
+                  widthIncrement) + $scope.presentation
                 .widthUnits);
-              element.css('height', $scope.presentation.height + $scope.presentation
+              element.css('height', ($scope.presentation.height +
+                  heightIncrement) + $scope.presentation
                 .heightUnits);
               element.css('background', $scope.presentation.backgroundStyle);
             }, true);

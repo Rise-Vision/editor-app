@@ -52,8 +52,8 @@ describe("In order to manage presentations " +
         helper.clickWhenClickable(presentationPropertiesModalPage.getApplyButton(), 'Apply Button');
 
         expect(workspacePage.getArtboardContainer().getCssValue('background')).to.eventually.equal('rgb(201, 34, 34) none repeat scroll 0% 0% / auto padding-box border-box');
-        expect(workspacePage.getArtboardContainer().getSize()).to.eventually.have.property('width',1024);
-        expect(workspacePage.getArtboardContainer().getSize()).to.eventually.have.property('height',768);
+        expect(workspacePage.getArtboardContainer().getSize()).to.eventually.have.property('width',1064);
+        expect(workspacePage.getArtboardContainer().getSize()).to.eventually.have.property('height',858);
       });
     });
   });

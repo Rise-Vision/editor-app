@@ -2,6 +2,8 @@
 describe('directive: artboard-presentation', function() {
   var $compile,
       $rootScope,
+      widthIncrement,
+      heightIncrement,
       $scope,
       presentation;
 
@@ -24,10 +26,12 @@ describe('directive: artboard-presentation', function() {
     });
   }));
 
-  beforeEach(inject(function(_$compile_, _$rootScope_, $templateCache){
+  beforeEach(inject(function(_$compile_, _$rootScope_, $templateCache, PRESENTATION_TOOLBAR_SIZE, PRESENTATION_BORDER_SIZE){
     $templateCache.put('partials/artboard-presentation.html', '<p>mock</p>');
     $compile = _$compile_;
     $rootScope = _$rootScope_;
+    heightIncrement = PRESENTATION_TOOLBAR_SIZE + 2 * PRESENTATION_BORDER_SIZE;
+    widthIncrement = 2 * PRESENTATION_BORDER_SIZE;
     $scope = $rootScope.$new();
   }));
 
@@ -54,8 +58,8 @@ describe('directive: artboard-presentation', function() {
     it('should apply presentation properties',function(){
       var element = $compile("<artboard-presentation></artboard-presentation>")($scope);
       $scope.$digest();
-      expect(element.css('width')).to.equal(presentation.width+presentation.widthUnits);
-      expect(element.css('height')).to.equal(presentation.height+presentation.heightUnits);
+      expect(element.css('width')).to.equal((presentation.width + widthIncrement)+presentation.widthUnits);
+      expect(element.css('height')).to.equal((presentation.height + heightIncrement)+presentation.heightUnits);
       expect(element.css('background')).to.equal(presentation.backgroundStyle);    
     });
 
@@ -65,8 +69,8 @@ describe('directive: artboard-presentation', function() {
       presentation.width = 100;
       presentation.height = 400;
       $scope.$apply();
-      expect(element.css('width')).to.equal(presentation.width+presentation.widthUnits);
-      expect(element.css('height')).to.equal(presentation.height+presentation.heightUnits);
+      expect(element.css('width')).to.equal((presentation.width + widthIncrement)+presentation.widthUnits);
+      expect(element.css('height')).to.equal((presentation.height+ heightIncrement)+presentation.heightUnits);
       expect(element.css('background')).to.equal(presentation.backgroundStyle);    
     });
   })
