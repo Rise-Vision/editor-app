@@ -50,6 +50,10 @@ angular.module('risevision.editorApp.services')
         }
       });
 
+      $rootScope.$on('presentationUpdated', function (event, toState) {
+        factory.clearPlaceholder();
+      });
+
       return factory;
     }
   ]);

@@ -8,11 +8,12 @@ angular.module('risevision.editorApp.directives')
         restrict: 'E',
         templateUrl: 'partials/artboard-presentation.html',
         link: function ($scope, element, attrs) {
-            $scope.presentation = editorFactory.presentation;
+            $scope.editorFactory = editorFactory;
             $scope.placeholderFactory = placeholderFactory;
             element.addClass('artboard-presentation');
 
-            $scope.$watch('presentation', function () {
+            $scope.$watch('editorFactory.presentation', function () {
+              $scope.presentation = editorFactory.presentation;
               element.css('width', $scope.presentation.width + $scope.presentation
                 .widthUnits);
               element.css('height', $scope.presentation.height + $scope.presentation
