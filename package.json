@@ -9,7 +9,7 @@
     "e2e": "npm install; bower install; E2E_ENV=prod gulp test:e2e"
   },
   "dependencies": {
-    "bower": "^1.3.3"
+    "bower": "^1.5.3"
   },
   "devDependencies": {
     "gulp": "~3.9.0",
@@ -27,7 +27,7 @@
     "gulp-ng-html2js": "^0.2.0",
     "run-sequence": "^1.1.1",
     "browser-sync": "^2.8.2",
-    "widget-tester": "git://github.com/Rise-Vision/widget-tester.git#chore/protractor-upgrade",
+    "widget-tester": "git://github.com/Rise-Vision/widget-tester.git",
     "rv-common-e2e": "git://github.com/Rise-Vision/rv-common-e2e.git"
   },
   "repository": {
