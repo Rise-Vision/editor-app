@@ -136,7 +136,7 @@ describe('service: editorFactory:', function() {
     $provide.value('VIEWER_URL', 'http://rvaviewer-test.appspot.com');
 
   }));
-  var editorFactory, trackerCalled, updatePresentation, currentState, stateParams;
+  var editorFactory, trackerCalled, updatePresentation, currentState, stateParams, presentationParser;
   beforeEach(function(){
     trackerCalled = undefined;
     currentState = undefined;
@@ -144,6 +144,7 @@ describe('service: editorFactory:', function() {
 
     inject(function($injector){
       editorFactory = $injector.get('editorFactory');
+      presentationParser = $injector.get('presentationParser');
     });
   });
 
@@ -218,6 +219,24 @@ describe('service: editorFactory:', function() {
       })
       .then(null,done);
     });
+
+    it('should flag legacy items',function(done){
+      presentationParser.hasLegacyItems = true;
+      editorFactory.getPresentation("presentationId")
+      .then(function() {
+        expect(editorFactory.presentation).to.be.truely;
+        expect(editorFactory.hasLegacyItems).to.be.true;
+
+        setTimeout(function() {
+          expect(editorFactory.loadingPresentation).to.be.false;
+          done();
+        }, 10);
+      })
+      .then(null, function() {
+        done("error");
+      })
+      .then(null,done);
+    })
   });
   
   describe('addPresentation:',function(){

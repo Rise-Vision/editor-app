@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('risevision.editorApp.directives')
-    .directive('lastRevised', [ '$filter',
+    .directive('lastRevised', ['$filter',
       function ($filter) {
         return {
           restrict: 'E',
@@ -15,11 +15,14 @@
           link: function ($scope) {
               $scope.$watch('revisionStatusName', function (newVal) {
                 if (newVal === 'Published') {
-                  $scope.status = $filter('translate')('editor-app.details.published');
+                  $scope.status = $filter('translate')(
+                    'editor-app.details.published');
                 } else if (newVal === 'Revised') {
-                  $scope.status = $filter('translate')('editor-app.details.revised');
+                  $scope.status = $filter('translate')(
+                    'editor-app.details.revised');
                 } else {
-                  $scope.status = $filter('translate')('editor-app.details.saved');
+                  $scope.status = $filter('translate')(
+                    'editor-app.details.saved');
                 }
               });
               $scope.$watch('changedBy', function (newVal) {
