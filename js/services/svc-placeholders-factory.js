@@ -13,7 +13,7 @@ angular.module('risevision.editorApp.services')
 
       var _newPlaceholder = function () {
         return {
-          type: "playlist",
+          type: 'playlist',
           width: 400,
           widthUnits: 'px',
           height: 200,

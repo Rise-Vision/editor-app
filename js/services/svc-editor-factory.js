@@ -60,6 +60,8 @@ angular.module('risevision.editorApp.services')
 
         presentationParser.parsePresentation(factory.presentation);
         distributionParser.parseDistribution(factory.presentation);
+
+        factory.hasLegacyItems = presentationParser.hasLegacyItems;
         $rootScope.$broadcast('presentationUpdated');
       };
 

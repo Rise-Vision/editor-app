@@ -159,7 +159,7 @@ angular.module('risevision.editorApp.services')
       };
 
       factory.getFloatValue = function (token) {
-        if (typeof token == 'number') {
+        if (typeof token === 'number') {
           return token;
         }
         var result = -1;
@@ -171,7 +171,7 @@ angular.module('risevision.editorApp.services')
       };
 
       factory.getIntValue = function (token) {
-        if (typeof token == 'number') {
+        if (typeof token === 'number') {
           return token;
         }
         var result = -1;
@@ -184,8 +184,8 @@ angular.module('risevision.editorApp.services')
 
       factory.parseIntProperty = function (object, property, defaultValue) {
         if (object.hasOwnProperty(property)) {
-          object[property] = object[property] ? 
-            factory.getIntValue(object[property]) : 
+          object[property] = object[property] ?
+            factory.getIntValue(object[property]) :
             (defaultValue ? defaultValue : 0);
         }
       };

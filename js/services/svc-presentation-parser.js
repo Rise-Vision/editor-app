@@ -4,6 +4,9 @@ angular.module('risevision.editorApp.services')
   .constant('PRESENTATION_JSON_FIELDS', [
     'id', 'hidePointer', 'donePlaceholder', 'embeddedIds'
   ])
+  .constant('SUPPORTED_PLACEHOLDER_ITEMS', [
+    'widget', 'presentation'
+  ])
   .constant('PLACEHOLDER_JSON_FIELDS', [
     'id', 'type', 'timeDefined', 'startDate',
     'endDate', 'startTime', 'endTime',
@@ -15,8 +18,9 @@ angular.module('risevision.editorApp.services')
   ])
   .factory('presentationParser', ['$log', 'htmlParser', 'pick',
     'PRESENTATION_JSON_FIELDS', 'PLACEHOLDER_JSON_FIELDS',
+    'SUPPORTED_PLACEHOLDER_ITEMS',
     function ($log, htmlParser, pick, PRESENTATION_JSON_FIELDS,
-      PLACEHOLDER_JSON_FIELDS) {
+      PLACEHOLDER_JSON_FIELDS, SUPPORTED_PLACEHOLDER_ITEMS) {
       var factory = {};
 
       var htmlTag = '<html';
@@ -135,6 +139,9 @@ angular.module('risevision.editorApp.services')
           if (placeholders[i].items) {
             items = placeholders[i].items;
             for (j = 0; j < items.length; j++) {
+              if (SUPPORTED_PLACEHOLDER_ITEMS.indexOf(items[j].type) === -1) {
+                factory.hasLegacyItems = true;
+              }
               htmlParser.parseBooleanProperty(items[j], 'playUntilDone');
               htmlParser.parseBooleanProperty(items[j],
                 'recurrenceAbsolute');
@@ -332,6 +339,8 @@ angular.module('risevision.editorApp.services')
       factory.parsePresentation = function (presentation) {
         var start, end;
         var htmlString = presentation.layout;
+
+        factory.hasLegacyItems = false;
 
         if (!htmlString) {
           return;

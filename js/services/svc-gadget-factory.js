@@ -190,14 +190,18 @@ angular.module('risevision.editorApp.services')
       var _getMessage = function (gadget) {
         var statusMessage = gadget.subscriptionStatus;
         if (gadget.subscriptionStatus === 'Not Subscribed') {
-          statusMessage = $filter('translate')('editor-app.subscription.status.premium');
+          statusMessage = $filter('translate')(
+            'editor-app.subscription.status.premium');
           if (gadget.trialPeriod > 0) {
-            statusMessage = $filter('translate')('editor-app.subscription.status.premium')+' - ' + gadget.trialPeriod +
-              ' '+ $filter('translate')('editor-app.subscription.status.daysTrial');
+            statusMessage = $filter('translate')(
+                'editor-app.subscription.status.premium') + ' - ' + gadget.trialPeriod +
+              ' ' + $filter('translate')(
+                'editor-app.subscription.status.daysTrial');
           }
         } else if (gadget.subscriptionStatus === 'On Trial') {
           statusMessage = statusMessage + ' - ' + _getRemainingDays(new Date(
-            gadget.expiry)) + ' ' + $filter('translate')('editor-app.subscription.status.daysRemaining');
+            gadget.expiry)) + ' ' + $filter('translate')(
+            'editor-app.subscription.status.daysRemaining');
         }
         return statusMessage;
       };

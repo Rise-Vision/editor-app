@@ -64,7 +64,7 @@ angular.module('risevision.editorApp.services')
 
         }
 
-        return Object.keys(background).length? background : undefined;
+        return Object.keys(background).length ? background : undefined;
       };
 
       factory.getStyle = function (background) {
