@@ -176,5 +176,39 @@ describe('controller: playlist item modal', function() {
     });
   });
 
+  describe('Checks for widget by url',function(){
+
+    beforeEach(function(){
+      inject(function($injector,$rootScope, $controller){
+        $scope = $rootScope.$new();
+
+        delete itemProperties.objectReference;
+        itemProperties.name = 'Widget from URL';
+        itemProperties.itemType = 'widget';
+        itemProperties.settingsUrl = 'http://www.risevision.com/settings.html';
+
+
+        $controller('PlaylistItemModalController', {
+          $scope: $scope,
+          $modalInstance : $modalInstance,
+          item: itemProperties,
+          editorFactory: $injector.get('editorFactory')
+        });
+        $scope.$digest();
+      });
+    });
+
+    it('should set widget name for widgets from url', function(done) {
+      setTimeout(function() {
+        expect($scope.widgetName).to.equal('Widget from URL');
+
+        done();
+      }, 10);
+    });
+
+    
+
+  });
+
 
 });

@@ -30,6 +30,17 @@ angular.module('risevision.editorApp.services')
           });
       };
 
+      var _addWidget = function (widgetDetails) {
+        var item = _newPlaylistItem();
+        item.type = 'widget';
+        item.name = 'Widget from URL';
+        item.objectData = widgetDetails.url;
+        if (widgetDetails.settingsUrl) {
+          item.settingsUrl = widgetDetails.settingsUrl;
+        }
+        factory.edit(item);
+      };
+
       factory.addContent = function () {
         var modalInstance = $modal.open({
           templateUrl: 'partials/store-products-modal.html',
@@ -54,6 +65,19 @@ angular.module('risevision.editorApp.services')
             item: function () {
               return item;
             }
+          }
+        });
+      };
+
+      factory.addWidgetByUrl = function () {
+        var modalInstance = $modal.open({
+          templateUrl: 'partials/widget-item-modal.html',
+          controller: 'WidgetItemModalController',
+          size: 'md'
+        });
+        modalInstance.result.then(function (result) {
+          if (result && result.url) {
+            _addWidget(result);
           }
         });
       };

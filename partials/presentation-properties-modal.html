@@ -10,8 +10,8 @@
     <div class="form-group" ng-class="{'has-error': !presentationPropertiesDetails.name.$pristine && presentationPropertiesDetails.name.$invalid}" show-errors>
       <label id="nameLabel" class="control-label">{{'editor-app.properties.labels.name' | translate}} *</label>
       <input id="nameInput" name="name" type="text" class="form-control" placeholder="Name" ng-model="presentationProperties.name" required focus-me="!presentationProperties.id">
-      <p class="text-danger" ng-show="!presentationPropertiesDetails.name.$pristine && presentationPropertiesDetails.name.$error.required">
-        Required
+      <p class="text-danger" ng-show="!presentationPropertiesDetails.name.$pristine && presentationPropertiesDetails.name.$error.required" translate>
+        editor-app.playlistItem.required
       </p>
       <p id="presentationId" class="remove-top text-muted half-top" ng-show="presentationProperties.id"><small>{{'editor-app.properties.labels.id' | translate}}: {{presentationProperties.id}}</small></p>
     </div><!--form-control-->

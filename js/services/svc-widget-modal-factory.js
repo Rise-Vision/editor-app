@@ -82,7 +82,7 @@ angular.module('risevision.editorApp.services')
       };
 
       factory.showWidgetModal = function (item) {
-        if (!item.objectReference) {
+        if (!item.objectReference && !item.settingsUrl) {
           return;
         }
 
@@ -96,19 +96,26 @@ angular.module('risevision.editorApp.services')
             widget: function () {
               var deferred = $q.defer();
 
-              gadgetFactory.getGadget(item.objectReference)
-                .then(function (gadget) {
-                  if (!item.objectData) {
-                    item.objectData = gadget.url;
-                  }
-
-                  deferred.resolve({
-                    url: _getSettingsUrl(item.objectData,
-                      gadget.uiUrl),
-                    additionalParams: item.additionalParams
-                  });
+              if (item.settingsUrl) {
+                deferred.resolve({
+                  url: _getSettingsUrl(item.objectData,
+                    item.settingsUrl),
+                  additionalParams: item.additionalParams
                 });
+              } else {
+                gadgetFactory.getGadget(item.objectReference)
+                  .then(function (gadget) {
+                    if (!item.objectData) {
+                      item.objectData = gadget.url;
+                    }
 
+                    deferred.resolve({
+                      url: _getSettingsUrl(item.objectData,
+                        gadget.uiUrl),
+                      additionalParams: item.additionalParams
+                    });
+                  });
+              }
               return deferred.promise;
             }
           }

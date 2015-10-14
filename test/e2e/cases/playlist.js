@@ -10,6 +10,7 @@ var PlaceholderSettingsPage = require('./../pages/placeholderSettingsPage.js');
 var PlaceholderPlaylistPage = require('./../pages/placeholderPlaylistPage.js');
 var PlaylistItemModalPage = require('./../pages/playlistItemModalPage.js');
 var StoreProductsModalPage = require('./../pages/storeProductsModalPage.js');
+var WidgetByUrlModalPage = require('./../pages/widgetByUrlModalPage.js');
 var helper = require('rv-common-e2e').helper;
 
 var PlaylistScenarios = function() {
@@ -26,6 +27,7 @@ var PlaylistScenarios = function() {
     var placeholderPlaylistPage;
     var playlistItemModalPage;
     var storeProductsModalPage;
+    var widgetByUrlModalPage;
 
     before(function () {
       homepage = new HomePage();
@@ -38,6 +40,7 @@ var PlaylistScenarios = function() {
       placeholderPlaylistPage = new PlaceholderPlaylistPage();
       playlistItemModalPage = new PlaylistItemModalPage();
       storeProductsModalPage = new StoreProductsModalPage();
+      widgetByUrlModalPage = new WidgetByUrlModalPage();
 
       homepage.get();
       //wait for spinner to go away.
@@ -137,6 +140,75 @@ var PlaylistScenarios = function() {
 
     });
 
+    describe('Should Add Widget by URL: ', function () {
+      before('Click Add Widget by URL: ', function () {
+        helper.wait(placeholderPlaylistPage.getAddPlayListItemButton(), 'Placeholder Playlist Page');
+
+        placeholderPlaylistPage.getAddPlayListItemButton().click();
+        placeholderPlaylistPage.getAddWidgetByUrlButton().click();
+        helper.wait(widgetByUrlModalPage.getAddWidgetByUrlModal(), 'Add Widget By URL Modal');
+      });
+
+      it('should open the Add Widget By URL Modal', function () {
+        expect(widgetByUrlModalPage.getAddWidgetByUrlModal().isDisplayed()).to.eventually.be.true;
+      });
+
+      it('should show modal title', function () {
+        expect(widgetByUrlModalPage.getModalTitle().getText()).to.eventually.equal('Add Widget by URL');
+      });
+
+      it('should show input fields', function () {
+        expect(widgetByUrlModalPage.getUrlInput().isDisplayed()).to.eventually.be.true;
+        expect(widgetByUrlModalPage.getSettingsUrlInput().isDisplayed()).to.eventually.be.true;
+      });
+
+      it('should disable Apply', function () {
+        expect(widgetByUrlModalPage.getApplyButton().isEnabled()).to.eventually.be.false;
+      });
+
+      it('should warn invalid url',function(){
+        widgetByUrlModalPage.getUrlInput().sendKeys('abc');
+        expect(widgetByUrlModalPage.getWarningInvalidUrl().isDisplayed()).to.eventually.be.true;
+        expect(widgetByUrlModalPage.getApplyButton().isEnabled()).to.eventually.be.false;
+      });
+
+      it('should warn required',function(){
+        widgetByUrlModalPage.getUrlInput().clear();
+        expect(widgetByUrlModalPage.getWarningRequired().isDisplayed()).to.eventually.be.true;
+        expect(widgetByUrlModalPage.getApplyButton().isEnabled()).to.eventually.be.false;
+      });
+
+      it('should enable Apply when url is present',function(){
+        widgetByUrlModalPage.getUrlInput().sendKeys('http://www.risevision.com/');
+        expect(widgetByUrlModalPage.getWarningRequired().isDisplayed()).to.eventually.be.false;
+        expect(widgetByUrlModalPage.getWarningInvalidUrl().isDisplayed()).to.eventually.be.false;
+        expect(widgetByUrlModalPage.getApplyButton().isEnabled()).to.eventually.be.true;
+      });
+
+      describe('Given the user adds a widget by url', function () {
+        before(function () {
+          widgetByUrlModalPage.getApplyButton().click();
+        });
+        it('should show the playlist item dialog', function () {
+          helper.wait(playlistItemModalPage.getPlaylistItemModal(), 'Playlist Item Modal').then(function () {
+            expect(widgetByUrlModalPage.getAddWidgetByUrlModal().isPresent()).to.eventually.be.false;
+
+            expect(playlistItemModalPage.getPlaylistItemModal().isDisplayed()).to.eventually.be.true;
+            expect(playlistItemModalPage.getModalTitle().getText()).to.eventually.equal('Edit Playlist Item');
+            expect(playlistItemModalPage.getNameTextbox().getAttribute('value')).to.eventually.equal('Widget from URL');
+          });
+        });
+
+        it('should save Item and add it to the list', function () {
+          playlistItemModalPage.getSaveButton().click();
+
+          expect(playlistItemModalPage.getPlaylistItemModal().isPresent()).to.eventually.be.false;
+          expect(placeholderPlaylistPage.getPlaylistItems().count()).to.eventually.equal(2);
+        });
+      });
+   
+    });
+
     describe('Should manage playlist items: ', function () {
       before('Add a second product', function () {
         placeholderPlaylistPage.getAddPlayListItemButton().click();
@@ -155,15 +227,15 @@ var PlaylistScenarios = function() {
       });
 
       it('should have 2 items the Playlist', function () {
-        expect(placeholderPlaylistPage.getPlaylistItems().count()).to.eventually.equal(2);
+        expect(placeholderPlaylistPage.getPlaylistItems().count()).to.eventually.equal(3);
 
         expect(placeholderPlaylistPage.getItemNameCells().get(0).getText()).to.eventually.contain('Video Folder Widget');
-        expect(placeholderPlaylistPage.getItemNameCells().get(1).getText()).to.eventually.contain('Video Folder Widget 2');
+        expect(placeholderPlaylistPage.getItemNameCells().get(2).getText()).to.eventually.contain('Video Folder Widget 2');
       });
 
       it('should display store status for both items', function () {
         expect(placeholderPlaylistPage.getItemStatusCells().get(0).getText()).to.eventually.equal('Free');
-        expect(placeholderPlaylistPage.getItemStatusCells().get(1).getText()).to.eventually.equal('Free');
+        expect(placeholderPlaylistPage.getItemStatusCells().get(2).getText()).to.eventually.equal('Free');
       });
 
       it('arrows should be disabled', function () {
@@ -171,27 +243,30 @@ var PlaylistScenarios = function() {
         expect(placeholderPlaylistPage.getMoveDownButtons().get(0).isEnabled()).to.eventually.be.true;
 
         expect(placeholderPlaylistPage.getMoveUpButtons().get(1).isEnabled()).to.eventually.be.true;
-        expect(placeholderPlaylistPage.getMoveDownButtons().get(1).isEnabled()).to.eventually.be.false;
+        expect(placeholderPlaylistPage.getMoveDownButtons().get(1).isEnabled()).to.eventually.be.true;
+
+        expect(placeholderPlaylistPage.getMoveUpButtons().get(2).isEnabled()).to.eventually.be.true;
+        expect(placeholderPlaylistPage.getMoveDownButtons().get(2).isEnabled()).to.eventually.be.false;
 
       });
 
       it('items should move up and down', function () {
         placeholderPlaylistPage.getMoveUpButtons().get(1).click();
 
-        expect(placeholderPlaylistPage.getItemNameCells().get(0).getText()).to.eventually.contain('Video Folder Widget 2');
+        expect(placeholderPlaylistPage.getItemNameCells().get(0).getText()).to.eventually.contain('Widget from URL');
         expect(placeholderPlaylistPage.getItemNameCells().get(1).getText()).to.eventually.contain('Video Folder Widget');
 
         placeholderPlaylistPage.getMoveDownButtons().get(0).click();
 
         expect(placeholderPlaylistPage.getItemNameCells().get(0).getText()).to.eventually.contain('Video Folder Widget');
-        expect(placeholderPlaylistPage.getItemNameCells().get(1).getText()).to.eventually.contain('Video Folder Widget 2');
+        expect(placeholderPlaylistPage.getItemNameCells().get(1).getText()).to.eventually.contain('Widget from URL');
       });
 
       it('should remove item', function (done) {
         placeholderPlaylistPage.getRemoveButtons().get(0).click();
 
         helper.clickWhenClickable(placeholderPlaylistPage.getRemoveItemButton(), "Remove Item Confirm Button").then(function () {
-          expect(placeholderPlaylistPage.getPlaylistItems().count()).to.eventually.equal(1);
+          expect(placeholderPlaylistPage.getPlaylistItems().count()).to.eventually.equal(2);
 
           done();
         });

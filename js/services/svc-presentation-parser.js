@@ -25,7 +25,7 @@ angular.module('risevision.editorApp.services')
     'recurrenceType', 'recurrenceFrequency',
     'recurrenceAbsolute', 'recurrenceDayOfWeek',
     'recurrenceDayOfMonth', 'recurrenceWeekOfMonth',
-    'recurrenceMonthOfYear'
+    'recurrenceMonthOfYear', 'settingsUrl'
   ])
   .factory('presentationParser', ['$log', 'htmlParser', 'pick',
     'PRESENTATION_JSON_FIELDS', 'PLACEHOLDER_JSON_FIELDS',

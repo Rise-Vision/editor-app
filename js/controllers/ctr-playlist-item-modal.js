@@ -14,11 +14,15 @@ angular.module('risevision.editorApp.controllers')
       $scope.widgetModalFactory = widgetModalFactory;
       $scope.item = angular.copy(item);
 
-      if (item.objectReference && (item.type === 'widget' || item.type ===
-          'gadget')) {
-        gadgetFactory.getGadget(item.objectReference).then(function (gadget) {
-          $scope.widgetName = gadget.name;
-        });
+      if (!item.objectReference && item.settingsUrl) {
+        $scope.widgetName = item.name;
+      } else {
+        if (item.objectReference && (item.type === 'widget' || item.type ===
+            'gadget')) {
+          gadgetFactory.getGadget(item.objectReference).then(function (gadget) {
+            $scope.widgetName = gadget.name;
+          });
+        }
       }
 
       $scope.save = function () {
