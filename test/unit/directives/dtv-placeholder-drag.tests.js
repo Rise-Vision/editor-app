@@ -9,7 +9,7 @@ describe('directive: placeholder-drag', function() {
 
   beforeEach(module('risevision.editorApp.services'));
   beforeEach(module('risevision.editorApp.directives'));
-
+  beforeEach(module(mockTranlate()));
   beforeEach(inject(function(_$compile_, _$rootScope_,_$document_){
     $compile = _$compile_;
     $rootScope = _$rootScope_;

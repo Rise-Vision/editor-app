@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('risevision.editorApp.directives')
-    .directive('subscriptionStatus', ['gadgetFactory', 'STORE_URL',
+    .directive('gadgetSubscriptionStatus', ['gadgetFactory', 'STORE_URL',
       function (gadgetFactory, STORE_URL) {
         return {
           restrict: 'E',

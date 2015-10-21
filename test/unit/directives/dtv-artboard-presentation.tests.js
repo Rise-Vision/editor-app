@@ -17,7 +17,7 @@ describe('directive: artboard-presentation', function() {
 
   beforeEach(module('risevision.editorApp.services'));
   beforeEach(module('risevision.editorApp.directives'));
-
+  beforeEach(module(mockTranlate()));
   beforeEach(module(function ($provide) {
     $provide.service('editorFactory', function() {
       return {

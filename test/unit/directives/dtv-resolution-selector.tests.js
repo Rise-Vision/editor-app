@@ -6,7 +6,7 @@ describe('directive: resolution selector', function() {
   beforeEach(module('risevision.editorApp.controllers'));
   beforeEach(module('risevision.editorApp.services'));
   beforeEach(module('risevision.editorApp.directives'));
-
+  beforeEach(module(mockTranlate()));
   var presentationProperties, element;
   beforeEach(inject(function(_$compile_, _$rootScope_, $templateCache){
     $templateCache.put('partials/resolution-selector.html', '<p>mock</p>');

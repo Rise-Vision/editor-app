@@ -1,7 +1,6 @@
 'use strict';
 describe('directive: last revised', function() {
   beforeEach(module('risevision.editorApp.directives'));
-
   beforeEach(module(function ($provide) {
     $provide.service('translateFilter', function(){
       return function(key){

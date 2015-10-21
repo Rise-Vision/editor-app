@@ -21,7 +21,7 @@ describe('directive: artboard-placeholder', function() {
 
   beforeEach(module('risevision.editorApp.services'));
   beforeEach(module('risevision.editorApp.directives'));
-
+  beforeEach(module(mockTranlate()));
   beforeEach(module(function ($provide) {
     $provide.service('placeholderFactory', function() {
       return {
