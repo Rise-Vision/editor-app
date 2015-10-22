@@ -2,7 +2,6 @@
 describe('directive: subscription status', function() {
   beforeEach(module('risevision.editorApp.services'));
   beforeEach(module('risevision.editorApp.directives'));
-
   var elm, $scope, $compile, item, gadget;
 
   beforeEach(module(function ($provide) {
@@ -31,7 +30,7 @@ describe('directive: subscription status', function() {
   }));
 
   function compileDirective() {
-    elm = $compile('<subscription-status item="item"></subscription-status>')($scope);
+    elm = $compile('<gadget-subscription-status item="item"></gadget-subscription-status>')($scope);
     $scope.$digest();
   }
 

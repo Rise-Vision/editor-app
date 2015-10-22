@@ -160,6 +160,7 @@ var unitTestFiles = [
   "node_modules/widget-tester/mocks/segment-analytics-mock.js",
   "js/app.js",
   "js/**/*.js",
+  "test/unit/translate-mock.js",
   "test/unit/**/*.tests.js"
 ];
 
