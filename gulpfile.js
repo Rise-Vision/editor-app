@@ -157,6 +157,7 @@ var unitTestFiles = [
   "bower_components/rv-common-app-components/dist/js/focus-me.js",
   "bower_components/rv-common-app-components/dist/js/confirm-instance.js",
   "bower_components/component-storage-selector/dist/storage-selector.js",
+  "node_modules/widget-tester/mocks/translate-mock.js",
   "node_modules/widget-tester/mocks/segment-analytics-mock.js",
   "js/app.js",
   "js/**/*.js",
