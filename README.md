@@ -1,4 +1,4 @@
-Editor App [![Circle CI](https://circleci.com/gh/Rise-Vision/editor-app.svg?style=svg)](https://circleci.com/gh/Rise-Vision/editor-app)
+Editor App [![Circle CI](https://circleci.com/gh/Rise-Vision/editor-app.svg?style=svg)](https://circleci.com/gh/Rise-Vision/editor-app) [![Coverage Status](https://coveralls.io/repos/Rise-Vision/editor-app/badge.svg?branch=&service=github)](https://coveralls.io/github/Rise-Vision/editor-app?branch=)
 ==============
 
 ## Introduction

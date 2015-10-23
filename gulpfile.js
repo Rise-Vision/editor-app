@@ -166,7 +166,12 @@ var unitTestFiles = [
 ];
 
 
-gulp.task("test:unit", factory.testUnitAngular({testFiles: unitTestFiles}));
+gulp.task("test:unit", factory.testUnitAngular({
+    coverageFiles: "../../js/**/*.js",
+    testFiles: unitTestFiles
+}));
+
+gulp.task("coveralls", factory.coveralls());
 
 gulp.task("server", factory.testServer({https: false}));
 gulp.task("server-close", factory.testServerClose());
@@ -184,7 +189,7 @@ gulp.task("test:e2e", function (cb) {
 
 gulp.task("metrics", factory.metrics());
 gulp.task("test",  function (cb) {
-  runSequence("config", ["test:unit", "test:e2e"], cb);
+  runSequence("config", ["test:unit", "test:e2e"], "coveralls", cb);
 });
 
 gulp.task("test:ci",  function (cb) {
