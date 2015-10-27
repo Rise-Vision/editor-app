@@ -47,7 +47,7 @@ angular.module('risevision.editorApp.services')
         factory.presentation = {
           layout: DEFAULT_LAYOUT
         };
-
+        factory.hasLegacyItems = false;
         presentationParser.parsePresentation(factory.presentation);
 
         _clearMessages();
