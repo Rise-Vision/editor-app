@@ -7,6 +7,11 @@
   </div>
   <div class="modal-body" stop-event="touchend">
     <form role="form" name="presentationItemDetails" novalidate>
+    <div class="content-box" ng-show="item.type === 'Gadget'">
+      <div class="content-box-body bg-warning">
+        <p class="remove-bottom"><span translate>editor-app.playlistItem.legacyWarningPart1</span> <a  href="{{PREVIOUS_EDITOR_URL}}" target="_blank"><span translate>editor-app.playlistItem.legacyWarningPart2</span></a> <span translate>editor-app.playlistItem.legacyWarningPart3</span></p>
+      </div>
+    </div>
     <div class="form-group">
       <label class="control-label" translate>editor-app.playlistItem.name</label>
       <input type="text" class="form-control" ng-model="item.name">
@@ -35,7 +40,7 @@
 
       <label class="control-label add-right" translate>editor-app.playlistItem.duration</label>
       <label class="control-label control-label-secondary add-left">
-        <input type="checkbox" ng-model="item.playUntilDone" /> 
+        <input type="checkbox" ng-model="item.playUntilDone" />
         <span translate>editor-app.playlistItem.playUntilDone</span>
       </label>
       <div class="row" ng-if="!item.playUntilDone">
@@ -43,7 +48,7 @@
           <div class="input-group">
             <input type="number" class="form-control" id="itemDuration" ng-model="item.duration" />
             <span class="input-group-addon" translate>editor-app.playlistItem.seconds</span>
-          </div>       
+          </div>
         </div>
       </div><!--row-->
     </div>
@@ -75,5 +80,5 @@
 
     <button id="playlistItemSave" class="btn btn-primary" ng-click="save()" ng-disabled="presentationItemDetails.$invalid">{{'common.apply' | translate}} <i class="fa fa-check icon-right"></i></button>
     <button class="btn btn-default" ng-click="dismiss()">{{'common.cancel' | translate}} <i class="fa fa-times icon-right"></i></button>
-  </div>  
+  </div>
 </div>
