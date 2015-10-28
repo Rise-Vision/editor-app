@@ -25,8 +25,7 @@ angular.module('risevision.editorApp.directives')
                   return 'editor-app.details.removePlaylistItem';
                 },
                 confirmationMessage: function () {
-                  return
-                    'editor-app.details.removePlaylistItemWarning';
+                  return 'editor-app.details.removePlaylistItemWarning';
                 },
                 confirmationButton: function () {
                   return 'editor-app.details.remove';
