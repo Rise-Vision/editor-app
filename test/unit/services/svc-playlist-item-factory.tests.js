@@ -6,7 +6,7 @@ describe('service: playlistItemFactory:', function() {
     item = {
       'name': 'item1',
       'duration': '10',
-      'type': 'gadget',
+      'type': 'Gadget',
       'objectReference': null,
       'index': '0',
       'playUntilDone': 'false',
@@ -47,7 +47,8 @@ describe('service: playlistItemFactory:', function() {
           deferred.resolve({
             id: 'gadgetId',
             name: 'gadgetName',
-            url: 'http://someurl.com/gadget.html'
+            url: 'http://someurl.com/gadget.html',
+            gadgetType: 'Widget'
           });
           
           return deferred.promise;
@@ -107,7 +108,7 @@ describe('service: playlistItemFactory:', function() {
           distributeToAll: true,
           timeDefined: false,
           additionalParams: null,
-          type: 'widget',
+          type: 'Widget',
           objectReference: 'gadgetId',
           name: 'gadgetName',
           objectData: 'http://someurl.com/gadget.html'
