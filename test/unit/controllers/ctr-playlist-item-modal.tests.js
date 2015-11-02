@@ -82,7 +82,7 @@ describe('controller: playlist item modal', function() {
 
       inject(function($injector,$rootScope, $controller){
         itemUpdated = null;
-        itemType = 'Widget';
+        itemType = 'widget';
         updateSubscriptionStatusCalled = false;
         $scope = $rootScope.$new();
         $modalInstance = $injector.get('$modalInstance');
