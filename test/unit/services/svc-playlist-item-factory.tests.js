@@ -6,7 +6,7 @@ describe('service: playlistItemFactory:', function() {
     item = {
       'name': 'item1',
       'duration': '10',
-      'type': 'Gadget',
+      'type': 'gadget',
       'objectReference': null,
       'index': '0',
       'playUntilDone': 'false',
@@ -108,7 +108,7 @@ describe('service: playlistItemFactory:', function() {
           distributeToAll: true,
           timeDefined: false,
           additionalParams: null,
-          type: 'Widget',
+          type: 'widget',
           objectReference: 'gadgetId',
           name: 'gadgetName',
           objectData: 'http://someurl.com/gadget.html'

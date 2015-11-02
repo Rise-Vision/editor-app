@@ -28,7 +28,7 @@
               <button class="btn btn-xs btn-default" id="moveDownButton" ng-click="factory.movePlaylistItemDown(item)" ng-disabled="!factory.canPlaylistItemMoveDown(item)"><i class="fa fa-arrow-down"></i></button>
             </span>
 
-            <button class="btn btn-xs btn-default" ng-show="item.type === 'Widget'" ng-click="widgetModalFactory.showWidgetModal(item)"><i class="fa fa-cog"></i></button>
+            <button class="btn btn-xs btn-default" ng-show="item.type === 'widget'" ng-click="widgetModalFactory.showWidgetModal(item)"><i class="fa fa-cog"></i></button>
             <button class="btn btn-xs btn-default" id="removeButton" ng-click="remove(item)"><i class="fa fa-trash-o"></i></button>
           </div>
 

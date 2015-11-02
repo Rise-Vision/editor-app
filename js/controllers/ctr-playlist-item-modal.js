@@ -15,8 +15,8 @@ angular.module('risevision.editorApp.controllers')
       $scope.item = angular.copy(item);
       $scope.playlistItemFactory = playlistItemFactory;
 
-      if (item.objectReference && (item.type === 'Widget' || item.type ===
-          'Gadget')) {
+      if (item.objectReference && (item.type === 'widget' || item.type ===
+          'gadget')) {
         gadgetFactory.getGadget(item.objectReference).then(function (gadget) {
           $scope.widgetName = gadget.name;
         });
