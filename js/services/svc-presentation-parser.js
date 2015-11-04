@@ -16,11 +16,23 @@ angular.module('risevision.editorApp.services')
     'recurrenceMonthOfYear', 'visibility',
     'transition', 'items'
   ])
+  .constant('PLAYLIST_ITEM_JSON_FIELDS', [
+    'name', 'duration', 'type', 'objectReference',
+    'index', 'playUntilDone', 'objectData',
+    'additionalParams', 'timeDefined',
+    'startDate', 'endDate',
+    'startTime', 'endTime',
+    'recurrenceType', 'recurrenceFrequency',
+    'recurrenceAbsolute', 'recurrenceDayOfWeek',
+    'recurrenceDayOfMonth', 'recurrenceWeekOfMonth',
+    'recurrenceMonthOfYear'
+  ])
   .factory('presentationParser', ['$log', 'htmlParser', 'pick',
     'PRESENTATION_JSON_FIELDS', 'PLACEHOLDER_JSON_FIELDS',
-    'SUPPORTED_PLACEHOLDER_ITEMS',
+    'PLAYLIST_ITEM_JSON_FIELDS', 'SUPPORTED_PLACEHOLDER_ITEMS',
     function ($log, htmlParser, pick, PRESENTATION_JSON_FIELDS,
-      PLACEHOLDER_JSON_FIELDS, SUPPORTED_PLACEHOLDER_ITEMS) {
+      PLACEHOLDER_JSON_FIELDS, PLAYLIST_ITEM_JSON_FIELDS,
+      SUPPORTED_PLACEHOLDER_ITEMS) {
       var factory = {};
 
       var htmlTag = '<html';
@@ -606,6 +618,14 @@ angular.module('risevision.editorApp.services')
         for (var i = 0; i < presentation.placeholders.length; i++) {
           data.placeholders.push(pick.apply(this, [presentation.placeholders[
             i]].concat(PLACEHOLDER_JSON_FIELDS)));
+
+          data.placeholders[i].items = [];
+          for (var j = 0; presentation.placeholders[i].items &&
+            j < presentation.placeholders[i].items.length; j++) {
+
+            data.placeholders[i].items.push(pick.apply(this, [presentation.placeholders[
+              i].items[j]].concat(PLAYLIST_ITEM_JSON_FIELDS)));
+          }
         }
 
         data = {
