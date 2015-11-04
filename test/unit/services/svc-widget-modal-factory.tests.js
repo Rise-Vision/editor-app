@@ -39,7 +39,7 @@ describe('service: widgetModalFactory:', function() {
           widgetObj = obj.resolve.widget();
 
           if(updateParams){
-            deferred.resolve({additionalParams: 'updatedParams'});
+            deferred.resolve({additionalParams: 'updatedParams', params: returnedParams});
           }else{
             deferred.reject();
           }
@@ -57,13 +57,15 @@ describe('service: widgetModalFactory:', function() {
     });
   }));
   
-  var widgetModalFactory, item, updateParams, widgetObj;
+  var widgetModalFactory, item, updateParams, widgetObj, returnedParams;
   beforeEach(function(){
     item = {
+      objectData: 'http://www.risevision.com/widget',
       objectReference: '123',
       additionalParams: 'params'
     };
     updateParams = true;
+    returnedParams = null;
 
     inject(function($injector){
       widgetModalFactory = $injector.get('widgetModalFactory');
@@ -111,5 +113,78 @@ describe('service: widgetModalFactory:', function() {
     }, 10);
 
   });
+
+   describe('objectData params:',function(){
+    it('should append params to item objectData',function(done){
+      returnedParams = 'up_fileType=43&up_list=0';
+      widgetModalFactory.showWidgetModal(item);
+      
+      setTimeout(function() {      
+        expect(item.objectData).to.equal('http://www.risevision.com/widget?up_fileType=43&up_list=0');
+        done();
+      }, 10);
+
+    });  
+
+    it('should append params to item objectData and replace &',function(done){
+      returnedParams = '&up_fileType=43&up_list=0';
+      widgetModalFactory.showWidgetModal(item);
+      
+      setTimeout(function() {      
+        expect(item.objectData).to.equal('http://www.risevision.com/widget?up_fileType=43&up_list=0');
+        done();
+      }, 10);
+
+    });  
+
+    it('should append params to item objectData and replace ?',function(done){
+      returnedParams = '?up_fileType=43&up_list=0';
+      widgetModalFactory.showWidgetModal(item);
+      
+      setTimeout(function() {      
+        expect(item.objectData).to.equal('http://www.risevision.com/widget?up_fileType=43&up_list=0');
+        done();
+      }, 10);
+
+    }); 
+
+    it('should remove existing params and append new ones',function(done){
+      returnedParams = '?up_fileType=3&up_list=1';
+      item.objectData = 'http://www.risevision.com/widget?up_fileType=43&up_list=0'
+      widgetModalFactory.showWidgetModal(item);
+      
+      setTimeout(function() {      
+        expect(item.objectData).to.equal('http://www.risevision.com/widget?up_fileType=3&up_list=1');
+        done();
+      }, 10);
+
+    }); 
+
+    it('should handle null params',function(done){
+      returnedParams = null;
+      widgetModalFactory.showWidgetModal(item);
+      
+      setTimeout(function() {      
+        expect(item.objectData).to.equal('http://www.risevision.com/widget');
+        done();
+      }, 10);
+
+    }); 
+
+    it('should handle null objectData',function(done){
+      returnedParams = '?up_fileType=3&up_list=1';
+      item.objectData = null
+      widgetModalFactory.showWidgetModal(item);
+      
+      setTimeout(function() {      
+        expect(item.objectData).to.equal(null);
+        done();
+      }, 10);
+
+    }); 
+
+  })
+
+  
 
 });

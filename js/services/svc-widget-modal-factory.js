@@ -24,6 +24,19 @@ angular.module('risevision.editorApp.services')
         return $sce.trustAsResourceUrl(url);
       };
 
+      var _updateItemObjectData = function(item,params) {
+        if (params && item.objectData) {
+          item.objectData = item.objectData.split(/[?#]/)[0];
+          if (params.charAt(0) == '&') {
+            params = params.replace('&', '?');
+          }
+          if (params.charAt(0) != '?') {
+            params = '?' + params;
+          }
+          item.objectData += params;  
+        }
+      };
+
       factory.showWidgetModal = function (item) {
         if (!item.objectReference) {
           return;
@@ -54,7 +67,7 @@ angular.module('risevision.editorApp.services')
 
         modalInstance.result.then(function (widgetData) {
           if (widgetData) {
-            item.params = widgetData.params;
+            _updateItemObjectData(item,widgetData.params);
             item.additionalParams =
               widgetData.additionalParams;
           }
