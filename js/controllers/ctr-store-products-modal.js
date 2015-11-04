@@ -4,8 +4,11 @@ angular.module('risevision.editorApp.controllers')
     'store', '$modalInstance', '$loading', '$filter', 'STORE_URL', 'category',
     function ($scope, ScrollingListService, store, $modalInstance, $loading,
       $filter, STORE_URL, category) {
+      var defaultCount = 1000;
+
       $scope.search = {
-        category: category
+        category: category,
+        count: defaultCount
       };
 
       $scope.storeUrl = STORE_URL;
