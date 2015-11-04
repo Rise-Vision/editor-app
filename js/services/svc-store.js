@@ -5,7 +5,6 @@
 angular.module('risevision.editorApp.services')
   .service('store', ['$q', '$log', 'storeAPILoader', 'userState',
     function ($q, $log, storeAPILoader, userState) {
-      var defaultCount = 200;
       var service = {
         product: {
           status: function (productCodes) {

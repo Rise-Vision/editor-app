@@ -83,6 +83,7 @@ describe('controller: Store Products Modal', function() {
   it('should init the scope objects',function(){
     expect($scope.search).to.be.ok;
     expect($scope.search).to.have.property('category');
+    expect($scope.search.count).to.equal(1000);
   });
 
 
