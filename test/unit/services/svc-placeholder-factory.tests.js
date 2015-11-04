@@ -22,12 +22,6 @@ describe('service: placeholderFactory:', function() {
       ]      
     };
 
-    $provide.service('$q', function() {return Q;});
-
-    $provide.service('editorFactory',function () {
-      return {};
-    });
-
     $provide.service('gadgetFactory',function(){
       return {
         updateSubscriptionStatus: function(gadgetIds){

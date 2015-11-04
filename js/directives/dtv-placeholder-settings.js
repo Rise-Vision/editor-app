@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('risevision.editorApp.directives')
-  .directive('placeholderSettings', ['placeholderFactory', 'backgroundParser',
-    'userState',
-    function (placeholderFactory, backgroundParser, userState) {
+  .directive('placeholderSettings', ['placeholderFactory',
+    'presentationParser', 'editorFactory', 'backgroundParser', 'userState',
+    function (placeholderFactory, presentationParser, editorFactory,
+      backgroundParser, userState) {
       return {
         restrict: 'E',
         scope: true,
@@ -14,6 +15,7 @@ angular.module('risevision.editorApp.directives')
 
           $scope.$watch('factory.placeholder', function (newPlaceholder) {
             $scope.placeholder = newPlaceholder;
+            $scope.editingName = false;
             $scope.background = undefined;
 
             if (newPlaceholder) {
@@ -33,6 +35,18 @@ angular.module('risevision.editorApp.directives')
                 backgroundParser.getScaleToFit($scope.background);
             }
           }, true);
+
+          $scope.updatePlaceholderName = function () {
+            if (!$scope.editingName ||
+              $scope.placeholderFields.newId.$invalid ||
+              $scope.placeholder.id === $scope.placeholder.newId) {
+              return;
+            }
+
+            presentationParser.updatePresentation(editorFactory.presentation);
+
+            $scope.editingName = false;
+          };
         }
       };
     }

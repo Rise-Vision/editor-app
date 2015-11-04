@@ -1,9 +1,8 @@
 'use strict';
 
 angular.module('risevision.editorApp.services')
-  .factory('placeholderFactory', ['$rootScope', 'editorFactory',
-    'presentationParser', 'gadgetFactory',
-    function ($rootScope, editorFactory, presentationParser, gadgetFactory) {
+  .factory('placeholderFactory', ['$rootScope', 'gadgetFactory',
+    function ($rootScope, gadgetFactory) {
       var factory = {};
 
       factory.setPlaceholder = function (placeholder) {

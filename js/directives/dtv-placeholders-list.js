@@ -3,8 +3,7 @@
 angular.module('risevision.editorApp.directives')
   .directive('placeholdersList', ['$modal', '$templateCache',
     'placeholdersFactory', 'placeholderFactory',
-    function ($modal, $templateCache, placeholdersFactory,
-      placeholderFactory) {
+    function ($modal, $templateCache, placeholdersFactory, placeholderFactory) {
       return {
         restrict: 'E',
         scope: true,
@@ -27,7 +26,8 @@ angular.module('risevision.editorApp.directives')
                     return 'editor-app.details.removePlaceholder';
                   },
                   confirmationMessage: function () {
-                    return 'editor-app.details.removePlaceholderWarning';
+                    return
+                      'editor-app.details.removePlaceholderWarning';
                   },
                   confirmationButton: function () {
                     return 'editor-app.details.remove';
