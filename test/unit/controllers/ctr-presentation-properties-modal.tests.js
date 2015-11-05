@@ -59,6 +59,7 @@ describe('controller: presentation properties modal', function() {
 
     inject(function($injector,$rootScope, $controller){
       $scope = $rootScope.$new();
+      $scope.presentationPropertiesDetails = {};
       $modalInstance = $injector.get('$modalInstance');
       $modalInstanceDismissSpy = sinon.spy($modalInstance, 'dismiss');
       $modalInstanceCloseSpy = sinon.spy($modalInstance, 'close');
@@ -107,6 +108,13 @@ describe('controller: presentation properties modal', function() {
     $scope.apply();
     setPresentationPropertiesSpy.should.have.been.calledWith(presentationProperties);
     $modalInstanceDismissSpy.should.have.been.called;
+  });
+
+  it('should not set presentation properties if form is invalid',function(){
+    $scope.presentationPropertiesDetails.$invalid = true;
+    $scope.apply();
+    setPresentationPropertiesSpy.should.not.have.been.called;
+    $modalInstanceDismissSpy.should.not.have.been.called;
   });
 
   it('should dismiss modal when cancel',function(){
