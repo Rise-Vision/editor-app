@@ -6,7 +6,7 @@
     <h3 class="modal-title" translate>editor-app.properties.title</h3>
   </div>
   <div class="modal-body" stop-event="touchend">
-    <form role="form" name="presentationPropertiesDetails" novalidate>
+    <form role="form" name="presentationPropertiesDetails" ng-enter="apply()" novalidate>
     <div class="form-group" ng-class="{'has-error': !presentationPropertiesDetails.name.$pristine && presentationPropertiesDetails.name.$invalid}" show-errors>
       <label id="nameLabel" class="control-label">{{'editor-app.properties.labels.name' | translate}} *</label>
       <input id="nameInput" name="name" type="text" class="form-control" placeholder="Name" ng-model="presentationProperties.name" required focus-me="!presentationProperties.id">

@@ -16,6 +16,7 @@ var WorkspacePage = function() {
   var htmlButton = element(by.id('htmlButton'));
   var deleteForeverButton = element(by.buttonText('Delete Forever'));
   var codemirrorHtmlEditor = element(by.id('codemirrorHtmlEditor'));
+  var presentationNameContainer = element(by.id('presentationName'));
 
   var saveStatus = element(by.css(".save-status"));
 
@@ -94,6 +95,10 @@ var WorkspacePage = function() {
 
   this.getSaveStatus = function () {
     return saveStatus;
+  }
+
+  this.getPresentationNameContainer = function () {
+    return presentationNameContainer;
   }
 
 

@@ -114,6 +114,17 @@ var PresentationPropertiesScenarios = function() {
           expect(presentationPropertiesModalPage.getPresentationPropertiesModal().isPresent()).to.eventually.be.false;
         });
 
+        it('should handle Enter', function () {
+          workspacePage.getPresentationPropertiesButton().click();
+          helper.wait(presentationPropertiesModalPage.getPresentationPropertiesModal(), 'Presentation Properties Modal');
+          presentationPropertiesModalPage.getNameInput().clear();
+          presentationPropertiesModalPage.getNameInput().sendKeys("Presentation Enter");
+          presentationPropertiesModalPage.getNameInput().sendKeys(protractor.Key.ENTER);
+
+          expect(presentationPropertiesModalPage.getPresentationPropertiesModal().isPresent()).to.eventually.be.false;
+          expect(workspacePage.getPresentationNameContainer().getText()).to.eventually.equal("Presentation Enter");
+        });
+
       });
     });
   });
