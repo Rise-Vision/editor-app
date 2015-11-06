@@ -1,0 +1,113 @@
+'use strict';
+var expect = require('rv-common-e2e').expect;
+var HomePage = require('./../pages/homepage.js');
+var CommonHeaderPage = require('rv-common-e2e').commonHeaderPage;
+var PresentationsListPage = require('./../pages/presentationListPage.js');
+var PlaceholderSettingsPage = require('./../pages/placeholderSettingsPage.js');
+var WorkspacePage = require('./../pages/workspacePage.js');
+var PlaceholdersListPage = require('./../pages/placeholdersListPage.js');
+var PresentationPropertiesModalPage = require('./../pages/presentationPropertiesModalPage.js');
+var helper = require('rv-common-e2e').helper;
+
+var PlaceholderSettingsScenarios = function() {
+
+  browser.driver.manage().window().setSize(1920, 1080);
+  describe('Manage a placeholder: ', function () {
+    var homepage;
+    var commonHeaderPage;
+    var presentationsListPage;
+    var placeholderSettingsPage;
+    var workspacePage;
+    var placeholdersListPage;
+    var presentationPropertiesModalPage;
+
+    before(function () {
+      homepage = new HomePage();
+      presentationsListPage = new PresentationsListPage();
+      workspacePage = new WorkspacePage();
+      placeholdersListPage = new PlaceholdersListPage();
+      placeholderSettingsPage = new PlaceholderSettingsPage();
+      commonHeaderPage = new CommonHeaderPage();
+      presentationPropertiesModalPage = new PresentationPropertiesModalPage();
+
+      homepage.get();
+      //wait for spinner to go away.
+      helper.waitDisappear(commonHeaderPage.getLoader(), 'CH spinner loader').then(function () {
+        commonHeaderPage.signin();
+      });
+    });
+
+    describe(' Given a user is adding a new presentation and a few placeholders', function () {
+      before(function () {
+        presentationsListPage.getPresentationAddButton().click();
+        presentationsListPage.getNewPresentationButton().click();
+        helper.wait(presentationPropertiesModalPage.getPresentationPropertiesModal(), 'Presentation Properties Modal');
+        presentationPropertiesModalPage.getCancelButton().click();
+
+        workspacePage.getAddPlaceholderButton().click();
+        workspacePage.getAddPlaceholderButton().click();
+
+      });
+
+      it('should show placeholder settings', function () {
+        helper.wait(placeholdersListPage.getManageLinks().get(0), 'Placeholders List');
+        placeholdersListPage.getManageLinks().get(0).click();
+
+        // wait for transitions
+        browser.sleep(500);
+        
+        helper.wait(placeholderSettingsPage.getEditPlaylistButton(), 'Placeholder Settings');
+        
+        expect(placeholderSettingsPage.getIdTextbox().getAttribute('value')).to.eventually.equal('ph0');
+        
+        expect(placeholderSettingsPage.getEditNameLink().isDisplayed()).to.eventually.be.true;
+        expect(placeholderSettingsPage.getIdTextbox().isDisplayed()).to.eventually.be.true;
+        
+        expect(placeholderSettingsPage.getSaveNameLink().isDisplayed()).to.eventually.be.false;
+        expect(placeholderSettingsPage.getCancelNameLink().isDisplayed()).to.eventually.be.false;
+        expect(placeholderSettingsPage.getNewIdTextbox().isDisplayed()).to.eventually.be.false;
+
+      });
+      
+      it('should allow user to update the placeholder name', function() {
+        placeholderSettingsPage.getEditNameLink().click();
+        
+        expect(placeholderSettingsPage.getEditNameLink().isDisplayed()).to.eventually.be.false;
+        expect(placeholderSettingsPage.getIdTextbox().isDisplayed()).to.eventually.be.false;
+        
+        expect(placeholderSettingsPage.getSaveNameLink().isDisplayed()).to.eventually.be.true;
+        expect(placeholderSettingsPage.getCancelNameLink().isDisplayed()).to.eventually.be.true;
+        expect(placeholderSettingsPage.getNewIdTextbox().isDisplayed()).to.eventually.be.true;
+        
+      });
+      
+      it('should show validation errors', function() {
+        placeholderSettingsPage.getNewIdTextbox().clear();
+        
+        expect(placeholderSettingsPage.getRequiredValidation().isDisplayed()).to.eventually.be.true;
+        
+        placeholderSettingsPage.getNewIdTextbox().sendKeys('ph0123#$');
+        
+        expect(placeholderSettingsPage.getInvalidValidation().isDisplayed()).to.eventually.be.true;
+                
+        placeholderSettingsPage.getNewIdTextbox().clear();
+        placeholderSettingsPage.getNewIdTextbox().sendKeys('ph1');
+        
+        expect(placeholderSettingsPage.getDuplicateValidation().isDisplayed()).to.eventually.be.true;
+        
+      });
+      
+      it('should update placeholder name', function() {
+        placeholderSettingsPage.getNewIdTextbox().clear();
+        placeholderSettingsPage.getNewIdTextbox().sendKeys('ph2');
+        
+        placeholderSettingsPage.getSaveNameLink().click();
+
+        helper.wait(placeholderSettingsPage.getEditNameLink(), 'Edit Name');
+        
+        expect(placeholderSettingsPage.getIdTextbox().getAttribute('value')).to.eventually.equal('ph2');
+      })
+    });
+  });
+};
+module.exports = PlaceholderSettingsScenarios;

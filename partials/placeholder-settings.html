@@ -1,17 +1,45 @@
 <div class="scrollable-list">
   <div class="content-box-body">
   <form role="form" name="placeholderFields" novalidate>
-    <div class="form-group">
+    <div class="form-group" ng-hide="editingName">
       <label class="control-label" translate>editor-app.properties.labels.name</label>
-      <div class="input-group checkbox-addon">
-        <input type="text" class="form-control" placeholder="Placeholder Name" ng-model="placeholder.id">
-        <span class="input-group-addon">
-          <label class="control-label">
-            <input type="checkbox" ng-model="placeholder.visibility">{{'editor-app.workspace.sidebar.edit.settings.visible' | translate}}
-          </label>
-        </span>
+      <a id="editPlaceholderName" class="link add-left" href="" ng-click="editingName = true; placeholder.newId = placeholder.id">
+        {{ 'common.edit' | translate }}
+      </a>
+      <div class="input-group">
+        <input type="text" id="placeholderId" class="form-control" ng-model="placeholder.id" ng-disabled="true">
       </div>
     </div><!--form-group-->
+    
+    <div class="form-group" ng-show="editingName">
+      <label class="control-label" translate>editor-app.properties.labels.name</label>
+      <a id="savePlaceholderName" class="link add-left" href="" ng-click="updatePlaceholderName()">
+        {{'common.apply' | translate}}
+      </a>
+      <a id="cancelPlaceholderName" class="link add-left" href="" ng-click="editingName = false">
+        {{'common.cancel' | translate}}
+      </a>
+
+      <div class="input-group">
+        <input type="text" id="placeholderNewId" name="newId" class="form-control" placeholder="Placeholder Name" ng-model="placeholder.newId" required placeholder-name-validator>
+      </div>
+      <p id="requiredValidation" class="text-danger" ng-show="!placeholderFields.newId.$pristine && placeholderFields.newId.$error.required" translate>
+        editor-app.properties.warnings.required
+      </p>
+      <p id="invalidValidation" class="text-danger" ng-show="!placeholderFields.newId.$pristine && placeholderFields.newId.$error.alphanumeric" translate>
+        editor-app.properties.warnings.invalid
+      </p>
+      <p id="duplicateValidation" class="text-danger" ng-show="!placeholderFields.newId.$pristine && placeholderFields.newId.$error.duplicate" translate>
+        editor-app.properties.warnings.duplicate
+      </p>
+    </div><!--form-group-->
+    
+    
+    <div class="form-group">
+      <label class="control-label">
+        <input type="checkbox" ng-model="placeholder.visibility"> {{'editor-app.workspace.sidebar.edit.settings.visible' | translate}}
+      </label>
+    </div>
 
     <div class="form-group ph-transform">
 
