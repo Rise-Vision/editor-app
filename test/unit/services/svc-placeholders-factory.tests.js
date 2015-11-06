@@ -103,6 +103,7 @@ describe('service: placeholdersFactory:', function() {
     expect(placeholders[3].id).to.equal('newId');
     expect(placeholders[3].type).to.equal('playlist');
     expect(placeholders[3].timeDefined).to.equal(false);
+    expect(placeholders[3].transition).to.equal('none');
   });
 
   describe('removePlaceholder: ',function(){

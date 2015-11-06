@@ -90,6 +90,19 @@
     <background-image-setting id="placeholderBackgroundSettings" background="background" company-id="{{companyId}}" color-parent-container-class="'background-color-picker'" color-container-class="'background-color-picker-input'" position-parent-container-class="'background-image-position'" position-container-class="'background-image-position-input'"></background-image-setting>
   </div>
 
+  <div class="form-group">
+    <label id="transitionLabel" class="control-label" translate>editor-app.properties.transition.label</label>
+    <select id="transitionSelect" class="form-control" ng-model="placeholder.transition">
+      <option value="none" translate>editor-app.properties.transition.none</option>
+      <option value="fade" translate>editor-app.properties.transition.fade</option>
+      <option value="slide-right" translate>editor-app.properties.transition.slideRight</option>
+      <option value="slide-left" translate>editor-app.properties.transition.slideLeft</option>
+      <option value="slide-up" translate>editor-app.properties.transition.slideUp</option>
+      <option value="slide-down" translate>editor-app.properties.transition.slideDown</option>
+    </select>
+  </div><!--form-group-->
+
+
     <div class="form-group">
       <label class="control-label add-right" translate>schedules-app.fields.timeline</label>
       <timeline-textbox
