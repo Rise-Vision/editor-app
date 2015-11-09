@@ -30,7 +30,7 @@ describe('directive: artboard-presentation', function() {
     $templateCache.put('partials/artboard-presentation.html', '<p>mock</p>');
     $compile = _$compile_;
     $rootScope = _$rootScope_;
-    heightIncrement = PRESENTATION_TOOLBAR_SIZE + 2 * PRESENTATION_BORDER_SIZE;
+    heightIncrement = PRESENTATION_TOOLBAR_SIZE + PRESENTATION_BORDER_SIZE;
     widthIncrement = 2 * PRESENTATION_BORDER_SIZE;
     $scope = $rootScope.$new();
   }));

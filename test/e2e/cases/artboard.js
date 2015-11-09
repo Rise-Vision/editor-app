@@ -55,8 +55,8 @@ var ArtboardScenarios = function() {
           helper.clickWhenClickable(presentationPropertiesModalPage.getApplyButton(), 'Apply Button');
 
           expect(workspacePage.getArtboardContainer().getCssValue('background')).to.eventually.equal('rgb(201, 34, 34) none repeat scroll 0% 0% / auto padding-box border-box');
-          expect(workspacePage.getArtboardContainer().getSize()).to.eventually.have.property('width', 1064);
-          expect(workspacePage.getArtboardContainer().getSize()).to.eventually.have.property('height', 858);
+          expect(workspacePage.getArtboardContainer().getSize()).to.eventually.have.property('width', 1048);
+          expect(workspacePage.getArtboardContainer().getSize()).to.eventually.have.property('height', 840);
         });
       });
     });
