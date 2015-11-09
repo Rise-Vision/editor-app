@@ -19,8 +19,8 @@ angular.module('risevision.editorApp.controllers')
       $scope.apply = function () {
         if (!$scope.presentationPropertiesDetails.$invalid) {
           presentationPropertiesFactory.setPresentationProperties($scope.presentationProperties);
-          $scope.dismiss();  
-        }        
+          $scope.dismiss();
+        }
       };
 
       $scope.dismiss = function () {

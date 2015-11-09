@@ -2,7 +2,7 @@
 
 angular.module('risevision.editorApp.services')
   .value('WIDGET_PARAMS',
-    '?up_id=iframeId&parent=parentUrl&up_rsW=width&up_rsH=height&up_companyId=cid'
+    'up_id=iframeId&parent=parentUrl&up_rsW=width&up_rsH=height&up_companyId=cid'
   )
   .factory('widgetModalFactory', ['$rootScope', 'placeholderFactory',
     'gadgetFactory', 'userState', '$q', '$modal', '$location', '$sce',
@@ -11,29 +11,73 @@ angular.module('risevision.editorApp.services')
       $modal, $location, $sce, $log, WIDGET_PARAMS) {
       var factory = {};
 
-      var _getSettingsUrl = function (url) {
-        url = url
-          .replace('http://', '//')
-          .replace('https://', '//') + WIDGET_PARAMS
+      var _getUrlParams = function (widgetUrl) {
+        var res = '';
+        var queryParamsStartPos = widgetUrl.indexOf('?');
+        if (queryParamsStartPos === -1) {
+          queryParamsStartPos = widgetUrl.indexOf('&');
+        }
+
+        if (queryParamsStartPos > 0) {
+          res = widgetUrl.substring(queryParamsStartPos);
+        }
+
+        return res;
+      };
+
+      var _getSettingsUrl = function (widgetUrl, url) {
+        var params = _getUrlParams(widgetUrl);
+        var rpcParams = WIDGET_PARAMS
           .replace('cid', userState.getSelectedCompanyId())
           .replace('width', placeholderFactory.placeholder.width)
           .replace('height', placeholderFactory.placeholder.height)
           .replace('iframeId', 'widget-modal-frame')
           .replace('parentUrl', encodeURIComponent($location.$$absUrl));
 
+        url = url
+          .replace('http://', '//')
+          .replace('https://', '//');
+
+        url += params;
+        url += url.indexOf('?') !== -1 || url.indexOf('&') !== -1 ?
+          '&' : '?';
+        url += rpcParams;
+
         return $sce.trustAsResourceUrl(url);
       };
 
-      var _updateItemObjectData = function(item,params) {
+      var _getWidgetHtmlUrl = function (url) {
+        var res = '';
+
+        if (url) {
+          var queryParamsStartPos = url.indexOf('?');
+
+          if (queryParamsStartPos > 0) {
+            res = url.substring(0, queryParamsStartPos);
+          } else if (queryParamsStartPos === -1 && url.indexOf('&') === -1) {
+            res = url;
+          }
+          // if queryParamsStartPos is 0, return blank url
+        }
+
+        return res;
+      };
+
+      var _updateItemObjectData = function (item, params) {
         if (params && item.objectData) {
+          if (_getWidgetHtmlUrl(params)) {
+            item.objectData = params;
+            return;
+          }
+
           item.objectData = item.objectData.split(/[?#]/)[0];
-          if (params.charAt(0) == '&') {
+          if (params.charAt(0) === '&') {
             params = params.replace('&', '?');
           }
-          if (params.charAt(0) != '?') {
+          if (params.charAt(0) !== '?') {
             params = '?' + params;
           }
-          item.objectData += params;  
+          item.objectData += params;
         }
       };
 
@@ -54,8 +98,13 @@ angular.module('risevision.editorApp.services')
 
               gadgetFactory.getGadget(item.objectReference)
                 .then(function (gadget) {
+                  if (!item.objectData) {
+                    item.objectData = gadget.url;
+                  }
+
                   deferred.resolve({
-                    url: _getSettingsUrl(gadget.uiUrl),
+                    url: _getSettingsUrl(item.objectData,
+                      gadget.uiUrl),
                     additionalParams: item.additionalParams
                   });
                 });
@@ -67,9 +116,8 @@ angular.module('risevision.editorApp.services')
 
         modalInstance.result.then(function (widgetData) {
           if (widgetData) {
-            _updateItemObjectData(item,widgetData.params);
-            item.additionalParams =
-              widgetData.additionalParams;
+            _updateItemObjectData(item, widgetData.params);
+            item.additionalParams = widgetData.additionalParams;
           }
 
           $log.info('Widget saved:', widgetData);

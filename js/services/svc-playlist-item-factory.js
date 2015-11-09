@@ -19,7 +19,8 @@ angular.module('risevision.editorApp.services')
           .then(function (gadget) {
             var item = _newPlaylistItem();
 
-            item.type = gadget.gadgetType.toLowerCase();
+            item.type = gadget.gadgetType ? gadget.gadgetType.toLowerCase() :
+              'widget';
             item.name = gadget.name ? gadget.name : 'Widget Item';
 
             item.objectData = gadget.url;

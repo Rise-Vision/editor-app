@@ -12,7 +12,7 @@ angular.module('risevision.editorApp.directives')
         restrict: 'E',
         templateUrl: 'partials/artboard-presentation.html',
         link: function ($scope, element, attrs) {
-            var heightIncrement = PRESENTATION_TOOLBAR_SIZE + 
+            var heightIncrement = PRESENTATION_TOOLBAR_SIZE +
               PRESENTATION_BORDER_SIZE;
             var widthIncrement = 2 * PRESENTATION_BORDER_SIZE;
 
@@ -29,8 +29,9 @@ angular.module('risevision.editorApp.directives')
                   heightIncrement) + $scope.presentation
                 .heightUnits);
               element.css('background', $scope.presentation.backgroundStyle);
-              element.css('backgroundSize', 
-                $scope.presentation.backgroundScaleToFit ? 'contain' : '');
+              element.css('backgroundSize',
+                $scope.presentation.backgroundScaleToFit ? 'contain' :
+                '');
             }, true);
           } //link()
       };
