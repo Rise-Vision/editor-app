@@ -22,8 +22,9 @@ angular.module('risevision.editorApp.directives')
               element.css('height', $scope.placeholder.height + $scope.placeholder
                 .heightUnits);
               element.css('background', $scope.placeholder.backgroundStyle);
-              element.css('backgroundSize', 
-                $scope.placeholder.backgroundScaleToFit ? 'contain' : '');
+              element.css('backgroundSize',
+                $scope.placeholder.backgroundScaleToFit ? 'contain' :
+                '');
               element.css('z-index', $scope.placeholder.zIndex);
             }, true);
 

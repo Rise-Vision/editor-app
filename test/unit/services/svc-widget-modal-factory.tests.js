@@ -24,7 +24,10 @@ describe('service: widgetModalFactory:', function() {
         getGadget: function() {
           var deferred = Q.defer();
                     
-          deferred.resolve({uiUrl: 'http://somewidget/settings.html'});
+          deferred.resolve({
+            url: 'http://www.risevision.com/widget.html',
+            uiUrl: 'http://somewidget/settings.html'
+          });
           
           return deferred.promise;
         }
@@ -60,7 +63,7 @@ describe('service: widgetModalFactory:', function() {
   var widgetModalFactory, item, updateParams, widgetObj, returnedParams;
   beforeEach(function(){
     item = {
-      objectData: 'http://www.risevision.com/widget',
+      objectData: 'http://www.risevision.com/widget.html',
       objectReference: '123',
       additionalParams: 'params'
     };
@@ -77,20 +80,36 @@ describe('service: widgetModalFactory:', function() {
     expect(widgetModalFactory.showWidgetModal).to.be.a('function');
   });
   
-  it('should initialize url correctly and remove protocol (http)', function(done) {
-    widgetModalFactory.showWidgetModal(item);
+  describe('settings url: ', function() {
+    it('should initialize url correctly and remove protocol (http)', function(done) {
+      widgetModalFactory.showWidgetModal(item);
 
-    setTimeout(function() {
-      expect(widgetObj).to.be.ok;
+      setTimeout(function() {
+        expect(widgetObj).to.be.ok;
 
-      // TODO: Should find a better way to access value
-      expect(widgetObj.$$state.value).to.be.ok;
+        // TODO: Should find a better way to access value
+        expect(widgetObj.$$state.value).to.be.ok;
 
-      expect(widgetObj.$$state.value.additionalParams).to.equal('params');
-      expect(widgetObj.$$state.value.url).to.equal('//somewidget/settings.html?up_id=widget-modal-frame&parent=http%3A%2F%2Fserver%2F&up_rsW=100&up_rsH=200&up_companyId=someId');
-      
-      done();        
-    }, 10);  
+        expect(widgetObj.$$state.value.additionalParams).to.equal('params');
+        expect(widgetObj.$$state.value.url).to.equal('//somewidget/settings.html?up_id=widget-modal-frame&parent=http%3A%2F%2Fserver%2F&up_rsW=100&up_rsH=200&up_companyId=someId');
+        
+        done();        
+      }, 10);  
+    });
+    
+    it('should append previous params to url', function(done) {
+      item.objectData = 'http://www.risevision.com/widget.html?up_fileType=43&up_list=0'
+      widgetModalFactory.showWidgetModal(item);
+
+      setTimeout(function() {
+        expect(widgetObj).to.be.ok;
+
+        expect(widgetObj.$$state.value).to.be.ok;
+        expect(widgetObj.$$state.value.url).to.equal('//somewidget/settings.html?up_fileType=43&up_list=0&up_id=widget-modal-frame&parent=http%3A%2F%2Fserver%2F&up_rsW=100&up_rsH=200&up_companyId=someId');
+        
+        done();        
+      }, 10);  
+    });
   });
   
   it('should update additionalParams',function(done){
@@ -114,13 +133,38 @@ describe('service: widgetModalFactory:', function() {
 
   });
 
-   describe('objectData params:',function(){
+  describe('objectData params:',function() {
+    describe('custom widget url: ', function() {
+      it('should detect url with params',function(done){
+        returnedParams = 'http://www.risevision.com/custom-widget.html?up_fileType=43&up_list=0';
+        widgetModalFactory.showWidgetModal(item);
+        
+        setTimeout(function() {      
+          expect(item.objectData).to.equal('http://www.risevision.com/custom-widget.html?up_fileType=43&up_list=0');
+          done();
+        }, 10);
+
+      });
+
+      it('should detect blank url',function(done){
+        returnedParams = 'http://www.risevision.com/custom-widget.html';
+        widgetModalFactory.showWidgetModal(item);
+        
+        setTimeout(function() {      
+          expect(item.objectData).to.equal('http://www.risevision.com/custom-widget.html');
+          done();
+        }, 10);
+
+      });
+
+    });
+
     it('should append params to item objectData',function(done){
       returnedParams = 'up_fileType=43&up_list=0';
       widgetModalFactory.showWidgetModal(item);
       
       setTimeout(function() {      
-        expect(item.objectData).to.equal('http://www.risevision.com/widget?up_fileType=43&up_list=0');
+        expect(item.objectData).to.equal('http://www.risevision.com/widget.html?up_fileType=43&up_list=0');
         done();
       }, 10);
 
@@ -131,7 +175,7 @@ describe('service: widgetModalFactory:', function() {
       widgetModalFactory.showWidgetModal(item);
       
       setTimeout(function() {      
-        expect(item.objectData).to.equal('http://www.risevision.com/widget?up_fileType=43&up_list=0');
+        expect(item.objectData).to.equal('http://www.risevision.com/widget.html?up_fileType=43&up_list=0');
         done();
       }, 10);
 
@@ -142,7 +186,7 @@ describe('service: widgetModalFactory:', function() {
       widgetModalFactory.showWidgetModal(item);
       
       setTimeout(function() {      
-        expect(item.objectData).to.equal('http://www.risevision.com/widget?up_fileType=43&up_list=0');
+        expect(item.objectData).to.equal('http://www.risevision.com/widget.html?up_fileType=43&up_list=0');
         done();
       }, 10);
 
@@ -150,11 +194,11 @@ describe('service: widgetModalFactory:', function() {
 
     it('should remove existing params and append new ones',function(done){
       returnedParams = '?up_fileType=3&up_list=1';
-      item.objectData = 'http://www.risevision.com/widget?up_fileType=43&up_list=0'
+      item.objectData = 'http://www.risevision.com/widget.html?up_fileType=43&up_list=0'
       widgetModalFactory.showWidgetModal(item);
       
       setTimeout(function() {      
-        expect(item.objectData).to.equal('http://www.risevision.com/widget?up_fileType=3&up_list=1');
+        expect(item.objectData).to.equal('http://www.risevision.com/widget.html?up_fileType=3&up_list=1');
         done();
       }, 10);
 
@@ -165,7 +209,7 @@ describe('service: widgetModalFactory:', function() {
       widgetModalFactory.showWidgetModal(item);
       
       setTimeout(function() {      
-        expect(item.objectData).to.equal('http://www.risevision.com/widget');
+        expect(item.objectData).to.equal('http://www.risevision.com/widget.html');
         done();
       }, 10);
 
@@ -177,14 +221,12 @@ describe('service: widgetModalFactory:', function() {
       widgetModalFactory.showWidgetModal(item);
       
       setTimeout(function() {      
-        expect(item.objectData).to.equal(null);
+        expect(item.objectData).to.equal('http://www.risevision.com/widget.html?up_fileType=3&up_list=1');
         done();
       }, 10);
 
     }); 
 
-  })
-
-  
+  });
 
 });
