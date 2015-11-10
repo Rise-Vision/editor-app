@@ -13,6 +13,7 @@ describe('directive: artboard-presentation', function() {
       width: 1920,
       widthUnits: "px",
       backgroundStyle: "rgb(222, 33, 90)",
+      backgroundScaleToFit: true
   };
 
   beforeEach(module('risevision.editorApp.services'));
@@ -60,7 +61,8 @@ describe('directive: artboard-presentation', function() {
       $scope.$digest();
       expect(element.css('width')).to.equal((presentation.width + widthIncrement)+presentation.widthUnits);
       expect(element.css('height')).to.equal((presentation.height + heightIncrement)+presentation.heightUnits);
-      expect(element.css('background')).to.equal(presentation.backgroundStyle);    
+      expect(element.css('background')).to.equal(presentation.backgroundStyle);
+      expect(element.css('backgroundSize')).to.equal('contain');    
     });
 
     it('should apply presentation properties when they cahnge',function(){
@@ -71,7 +73,8 @@ describe('directive: artboard-presentation', function() {
       $scope.$apply();
       expect(element.css('width')).to.equal((presentation.width + widthIncrement)+presentation.widthUnits);
       expect(element.css('height')).to.equal((presentation.height+ heightIncrement)+presentation.heightUnits);
-      expect(element.css('background')).to.equal(presentation.backgroundStyle);    
+      expect(element.css('background')).to.equal(presentation.backgroundStyle);  
+      expect(element.css('backgroundSize')).to.equal('contain');  
     });
   })
 });

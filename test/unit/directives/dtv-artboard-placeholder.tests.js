@@ -16,7 +16,8 @@ describe('directive: artboard-placeholder', function() {
       "top": 530,
       "topUnits": "px",
       "zIndex": 1,
-      "backgroundStyle": "rgb(222, 33, 90)"
+      "backgroundStyle": "rgb(222, 33, 90)",
+      'backgroundScaleToFit': true
   };
 
   beforeEach(module('risevision.editorApp.services'));
@@ -59,6 +60,7 @@ describe('directive: artboard-placeholder', function() {
       expect(element.css('width')).to.equal(placeholder.width+placeholder.widthUnits);
       expect(element.css('height')).to.equal(placeholder.height+placeholder.heightUnits);
       expect(element.css('background')).to.equal(placeholder.backgroundStyle);
+      expect(element.css('backgroundSize')).to.equal('contain');
       expect(parseInt(element.css('z-index'))).to.equal(placeholder.zIndex);    
     });
 
@@ -77,6 +79,7 @@ describe('directive: artboard-placeholder', function() {
       expect(element.css('width')).to.equal(placeholder.width+placeholder.widthUnits);
       expect(element.css('height')).to.equal(placeholder.height+placeholder.heightUnits);
       expect(element.css('background')).to.equal(placeholder.backgroundStyle);
+      expect(element.css('backgroundSize')).to.equal('contain');
       expect(parseInt(element.css('z-index'))).to.equal(placeholder.zIndex);        
     });
 

@@ -29,6 +29,8 @@ angular.module('risevision.editorApp.directives')
                   heightIncrement) + $scope.presentation
                 .heightUnits);
               element.css('background', $scope.presentation.backgroundStyle);
+              element.css('backgroundSize', 
+                $scope.presentation.backgroundScaleToFit ? 'contain' : '');
             }, true);
           } //link()
       };
