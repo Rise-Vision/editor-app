@@ -9,6 +9,8 @@ var PlaceholderSettingsPage = function() {
   var editNameLink = element(by.id('editPlaceholderName'));
   var saveNameLink = element(by.id('savePlaceholderName'));
   var cancelNameLink = element(by.id('cancelPlaceholderName'));
+  var transitionSelect = element(by.id('transitionSelect'));
+  
   
   this.getEditPlaylistButton = function() {
     return editPlaylistButton;
@@ -44,6 +46,10 @@ var PlaceholderSettingsPage = function() {
   
   this.getCancelNameLink = function() {
     return cancelNameLink;
+  };
+
+  this.getTransitionSelect = function() {
+    return transitionSelect;
   };
   
 };

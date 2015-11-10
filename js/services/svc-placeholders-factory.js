@@ -23,6 +23,7 @@ angular.module('risevision.editorApp.services')
           left: 0,
           leftUnits: 'px',
           visibility: true,
+          transition: 'none',
           timeDefined: false
         };
       };

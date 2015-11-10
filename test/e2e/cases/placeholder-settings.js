@@ -62,6 +62,7 @@ var PlaceholderSettingsScenarios = function() {
         
         expect(placeholderSettingsPage.getEditNameLink().isDisplayed()).to.eventually.be.true;
         expect(placeholderSettingsPage.getIdTextbox().isDisplayed()).to.eventually.be.true;
+        expect(placeholderSettingsPage.getTransitionSelect().isDisplayed()).to.eventually.be.true;
         
         expect(placeholderSettingsPage.getSaveNameLink().isDisplayed()).to.eventually.be.false;
         expect(placeholderSettingsPage.getCancelNameLink().isDisplayed()).to.eventually.be.false;
@@ -106,7 +107,19 @@ var PlaceholderSettingsScenarios = function() {
         helper.wait(placeholderSettingsPage.getEditNameLink(), 'Edit Name');
         
         expect(placeholderSettingsPage.getIdTextbox().getAttribute('value')).to.eventually.equal('ph2');
+      });
+
+      it('should update transition', function() {
+        placeholderSettingsPage.getTransitionSelect().element(by.cssContainingText('option', 'Slide Up')).click();
+
+        workspacePage.getBackToListButton().click();
+        browser.sleep(500);
+        placeholdersListPage.getManageLinks().get(0).click();
+        browser.sleep(500);
+        
+        expect(placeholderSettingsPage.getTransitionSelect().$('option:checked').getText()).to.eventually.equal('Slide Up');
       })
+
     });
   });
 };
