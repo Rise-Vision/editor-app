@@ -9,7 +9,7 @@ angular.module('risevision.editorApp.services')
       var UNIT_PIXEL = 'px';
       var UNIT_PERCENT = '%';
 
-      var numbers = '0123456789.';
+      var numbers = '0123456789.-';
 
       if (typeof String.prototype.startsWith !== 'function') {
         String.prototype.startsWith = function (str) {
