@@ -117,6 +117,7 @@ describe('service: HtmlParser ', function() {
   
   it('getUnits', function() {
     expect(htmlParser.getUnits('400px')).to.equal('px');
+    expect(htmlParser.getUnits('-400px')).to.equal('px');
     expect(htmlParser.getUnits('23.000%')).to.equal('%');
     expect(htmlParser.getUnits('" 23.000px"')).to.equal('px');
     expect(htmlParser.getUnits('" 23.000"')).to.equal('');
@@ -125,9 +126,12 @@ describe('service: HtmlParser ', function() {
   it('getFloatValue', function() {
     expect(htmlParser.getFloatValue(110)).to.equal(110);
     expect(htmlParser.getFloatValue('400px')).to.equal(400);
+    expect(htmlParser.getFloatValue('-400px')).to.equal(-400);
     expect(htmlParser.getFloatValue('23.000%')).to.equal(23);
+    expect(htmlParser.getFloatValue('-23.000%')).to.equal(-23);
     expect(htmlParser.getFloatValue('" 23.000px"')).to.equal(23);
     expect(htmlParser.getFloatValue('" 23.001"')).to.equal(23.001);
+    expect(htmlParser.getFloatValue('"- 23.001"')).to.equal(-23.001);
     
     expect(htmlParser.getFloatValue('" absolute"')).to.equal(0);
     
@@ -137,9 +141,12 @@ describe('service: HtmlParser ', function() {
   it('getIntValue', function() {
     expect(htmlParser.getIntValue(110)).to.equal(110);
     expect(htmlParser.getIntValue('400px')).to.equal(400);
+    expect(htmlParser.getFloatValue('-400px')).to.equal(-400);
     expect(htmlParser.getIntValue('23.000%')).to.equal(23);
+    expect(htmlParser.getFloatValue('-23.000%')).to.equal(-23);
     expect(htmlParser.getIntValue('" 23.000px"')).to.equal(23);
     expect(htmlParser.getIntValue('" 23.001"')).to.equal(23);
+    expect(htmlParser.getIntValue('"- 23.001"')).to.equal(-23);
     
     expect(htmlParser.getIntValue('" absolute"')).to.equal(0);
     
