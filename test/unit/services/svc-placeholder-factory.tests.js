@@ -51,6 +51,7 @@ describe('service: placeholderFactory:', function() {
     
     expect(placeholderFactory.setPlaceholder).to.be.a('function');
     expect(placeholderFactory.clearPlaceholder).to.be.a('function');    
+    expect(placeholderFactory.togglePlaceholder).to.be.a('function');
     expect(placeholderFactory.updateSubscriptionStatus).to.be.a('function');    
   });
 
@@ -63,6 +64,15 @@ describe('service: placeholderFactory:', function() {
     placeholderFactory.setPlaceholder(placeholder);
     placeholderFactory.clearPlaceholder();
     expect(placeholderFactory.placeholder).to.equal(undefined);
+  });
+
+  it('should toggle placeholder', function() {
+    placeholderFactory.setPlaceholder(placeholder);
+
+    placeholderFactory.togglePlaceholder(placeholder);
+    expect(placeholderFactory.placeholder).to.equal(undefined);
+    placeholderFactory.togglePlaceholder(placeholder);
+    expect(placeholderFactory.placeholder).to.equal(placeholder);
   });
   
   describe('updateSubscriptionStatus: ', function() {
