@@ -29,15 +29,8 @@ describe('service: placeholderPlaylistFactory:', function() {
       return placeholderFactory;
     });
 
-    $provide.service('editorFactory',function () {
-      return {
-        removeEmbeddedId : function (id) {
-        }
-      };
-    });
-
   }));
-  var items, item, item0, item2, placeholderPlaylistFactory, trackerCalled, placeholderFactory, editorFactoryInstance, removeEmbeddedIdSpy;
+  var items, item, item0, item2, placeholderPlaylistFactory, trackerCalled, placeholderFactory;
 
   beforeEach(function(){
     trackerCalled = undefined;
@@ -45,8 +38,6 @@ describe('service: placeholderPlaylistFactory:', function() {
     inject(function($injector){  
       placeholderPlaylistFactory = $injector.get('placeholderPlaylistFactory');
       placeholderPlaylistFactory.item = item;
-      editorFactoryInstance = $injector.get('editorFactory');
-      removeEmbeddedIdSpy = sinon.spy(editorFactoryInstance, 'removeEmbeddedId');
     });
   });
 
@@ -90,14 +81,6 @@ describe('service: placeholderPlaylistFactory:', function() {
       placeholderPlaylistFactory.removeItem(item);
 
       expect(items.length).to.equal(2);
-    });
-
-    it('should remove presentation item',function(){
-      item.type = 'presentation';
-      placeholderPlaylistFactory.removeItem(item);
-
-      expect(items.length).to.equal(2);
-      removeEmbeddedIdSpy.should.have.been.calledWith(item.objectData);
     });
     
     it('should not remove missing item',function(){

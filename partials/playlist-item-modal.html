@@ -6,7 +6,6 @@
     <h3 class="modal-title" translate>editor-app.playlistItem.title</h3>
   </div>
   <div class="modal-body" stop-event="touchend">
-    <form role="form" name="presentationItemDetails" novalidate>
     <div class="content-box" ng-show="item.type === 'gadget'">
       <div class="content-box-body bg-warning">
         <p class="remove-bottom"><span translate>editor-app.playlistItem.legacyWarningPart1</span> <a  href="{{PREVIOUS_EDITOR_URL}}" target="_blank"><span translate>editor-app.playlistItem.legacyWarningPart2</span></a> <span translate>editor-app.playlistItem.legacyWarningPart3</span></p>
@@ -24,16 +23,6 @@
         {{widgetName}} <i class="fa fa-cog icon-right"></i>
       </a>
     </p>
-    <div ng-show="presentationType">
-      <label class="control-label add-right">{{'editor-app.playlistItem.presentation' | translate}}:</label>
-      <div class="input-group">
-          <input type="text" class="form-control" name="presentationId" id="presentationId" ng-model="item.objectData" required />
-          <a id="selectPresentation" class="link input-group-addon" href="" ng-click="playlistItemFactory.editPresentation(item)" >{{'editor-app.playlistItem.select' |translate}}</a>
-      </div>
-      <p class="text-danger" ng-show="!presentationItemDetails.presentationId.$pristine && presentationItemDetails.presentationId.$error.required" translate>
-        editor-app.playlistItem.required
-      </p>
-    </div>
     <hr>
 
     <div class="form-group half-top">
@@ -69,16 +58,15 @@
       recurrence-week-of-month = "item.recurrenceWeekOfMonth"
       recurrence-month-of-year = "item.recurrenceMonthOfYear"
       recurrence-days-of-week = "item.recurrenceDaysOfWeek">
-    </timeline-textbox>
-  </div><!--form-group-->
+      </timeline-textbox>
+    </div><!--form-group-->
 
-  <distribution-selector distribution="item.distribution" distribute-to-all="item.distributeToAll"></distribution-selector>
-    </form>
+    <distribution-selector distribution="item.distribution" distribute-to-all="item.distributeToAll"></distribution-selector>
   </div><!--modal-body-->
 
   <div class="modal-footer">
 
-    <button id="playlistItemSave" class="btn btn-primary" ng-click="save()" ng-disabled="presentationItemDetails.$invalid">{{'common.apply' | translate}} <i class="fa fa-check icon-right"></i></button>
+    <button id="playlistItemSave" class="btn btn-primary" ng-click="save()">{{'common.apply' | translate}} <i class="fa fa-check icon-right"></i></button>
     <button class="btn btn-default" ng-click="dismiss()">{{'common.cancel' | translate}} <i class="fa fa-times icon-right"></i></button>
   </div>
 </div>
