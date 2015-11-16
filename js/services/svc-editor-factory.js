@@ -91,14 +91,43 @@ angular.module('risevision.editorApp.services')
         return deferred.promise;
       };
 
+      var _arrayContains = function (items, obj) {
+        var i = items.length;
+        while (i--) {
+          if (items[i] === obj) {
+            return true;
+          }
+        }
+        return false;
+      };
+
+      var _updateEmbeddedIds = function (presentation) {
+        presentation.embeddedIds = [];
+        var i = presentation.placeholders && presentation.placeholders.length;
+
+        while (i--) {
+          var j = presentation.placeholders[i].items &&
+            presentation.placeholders[i].items.length;
+          while (j--) {
+            var item = presentation.placeholders[i].items[j];
+            if (item && item.type === 'presentation' &&
+              !_arrayContains(presentation.embeddedIds, item.objectData)) {
+              presentation.embeddedIds.push(item.objectData);
+            }
+          }
+        }
+      };
+
       var _parseOrUpdatePresentation = function () {
         if ($state.is('editor.workspace.htmleditor')) {
           presentationParser.parsePresentation(factory.presentation);
-          distributionParser.parseDistribution(factory.presentation);
         } else {
           presentationParser.updatePresentation(factory.presentation);
-          distributionParser.updateDistribution(factory.presentation);
         }
+
+        distributionParser.updateDistribution(factory.presentation);
+
+        _updateEmbeddedIds(factory.presentation);
       };
 
       factory.addPresentation = function () {
@@ -317,25 +346,6 @@ angular.module('risevision.editorApp.services')
         factory.errorMessage = 'Failed to ' + action + ' Presentation!';
         factory.apiError = e.result.error.message ? e.result.error.message :
           e.result.error.toString();
-      };
-
-      factory.addEmbeddedId = function (presentationId) {
-        if (factory.presentation.embeddedIds === undefined) {
-          factory.presentation.embeddedIds = [];
-        }
-        if (factory.presentation.embeddedIds.indexOf(presentationId) === -1) {
-          factory.presentation.embeddedIds.push(presentationId);
-        }
-      };
-
-      factory.removeEmbeddedId = function (presentationId) {
-        if (factory.presentation.embeddedIds !== undefined) {
-          var index = factory.presentation.embeddedIds.indexOf(
-            presentationId);
-          if (index > -1) {
-            factory.presentation.embeddedIds.splice(index, 1);
-          }
-        }
       };
 
       return factory;

@@ -51,10 +51,6 @@ describe('controller: playlist item modal', function() {
       return {}
     });
 
-    $provide.service('playlistItemFactory',function(){
-      return {}
-    });
-
     $provide.service('editorFactory',function(){
       return {
         presentation: presentation
@@ -112,15 +108,6 @@ describe('controller: playlist item modal', function() {
     it('should load widget name', function(done) {
       setTimeout(function() {
         expect($scope.widgetName).to.equal('Widget');
-
-        done();
-      }, 10);
-    });
-
-    it('should load presentation id', function(done) {
-      itemType = 'presentation';
-      setTimeout(function() {
-        expect($scope.item.objectData).to.equal('345');
 
         done();
       }, 10);

@@ -165,8 +165,6 @@ describe('service: editorFactory:', function() {
     expect(editorFactory.copyPresentation).to.be.a('function');
     expect(editorFactory.addFromTemplate).to.be.a('function');
     expect(editorFactory.getPreviewUrl).to.be.a('function');
-    expect(editorFactory.addEmbeddedId).to.be.a('function');
-    expect(editorFactory.removeEmbeddedId).to.be.a('function');
   });
   
   it('newPresentation: should reset the presentation',function(){
@@ -269,7 +267,7 @@ describe('service: editorFactory:', function() {
       editorFactory.addPresentation();
 
       expect(editorFactory.presentation.parsed).to.be.true;
-      expect(editorFactory.presentation.distributionParsed).to.be.true;
+      expect(editorFactory.presentation.distributionUpdated).to.be.true;
 
       expect(editorFactory.savingPresentation).to.be.true;
       expect(editorFactory.loadingPresentation).to.be.true;
@@ -305,6 +303,34 @@ describe('service: editorFactory:', function() {
         done();
       },10);
     });
+    
+    it('should update embedded ids',function(){
+      editorFactory.presentation.placeholders = [
+        {
+          items: [
+            {
+              type: 'presentation',
+              objectData: 'presentation1'
+            }
+          ]
+        },
+        {
+          items: [
+            {
+              type: 'presentation',
+              objectData: 'presentation2'
+            },
+            {
+              type: 'presentation',
+              objectData: 'presentation2'
+            }
+          ]
+        }
+      ];
+      editorFactory.addPresentation();
+
+      expect(editorFactory.presentation.embeddedIds).to.deep.equal(['presentation2', 'presentation1']);
+    });
   });
   
   describe('updatePresentation: ',function(){
@@ -335,7 +361,7 @@ describe('service: editorFactory:', function() {
       editorFactory.updatePresentation();
 
       expect(editorFactory.presentation.parsed).to.be.true;
-      expect(editorFactory.presentation.distributionParsed).to.be.true;
+      expect(editorFactory.presentation.distributionUpdated).to.be.true;
 
       expect(editorFactory.savingPresentation).to.be.true;
       expect(editorFactory.loadingPresentation).to.be.true;
@@ -557,54 +583,6 @@ describe('service: editorFactory:', function() {
         expect(editorFactory.loadingPresentation).to.be.false;
         expect(editorFactory.errorMessage).to.be.ok;
         expect(editorFactory.apiError).to.be.ok;
-        done();
-      },10);
-    });
-  });
-
-
-  describe('embeddedIds: ',function(){
-    it('should add embedded Id',function(done){
-      editorFactory.presentation.embeddedIds = undefined;
-
-      editorFactory.addEmbeddedId('123');
-
-      setTimeout(function(){
-        expect(editorFactory.presentation.embeddedIds).to.deep.equal(['123']);
-        done();
-      },10);
-    });
-
-    it('should not add embedded Id if id is already added',function(done){
-      editorFactory.presentation.embeddedIds = ['123'];
-
-      editorFactory.addEmbeddedId('123');
-
-      setTimeout(function(){
-        expect(editorFactory.presentation.embeddedIds).to.deep.equal(['123']);
-        done();
-      },10);
-    });
-
-
-    it('should remove embedded Id',function(done){
-      editorFactory.presentation.embeddedIds = ['123'];
-
-      editorFactory.removeEmbeddedId('123');
-
-      setTimeout(function(){
-        expect(editorFactory.presentation.embeddedIds).to.deep.equal([]);
-        done();
-      },10);
-    });
-
-    it('should not remove embedded Id if id is not found',function(done){
-      editorFactory.presentation.embeddedIds = ['123'];
-
-      editorFactory.removeEmbeddedId('345');
-
-      setTimeout(function(){
-        expect(editorFactory.presentation.embeddedIds).to.deep.equal(['123']);
         done();
       },10);
     });

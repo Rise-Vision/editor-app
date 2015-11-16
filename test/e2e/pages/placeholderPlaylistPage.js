@@ -2,7 +2,6 @@
 var PlaceholderPlaylistPage = function() {
   var addPlayListItemButton = element(by.id('addPlaylistItemButton'));
   var addContentButton = element(by.id('addContentButton'));
-  var addPresentationButton = element(by.id('addPresentationButton'));
 
   var playlistItems = element.all(by.repeater('item in factory.getItems()'));
   var moveUpButtons = element.all(by.id('moveUpButton'));
@@ -19,10 +18,6 @@ var PlaceholderPlaylistPage = function() {
 
   this.getAddContentButton = function() {
     return addContentButton;
-  };
-
-  this.getAddPresentationButton = function() {
-    return addPresentationButton;
   };
 
   this.getPlaylistItems = function() {
