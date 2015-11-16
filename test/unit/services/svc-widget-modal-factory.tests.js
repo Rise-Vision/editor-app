@@ -110,6 +110,20 @@ describe('service: widgetModalFactory:', function() {
         done();        
       }, 10);  
     });
+
+    it('should use url from settingsUrl if available', function(done) {
+      item.settingsUrl = 'http://www.risevision.com/settings.html';
+      widgetModalFactory.showWidgetModal(item);
+
+      setTimeout(function() {
+        expect(widgetObj).to.be.ok;
+
+        expect(widgetObj.$$state.value).to.be.ok;
+        expect(widgetObj.$$state.value.url).to.equal('//www.risevision.com/settings.html?up_id=widget-modal-frame&parent=http%3A%2F%2Fserver%2F&up_rsW=100&up_rsH=200&up_companyId=someId');
+
+        done();        
+      }, 10);  
+    });
   });
   
   it('should update additionalParams',function(done){

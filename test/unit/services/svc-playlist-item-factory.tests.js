@@ -26,7 +26,14 @@ describe('service: playlistItemFactory:', function() {
             obj.resolve.category ? obj.resolve.category() : undefined;
           }
 
-          deferred.resolve({additionalParams: 'updatedParams'});
+          if(openModal === 'WidgetItemModalController') {
+            deferred.resolve({
+              url:'http://www.risevision.com/widget.html',
+              settingsUrl:'http://www.risevision.com/settings.html'
+            });
+          } else {
+            deferred.resolve({additionalParams: 'updatedParams'});
+          }
          
           return {
             result: deferred.promise
@@ -106,4 +113,26 @@ describe('service: playlistItemFactory:', function() {
     });
   });
 
+  describe('add widget by url: ', function() {
+    it('should add widget by url', function(done) {
+      playlistItemFactory.addWidgetByUrl();
+
+      expect(openModal).to.equal('WidgetItemModalController');
+      expect(currentItem).to.not.be.ok;
+      setTimeout(function() {
+        expect(openModal).to.equal('PlaylistItemModalController');
+        expect(currentItem).to.deep.equal({
+          duration: 10,
+          distributeToAll: true,
+          timeDefined: false,
+          additionalParams: null,
+          type: 'widget',
+          name: 'Widget from URL',
+          objectData: 'http://www.risevision.com/widget.html',
+          settingsUrl:'http://www.risevision.com/settings.html' 
+        });
+        done();
+      }, 10);
+    });
+  });
 });
