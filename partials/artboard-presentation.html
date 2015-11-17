@@ -1,6 +1,6 @@
 <div>
   <artboard-placeholder ng-repeat="placeholder in presentation.placeholders" placeholder="placeholder" placeholder-drag placeholder-resize
-	  ng-mouseDown="placeholderFactory.setPlaceholder(placeholder)">
+	  ng-mouseDown="placeholderFactory.togglePlaceholder(placeholder)" stop-event="mousedown">
 	  <span class="ph-name">{{placeholder.id}}</span>
   </artboard-placeholder>
 </div>

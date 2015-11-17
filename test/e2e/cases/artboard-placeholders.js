@@ -58,6 +58,24 @@ var ArtboardPlaceholdersScenarios = function() {
           });
         });
 
+        it('should deselect by clicking outside the placeholder', function (done) {
+          artboardPage.getPlaceholderContainer().getSize().then(function (size) {
+            browser.actions().mouseMove(artboardPage.getPlaceholderContainer(), {x: size.width - 10, y: size.height + 20}).click().perform();
+            expect(artboardPage.getPlaceholderContainer().getAttribute('class')).to.eventually.not.contain('edit-mode');
+            done();
+          });
+        });
+
+        it('should deselect by clicking the placeholder again', function (done) {
+          artboardPage.getPlaceholderContainer().getSize().then(function (size) {
+            browser.actions().mouseMove(artboardPage.getPlaceholderContainer(), {x: size.width - 10, y: size.height - 10}).click().perform();
+            expect(artboardPage.getPlaceholderContainer().getAttribute('class')).to.eventually.contain('edit-mode');
+            browser.actions().mouseMove(artboardPage.getPlaceholderContainer(), {x: size.width - 10, y: size.height - 10}).click().perform();
+            expect(artboardPage.getPlaceholderContainer().getAttribute('class')).to.eventually.not.contain('edit-mode');
+            done();
+          });
+        });
+
         it('should move placeholder', function () {
           artboardPage.getPlaceholderContainer().getLocation().then(function (initialLocation) {
             artboardPage.getPlaceholderContainer().getSize().then(function (size) {
