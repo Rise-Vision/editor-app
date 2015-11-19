@@ -12,7 +12,7 @@
     "www"
   ],
   "dependencies": {
-    "rv-common-style": "https://github.com/Rise-Vision/common-style.git#fix/store-aspect-ratio",
+    "rv-common-style": "https://github.com/Rise-Vision/common-style.git#v1.3.31",
     "common-header": "https://github.com/Rise-Vision/common-header.git#v1.6.5",
     "angular-ui-select2": "~0.0.5",
     "angular": "~1.3.0",
@@ -38,7 +38,7 @@
     "angular-mocks": "~1.3.0",
     "jquery": "~2.1.1",
     "angular-bootstrap": "~0.13.0",
-    "rv-common-style": "fix/store-aspect-ratio",
+    "rv-common-style": "v1.3.31",
     "angular-sanitize": "~1.3.0"
   }
 }
