@@ -79,14 +79,17 @@ angular.module('risevision.editorApp', [
         controller: 'WorkspaceController',
         resolve: {
           presentationInfo: ['canAccessEditor', 'editorFactory',
-            '$stateParams',
-            function (canAccessEditor, editorFactory, $stateParams) {
+            '$stateParams', '$location',
+            function (canAccessEditor, editorFactory, $stateParams, $location) {
               return canAccessEditor().then(function () {
-                if ($stateParams.presentationId) {
-                  //load the presentation based on the url param
+                if ($stateParams.presentationId && $stateParams.presentationId !== 'new') {
                   return editorFactory.getPresentation($stateParams
                     .presentationId);
                 } else if (!$stateParams.copyPresentation) {
+                  var copyOf = $location.search().copyOf;
+                  if (copyOf) {
+                    return editorFactory.newCopyOf(copyOf);
+                  }
                   editorFactory.openPresentationProperties();
                   return editorFactory.newPresentation();
                 } else {

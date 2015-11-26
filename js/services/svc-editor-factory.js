@@ -309,13 +309,8 @@ angular.module('risevision.editorApp.services')
         });
       };
 
-      var _addTemplate = function (productDetails) {
-        if (!productDetails || !productDetails.rvaEntityId) {
-          return;
-        }
-
-        //load template
-        factory.getPresentation(productDetails.rvaEntityId)
+      factory.newCopyOf = function(presentationId){
+        factory.getPresentation(presentationId)
           .then(factory.copyPresentation);
       };
 
@@ -331,7 +326,12 @@ angular.module('risevision.editorApp.services')
           }
         });
 
-        modalInstance.result.then(_addTemplate);
+        modalInstance.result.then(function(productDetails){
+          if (!productDetails || !productDetails.rvaEntityId) {
+            return;
+          }
+          factory.newCopyOf(productDetails.rvaEntityId);
+        });
       };
 
       factory.getPreviewUrl = function () {

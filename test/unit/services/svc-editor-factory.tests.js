@@ -491,6 +491,24 @@ describe('service: editorFactory:', function() {
 
   });
 
+  it('newCopyOf: ', function(done) {
+    editorFactory.newCopyOf("presentationId");
+    
+    setTimeout(function() {
+      expect(editorFactory.loadingPresentation).to.be.false;
+
+      expect(editorFactory.presentation.id).to.not.be.ok;
+      expect(editorFactory.presentation.name).to.equal('Copy of some presentation');
+      
+      expect(trackerCalled).to.equal('Presentation Copied');
+      expect(currentState).to.equal('editor.workspace.artboard');
+      expect(stateParams).to.deep.equal({presentationId: undefined, copyPresentation:true});
+
+      done();
+    }, 10);
+
+  });
+
   it('getPreviewUrl: ', function(done) {
     expect(editorFactory.getPreviewUrl()).to.not.be.ok;
     
