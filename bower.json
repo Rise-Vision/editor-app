@@ -27,7 +27,7 @@
     "rv-common-app-components": "https://github.com/Rise-Vision/common-app-components.git",
     "rv-common-i18n": "https://github.com/Rise-Vision/common-i18n.git",
     "component-storage-selector": "https://github.com/Rise-Vision/component-storage-selector.git",
-    "widget-settings-ui-components": "https://github.com/Rise-Vision/widget-settings-ui-components.git",
+    "widget-settings-ui-components": "https://github.com/Rise-Vision/widget-settings-ui-components.git#1.0.4",
     "widget-settings-ui-core": "https://github.com/Rise-Vision/widget-settings-ui-core.git",
     "angular-bootstrap-colorpicker": "~3.0.19",
     "angular-ui-codemirror": "~0.3.0",
