@@ -80,9 +80,11 @@ angular.module('risevision.editorApp', [
         resolve: {
           presentationInfo: ['canAccessEditor', 'editorFactory',
             '$stateParams', '$location',
-            function (canAccessEditor, editorFactory, $stateParams, $location) {
+            function (canAccessEditor, editorFactory, $stateParams,
+              $location) {
               return canAccessEditor().then(function () {
-                if ($stateParams.presentationId && $stateParams.presentationId !== 'new') {
+                if ($stateParams.presentationId && $stateParams.presentationId !==
+                  'new') {
                   return editorFactory.getPresentation($stateParams
                     .presentationId);
                 } else if (!$stateParams.copyPresentation) {
