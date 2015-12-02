@@ -1,8 +1,8 @@
 'use strict';
 angular.module('risevision.editorApp.controllers')
 
-.controller("WidgetItemModalController", [
-  "$scope", '$modalInstance',
+.controller('WidgetItemModalController', [
+  '$scope', '$modalInstance',
   function ($scope, $modalInstance) {
     $scope.form = {
       url: undefined,

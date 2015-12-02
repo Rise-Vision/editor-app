@@ -25,6 +25,7 @@ angular.module('risevision.editorApp', [
     'risevision.editorApp.directives',
     'risevision.common.loading',
     'risevision.common.i18n',
+    'risevision.widget.common.file-selector',
     'risevision.widget.common.background-image-setting',
     'risevision.widget.common',
     'ui.codemirror',
