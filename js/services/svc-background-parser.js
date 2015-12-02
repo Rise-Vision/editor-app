@@ -1,9 +1,11 @@
 'use strict';
 
 angular.module('risevision.editorApp.services')
-  .factory('backgroundParser', [
+  .constant('STORAGE_URL_PREFIX',
+    'https://storage.googleapis.com/risemedialibrary')
+  .factory('backgroundParser', ['STORAGE_URL_PREFIX',
 
-    function () {
+    function (STORAGE_URL_PREFIX) {
       var factory = {};
 
       var BACKGROUND_TOKENS = {
@@ -22,6 +24,18 @@ angular.module('risevision.editorApp.services')
         ['center bottom', 'bottom-center'],
         ['right bottom', 'bottom-right']
       ];
+
+      var _parseSelector = function (url) {
+        var selector = {
+          selection: 'custom',
+          url: url
+        };
+        if (url.slice(0, STORAGE_URL_PREFIX.length) === STORAGE_URL_PREFIX) {
+          selector.selection = 'single-file';
+          selector.storageName = url.substring(url.lastIndexOf('/') + 1);
+        }
+        return selector;
+      };
 
       factory.parseBackground = function (backgroundStyle,
         backgroundScaleToFit) {
@@ -43,15 +57,21 @@ angular.module('risevision.editorApp.services')
           if (urlTokenPosition !== -1) {
 
             background.useImage = true;
-            background.image = {};
+            background.image = {
+              selector: {}
+            };
 
             var openingParenthesesPosition = backgroundStyle.indexOf(
               '(\'', urlTokenPosition);
             closingParenthesesPosition = backgroundStyle.indexOf(
               '\')', urlTokenPosition);
-            background.image.url = backgroundStyle.substring(
+
+
+
+            background.image.selector = _parseSelector(backgroundStyle.substring(
               openingParenthesesPosition + 2,
-              closingParenthesesPosition);
+              closingParenthesesPosition));
+
 
             for (var i = 0; i < POSITION_OPTIONS.length; i++) {
               if (backgroundStyle.indexOf(POSITION_OPTIONS[i][0]) !== -1) {
@@ -75,9 +95,9 @@ angular.module('risevision.editorApp.services')
           backgroundStyle = background.color;
         }
 
-        if (background && background.useImage) {
+        if (background && background.useImage && background.image) {
           backgroundStyle += backgroundStyle ? ' ' : '';
-          backgroundStyle += 'url(\'' + background.image.url +
+          backgroundStyle += 'url(\'' + background.image.selector.url +
             '\') no-repeat';
 
           if (background.image.position) {
@@ -97,7 +117,8 @@ angular.module('risevision.editorApp.services')
 
         var backgroundScaleToFit = false;
 
-        if (background && background.useImage && background.image.scale) {
+        if (background && background.useImage && background.image &&
+          background.image.scale) {
           backgroundScaleToFit = true;
         }
 

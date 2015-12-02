@@ -3,6 +3,8 @@ var StoreProductsModalPage = function() {
   var storeProductsModal = element(by.id('addStoreProductModal'));
   var modalTitle = element(by.css('#addStoreProductModal .modal-title'));
   var searchFilter = element(by.tagName('search-filter'));
+  var searchInput = element(by.id('storeProductsSearchInput'));
+  
   var storeProductsLoader = element(by.css('#addStoreProductModal .spinner-backdrop'));
 
   var storeProductsTable = element(by.id('productListTable'));
@@ -25,6 +27,10 @@ var StoreProductsModalPage = function() {
 
   this.getSearchFilter = function() {
     return searchFilter;
+  };
+
+  this.getSearchInput = function() {
+    return searchInput;
   };
 
   this.getStoreProductsTable = function() {

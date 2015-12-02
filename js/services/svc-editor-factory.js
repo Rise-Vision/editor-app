@@ -309,7 +309,7 @@ angular.module('risevision.editorApp.services')
         });
       };
 
-      factory.newCopyOf = function(presentationId){
+      factory.newCopyOf = function (presentationId) {
         factory.getPresentation(presentationId)
           .then(factory.copyPresentation);
       };
@@ -326,7 +326,7 @@ angular.module('risevision.editorApp.services')
           }
         });
 
-        modalInstance.result.then(function(productDetails){
+        modalInstance.result.then(function (productDetails) {
           if (!productDetails || !productDetails.rvaEntityId) {
             return;
           }
