@@ -5,13 +5,13 @@ angular.module('risevision.editorApp.services')
     function ($rootScope, gadgetFactory) {
       var factory = {};
 
-      factory.togglePlaceholder = function(placeholder) {
+      factory.togglePlaceholder = function (placeholder) {
         if (factory.placeholder === placeholder) {
           factory.clearPlaceholder();
         } else {
           factory.setPlaceholder(placeholder);
         }
-      }
+      };
 
       factory.setPlaceholder = function (placeholder) {
         factory.placeholder = placeholder;

@@ -284,9 +284,9 @@ angular.module('risevision.editorApp.services')
       };
 
       factory.save = function () {
-        console.log('Presentation save');
+        presentationTracker('Save Presentation', factory.presentation.id,
+          factory.presentation.name);
         if (factory.presentation.id) {
-          console.log('Presentation Update');
           factory.updatePresentation();
         } else {
           factory.addPresentation();
@@ -309,12 +309,13 @@ angular.module('risevision.editorApp.services')
         });
       };
 
-      factory.newCopyOf = function(presentationId){
+      factory.newCopyOf = function (presentationId) {
         factory.getPresentation(presentationId)
           .then(factory.copyPresentation);
       };
 
       factory.addFromTemplate = function () {
+        presentationTracker('Add Presentation From Template');
         var modalInstance = $modal.open({
           templateUrl: 'partials/store-products-modal.html',
           size: 'lg',
@@ -326,7 +327,8 @@ angular.module('risevision.editorApp.services')
           }
         });
 
-        modalInstance.result.then(function(productDetails){
+        modalInstance.result.then(function (productDetails) {
+          presentationTracker('Template Selected');
           if (!productDetails || !productDetails.rvaEntityId) {
             return;
           }

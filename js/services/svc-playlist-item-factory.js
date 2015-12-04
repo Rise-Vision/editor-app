@@ -2,7 +2,8 @@
 
 angular.module('risevision.editorApp.services')
   .factory('playlistItemFactory', ['$modal', 'gadgetFactory',
-    function ($modal, gadgetFactory) {
+    'presentationTracker', 'editorFactory',
+    function ($modal, gadgetFactory, presentationTracker, editorFactory) {
       var factory = {};
 
       var _newPlaylistItem = function () {
@@ -15,6 +16,8 @@ angular.module('risevision.editorApp.services')
       };
 
       var _addProduct = function (productDetails) {
+        presentationTracker('Content Selected', editorFactory.presentation.id,
+          editorFactory.presentation.name);
         gadgetFactory.getGadgetByProduct(productDetails.productCode)
           .then(function (gadget) {
             var item = _newPlaylistItem();
@@ -42,6 +45,8 @@ angular.module('risevision.editorApp.services')
       };
 
       factory.addContent = function () {
+        presentationTracker('Add Content', editorFactory.presentation.id,
+          editorFactory.presentation.name);
         var modalInstance = $modal.open({
           templateUrl: 'partials/store-products-modal.html',
           size: 'lg',
@@ -70,6 +75,8 @@ angular.module('risevision.editorApp.services')
       };
 
       factory.addWidgetByUrl = function () {
+        presentationTracker('Add Widget By URL', editorFactory.presentation
+          .id, editorFactory.presentation.name);
         var modalInstance = $modal.open({
           templateUrl: 'partials/widget-item-modal.html',
           controller: 'WidgetItemModalController',

@@ -475,6 +475,7 @@ describe('service: editorFactory:', function() {
   
   it('addFromTemplate: ', function(done) {
     editorFactory.addFromTemplate();
+    expect(trackerCalled).to.equal("Add Presentation From Template");
     
     setTimeout(function() {
       expect(editorFactory.loadingPresentation).to.be.false;
@@ -565,6 +566,13 @@ describe('service: editorFactory:', function() {
         expect(editorFactory.apiError).to.be.ok;
         done();
       },10);
+    });
+  });
+
+  describe('save:',function(){
+    it('should track event',function(){
+      editorFactory.save();
+      expect(trackerCalled).to.equal("Save Presentation");
     });
   });
 

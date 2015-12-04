@@ -2,7 +2,8 @@
 
 angular.module('risevision.editorApp.services')
   .factory('placeholdersFactory', ['editorFactory', 'presentationParser',
-    function (editorFactory, presentationParser) {
+    'presentationTracker',
+    function (editorFactory, presentationParser, presentationTracker) {
       var factory = {};
 
       factory.getPlaceholders = function () {
@@ -29,6 +30,8 @@ angular.module('risevision.editorApp.services')
       };
 
       factory.addNewPlaceholder = function (placeholder) {
+        presentationTracker('Add Placeholder', editorFactory.presentation.id,
+          editorFactory.presentation.name);
         placeholder = placeholder || _newPlaceholder();
 
         factory.getPlaceholders().push(placeholder);

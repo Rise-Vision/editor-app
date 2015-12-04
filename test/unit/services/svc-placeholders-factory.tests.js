@@ -47,9 +47,15 @@ describe('service: placeholdersFactory:', function() {
       };
     });
 
+    $provide.service('presentationTracker', function() {
+      return function(eventName){
+        trackedEvent = eventName;
+      }
+    });
+
   }));
   var placeholders, placeholder, placeholder0, placeholder2, placeholdersFactory, trackerCalled, updateSchedule, currentState;
-  var editorFactory;
+  var editorFactory, trackedEvent;
   beforeEach(function(){
     trackerCalled = undefined;
     currentState = undefined;
@@ -93,6 +99,7 @@ describe('service: placeholdersFactory:', function() {
   
   it('addNewPlaceholder: ', function() {
     placeholdersFactory.addNewPlaceholder();
+    expect(trackedEvent).to.equal('Add Placeholder');
     
     expect(placeholders).to.have.length(4);
     expect(placeholders[3].zIndex).to.equal(3);

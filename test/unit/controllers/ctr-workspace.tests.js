@@ -50,6 +50,7 @@ describe('controller: Workspace', function() {
     expect($scope.isTestCompanySelected).to.be.a('function');
 
     expect($scope.factory).to.be.truely;
+    expect($scope.presentationTracker).to.be.truely;
     expect($scope.factory).to.deep.equal({});    
   });
 

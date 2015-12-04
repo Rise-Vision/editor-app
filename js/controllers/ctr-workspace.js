@@ -3,11 +3,12 @@
 angular.module('risevision.editorApp.controllers')
   .controller('WorkspaceController', ['$scope', 'editorFactory',
     'placeholderFactory', 'userState', '$modal', '$templateCache',
-    '$location',
-    '$stateParams', '$window', 'RVA_URL',
+    '$location', '$stateParams', '$window', 'RVA_URL', 'presentationTracker',
     function ($scope, editorFactory, placeholderFactory, userState, $modal,
-      $templateCache, $location, $stateParams, $window, RVA_URL) {
+      $templateCache, $location, $stateParams, $window, RVA_URL,
+      presentationTracker) {
       $scope.factory = editorFactory;
+      $scope.presentationTracker = presentationTracker;
       $scope.placeholderFactory = placeholderFactory;
       $scope.isSubcompanySelected = userState.isSubcompanySelected;
       $scope.isTestCompanySelected = userState.isTestCompanySelected;

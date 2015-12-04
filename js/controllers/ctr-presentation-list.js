@@ -2,9 +2,9 @@
 angular.module('risevision.editorApp.controllers')
   .controller('PresentationListController', ['$scope',
     'ScrollingListService', 'presentation', 'editorFactory', '$loading',
-    '$filter',
+    '$filter', 'presentationTracker',
     function ($scope, ScrollingListService, presentation, editorFactory,
-      $loading, $filter) {
+      $loading, $filter, presentationTracker) {
       $scope.search = {
         sortBy: 'changeDate',
         reverse: true
@@ -13,6 +13,7 @@ angular.module('risevision.editorApp.controllers')
       $scope.factory = new ScrollingListService(presentation.list,
         $scope.search);
       $scope.editorFactory = editorFactory;
+      $scope.presentationTracker = presentationTracker;
 
       $scope.filterConfig = {
         placeholder: $filter('translate')(
