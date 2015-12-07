@@ -59,8 +59,20 @@ describe('service: playlistItemFactory:', function() {
       };
     });
 
+    $provide.service('presentationTracker', function() {
+      return function(eventName){
+        trackedEvent = eventName;
+      };
+    });
+
+    $provide.service('editorFactory', function() {
+      return {
+        presentation: {}
+      };
+    });
+
   }));
-  var item, playlistItemFactory, openModal, currentItem;
+  var item, playlistItemFactory, openModal, currentItem, trackedEvent;
 
   beforeEach(function(){
     openModal = null;
@@ -92,6 +104,7 @@ describe('service: playlistItemFactory:', function() {
     it('should add new widget', function(done) {
       playlistItemFactory.addContent();
 
+      expect(trackedEvent).to.equal('Add Content');
       expect(openModal).to.equal('storeProductsModal');
       expect(currentItem).to.not.be.ok;
 
@@ -116,7 +129,8 @@ describe('service: playlistItemFactory:', function() {
   describe('add widget by url: ', function() {
     it('should add widget by url', function(done) {
       playlistItemFactory.addWidgetByUrl();
-
+      
+      expect(trackedEvent).to.equal('Add Widget By URL');
       expect(openModal).to.equal('WidgetItemModalController');
       expect(currentItem).to.not.be.ok;
       setTimeout(function() {

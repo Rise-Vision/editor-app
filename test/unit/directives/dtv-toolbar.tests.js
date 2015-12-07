@@ -15,6 +15,7 @@ describe('directive: toolbar', function() {
   beforeEach(module(function ($provide) {
     $provide.service('editorFactory', function() {
       return {
+        presentation: {},
         getPreviewUrl: function(){},
         openPresentationProperties: function() {
           openPresentationPropertiesCalled = true;
@@ -35,6 +36,7 @@ describe('directive: toolbar', function() {
         }
       };
     });
+
   }));
 
   beforeEach(inject(function(_$compile_, _$rootScope_, $templateCache){

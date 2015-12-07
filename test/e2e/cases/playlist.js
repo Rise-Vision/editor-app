@@ -100,6 +100,14 @@ var PlaylistScenarios = function() {
         });
       });
 
+      it('should search products',function(){
+        storeProductsModalPage.getSearchInput().sendKeys('video folder');
+        storeProductsModalPage.getSearchInput().sendKeys(protractor.Key.ENTER);
+        helper.waitDisappear(storeProductsModalPage.getStoreProductsLoader()).then(function () {
+          expect(storeProductsModalPage.getStoreProducts().count()).to.eventually.be.above(0);
+        });
+      });
+
       it('first products should be Video Folder Widget', function () {
         expect(storeProductsModalPage.getProductNameFields().get(0).getText()).to.eventually.equal('Video Folder Widget');
 
@@ -215,6 +223,9 @@ var PlaylistScenarios = function() {
         placeholderPlaylistPage.getAddContentButton().click();
         helper.wait(storeProductsModalPage.getStoreProductsModal(), 'Select Content Modal');
 
+        helper.waitDisappear(storeProductsModalPage.getStoreProductsLoader());
+        storeProductsModalPage.getSearchInput().sendKeys('video folder');
+        storeProductsModalPage.getSearchInput().sendKeys(protractor.Key.ENTER);        
         helper.waitDisappear(storeProductsModalPage.getStoreProductsLoader());
         storeProductsModalPage.getAddProductButtons().get(0).click();
 

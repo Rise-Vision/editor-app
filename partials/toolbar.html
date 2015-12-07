@@ -14,7 +14,7 @@
     <div class="col-sm-12 col-md-5 text-right">
       <div class="main-actions">
         <button id="addPlaceholderButton" class="btn btn-primary" ng-show="designMode" ng-click="addNewPlaceholder()">{{'editor-app.workspace.toolbar.addPlaceholder' | translate}}<i class="fa fa-plus icon-right"></i></button>
-        <a class="btn btn-default" id="previewButton" target="_blank" ng-href="{{previewUrl}}" ng-disabled="!previewUrl">{{'editor-app.workspace.toolbar.preview' | translate}} <i class="fa fa-play icon-right"></i></a>
+        <a class="btn btn-default" id="previewButton" target="_blank" ng-href="{{previewUrl}}" ng-disabled="!previewUrl" ng-click="presentationTracker('Preview Presentation', factory.presentation.id, factory.presentation.name)">{{'editor-app.workspace.toolbar.preview' | translate}} <i class="fa fa-play icon-right"></i></a>
       </div>
     </div><!--col-sm-4-->
   </div>

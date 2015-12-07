@@ -8,11 +8,11 @@
     <div class="global-actions">
 
       <div class="btn-group" dropdown>
-        <button id="presentationAddButton" dropdown-toggle class="dropdown-toggle btn btn-primary btn-lg">{{'editor-app.list.actions.add' |translate}} <i class="fa fa-plus icon-right"></i></button>
+        <button id="presentationAddButton" ng-click="presentationTracker('Add Presentation')" dropdown-toggle class="dropdown-toggle btn btn-primary btn-lg">{{'editor-app.list.actions.add' |translate}} <i class="fa fa-plus icon-right"></i></button>
         <div class="dropdown-menu playlist-menu" role="menu">
           <ul>
             <li>
-              <a class="clickable" id="newPresentationButton" ui-sref="editor.workspace.artboard" >
+              <a class="clickable" id="newPresentationButton" ui-sref="editor.workspace.artboard" ng-click="presentationTracker('New Presentation')">
                 <span translate>editor-app.list.actions.new</span>
               </a>
             </li>
