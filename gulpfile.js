@@ -77,19 +77,12 @@ gulp.task("lint", function() {
     .pipe(jshint.reporter("jshint-stylish"));
 });
 
-gulp.task("html", ["lint"], function () {
-  return gulp.src(['./index.html'])
-     .pipe(usemin({
-      html: [minifyHtml({empty: true})],
-      js: [uglify({
-         mangle:true,
-         outSourceMap: false // source map generation doesn't seem to function correctly
-       })]
-    }))
+gulp.task("html", function () {
+  return gulp.src("redirect.html")
+    .pipe(rename("index.html"))
     .pipe(gulp.dest("dist/"))
     .on('error',function(e){
-    console.error(String(e));
-
+      console.error(String(e));
     })
 });
 
